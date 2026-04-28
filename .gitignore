@@ -1,0 +1,11 @@
+*.DS_Store
+.env
+TODO.md
+
+.astro/
+.netlify/
+.playwright/
+dist/
+node_modules/
+supabase/.branches/
+supabase/.temp/

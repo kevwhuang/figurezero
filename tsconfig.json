@@ -1,0 +1,33 @@
+{
+    "extends": "astro/tsconfigs/strict",
+    "exclude": [
+        "dist",
+        "netlify",
+        "tests"
+    ],
+    "compilerOptions": {
+        "paths": {
+            "@/*": [
+                "./src/*"
+            ],
+            "@components/*": [
+                "./src/components/*"
+            ],
+            "@content/*": [
+                "./src/content/*"
+            ],
+            "@images/*": [
+                "./src/images/*"
+            ],
+            "@lib/*": [
+                "./src/lib/*"
+            ],
+            "@sections/*": [
+                "./src/sections/*"
+            ]
+        },
+        "types": [
+            "bun-types"
+        ]
+    }
+}

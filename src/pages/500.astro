@@ -1,0 +1,13 @@
+---
+import ErrorServer from '@sections/ErrorServer.astro';
+import Layout from '@/Layout.astro';
+
+export const prerender = false;
+---
+
+<Layout
+    description="Something went wrong. Please try again."
+    title={'Server Error \u2014 Astro'}
+>
+    <ErrorServer />
+</Layout>
