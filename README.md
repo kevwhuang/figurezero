@@ -1,3 +1,3 @@
-# Astro
+# Figure Zero Project
 
-- [aephonics-template.netlify.app](https://aephonics-template.netlify.app)
+- [figurezeroproject.com](https://figurezeroproject.com)

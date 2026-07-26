@@ -15,7 +15,7 @@ export default defineConfig({
         robots(),
         sitemap({ lastmod: new Date() }),
     ],
-    site: 'https://aephonics-template.netlify.app',
+    site: 'https://figurezeroproject.com',
     vite: {
         plugins: [tailwind()],
     },

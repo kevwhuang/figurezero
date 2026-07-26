@@ -20,6 +20,10 @@ html {
     scroll-behavior: smooth;
 }
 
+html[data-astro-transition] {
+    scroll-behavior: auto;
+}
+
 :disabled {
     cursor: not-allowed;
 }
