@@ -1,0 +1,85 @@
+---
+import DoodleWave from '@components/DoodleWave.astro';
+---
+
+<section
+    id="about"
+    class="section border-t border-charcoal"
+    aria-label="What is the Figure Zero Project?"
+>
+    <div class="shell">
+        <div class="about__grid">
+            <p
+                class="about__label eyebrow"
+                data-scroll
+            >
+                What is the<br />Figure Zero Project?
+            </p>
+            <div class="col-span-8 col-start-5">
+                <p
+                    class="about__statement font-display text-pretty"
+                    data-scroll
+                >
+                    We are a student-run organization committed to making science more <span class="inline-block relative whitespace-nowrap"><em>engaging</em><DoodleWave /></span> and accessible to the public.
+                </p>
+                <div
+                    class="about__columns"
+                    data-scroll
+                    data-scroll-stagger="0.15"
+                >
+                    <p class="about__paragraph text-pretty text-umber">
+                        Many journals do not have graphic designers for their covers and illustrations, yet visuals are what aid understanding and grab people's attention &mdash; for both scientists and non-scientists. We achieve our goal of elevating science by recruiting passionate artists and celebrating self-expression from human creativity in the rising age of AI.
+                    </p>
+                    <p class="about__paragraph text-pretty text-umber">
+                        While students benefit by building robust and meaningful portfolios, journals gain original artwork that highlights their research. Together, we build a diverse community connected by scientific journals' cover page &mdash; Figure Zero.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .about__columns {
+        display: grid;
+        gap: 32px;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .about__grid {
+        display: grid;
+        gap: 24px;
+        grid-template-columns: repeat(12, 1fr);
+    }
+
+    .about__label {
+        grid-column: 1 / span 3;
+    }
+
+    .about__paragraph {
+        font-size: 17px;
+        line-height: 1.65;
+    }
+
+    .about__statement {
+        font-size: clamp(28px, calc(20px + 2.5vw), 52px);
+        font-weight: 440;
+        letter-spacing: -0.01em;
+        line-height: 1.12;
+        margin-bottom: 48px;
+    }
+
+    @media (max-width: 1024px) {
+        .about__columns {
+            grid-template-columns: 1fr;
+        }
+
+        .about__grid {
+            display: block;
+        }
+
+        .about__label {
+            margin-bottom: 40px;
+        }
+    }
+</style>

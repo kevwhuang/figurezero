@@ -1,0 +1,155 @@
+---
+import { Image } from 'astro:assets';
+
+import logo from '@images/figure_zero_logo.webp';
+import { ROUTES } from '@lib/constants';
+---
+
+<header class="navbar sticky top-0 z-50 border-b border-linen">
+    <div class="shell flex items-center justify-between h-full">
+        <a
+            class="navbar__brand flex items-center"
+            aria-label="Figure Zero Project home"
+            href="/"
+        >
+            <Image class="navbar__logo" alt="" densities={[1, 2]} quality="max" src={logo} width={32} />
+            <span class="navbar__wordmark">Figure Zero Project</span>
+        </a>
+        <nav aria-label="Primary">
+            <ul class="navbar__menu flex items-center">
+                {ROUTES.filter(route => route.isNavbar).map(route => (
+                    <li>
+                        <a
+                            class="navbar__link"
+                            href={route.href}
+                        >
+                            {route.label}
+                        </a>
+                    </li>
+                ))}
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<style>
+    .navbar {
+        backdrop-filter: blur(8px);
+        background: var(--color-cream-90);
+        height: var(--header-height);
+    }
+
+    .navbar__brand {
+        color: var(--color-charcoal);
+        flex: none;
+        gap: 12px;
+        position: relative;
+        text-decoration: none;
+        transition: color var(--duration-fast) ease;
+    }
+
+    .navbar__brand:active .navbar__logo,
+    .navbar__brand:active .navbar__wordmark {
+        transform: translateY(1px);
+    }
+
+    .navbar__brand:hover {
+        color: var(--color-taupe);
+    }
+
+    .navbar__brand::after {
+        content: '';
+        inset: -16px -8px;
+        position: absolute;
+    }
+
+    .navbar__link {
+        color: var(--color-charcoal);
+        display: block;
+        font-family: var(--font-sans);
+        font-size: 12px;
+        letter-spacing: 0.14em;
+        position: relative;
+        text-decoration: none;
+        text-transform: uppercase;
+        transition:
+            border-color var(--duration-fast) ease,
+            color var(--duration-fast) ease,
+            transform var(--duration-fast) ease;
+    }
+
+    .navbar__link:active {
+        transform: translateY(1px);
+    }
+
+    .navbar__link:hover {
+        color: var(--color-taupe);
+    }
+
+    .navbar__link::after {
+        content: '';
+        inset: -16px -8px;
+        position: absolute;
+    }
+
+    .navbar__link--active {
+        border-bottom: 1px solid var(--color-charcoal);
+        padding-bottom: 2px;
+    }
+
+    .navbar__link--active:hover {
+        border-color: var(--color-taupe);
+    }
+
+    .navbar__logo {
+        display: block;
+        height: 32px;
+        mix-blend-mode: multiply;
+        transition: transform var(--duration-fast) ease;
+        width: 32px;
+    }
+
+    .navbar__menu {
+        gap: 28px;
+    }
+
+    .navbar__wordmark {
+        font-family: var(--font-display);
+        font-size: 17px;
+        letter-spacing: 0.02em;
+        transition: transform var(--duration-fast) ease;
+    }
+
+    @media (max-width: 768px) {
+        .navbar__menu {
+            gap: 16px;
+        }
+
+        .navbar__wordmark {
+            display: none;
+        }
+    }
+</style>
+
+<script>
+    function initNavbar() {
+        const currentPath = normalizePath(window.location.pathname);
+
+        document.querySelectorAll<HTMLAnchorElement>('.navbar__link').forEach((link) => {
+            const linkPath = normalizePath(link.pathname);
+
+            const isActive = !link.hash && linkPath === currentPath;
+
+            link.classList.toggle('navbar__link--active', isActive);
+
+            if (isActive) link.setAttribute('aria-current', 'page');
+            else link.removeAttribute('aria-current');
+        });
+    }
+
+    function normalizePath(path: string) {
+        return path.replace(/\/$/, '') || '/';
+    }
+
+    document.addEventListener('astro:page-load', initNavbar);
+</script>

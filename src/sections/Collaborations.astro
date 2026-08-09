@@ -1,0 +1,140 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+
+import DoodleWave from '@components/DoodleWave.astro';
+import { compareNumericIds } from '@lib/utils';
+import { getImage } from '@lib/images';
+
+const collaborations = (await getCollection('collaborations')).sort(compareNumericIds);
+---
+
+<section
+    id="collaborations"
+    class="section"
+    aria-labelledby="collaborations-title"
+>
+    <div class="collaborations__grid shell">
+        <p
+            class="collaborations__eyebrow eyebrow"
+            data-scroll
+        >
+            Collaborations
+        </p>
+        <div class="col-span-9 col-start-4">
+            <h2
+                id="collaborations-title"
+                class="collaborations__title"
+                data-scroll
+            >
+                The journals we have <span class="inline-block relative whitespace-nowrap">worked with<DoodleWave /></span>
+            </h2>
+            <ul
+                class="collaborations__list"
+                data-scroll="zoom"
+                data-scroll-stagger="0.08"
+            >
+                {collaborations.map(entry => (
+                    <li>
+                        <figure class="collaborations__tile">
+                            <Image
+                                class="self-start h-auto w-full mix-blend-multiply"
+                                alt={`${entry.data.name} logo`}
+                                densities={[1, 2]}
+                                src={getImage(entry.data.image)}
+                                width={230}
+                            />
+                            <figcaption class="collaborations__name">{entry.data.name}</figcaption>
+                        </figure>
+                    </li>
+                ))}
+                <li class="collaborations__filler" aria-hidden="true" />
+            </ul>
+        </div>
+    </div>
+</section>
+
+<style>
+    .collaborations__eyebrow {
+        grid-column: 1 / span 3;
+    }
+
+    .collaborations__filler {
+        border-bottom: 1px solid var(--color-charcoal);
+        border-right: 1px solid var(--color-charcoal);
+    }
+
+    .collaborations__grid {
+        display: grid;
+        gap: 24px;
+        grid-template-columns: repeat(12, 1fr);
+    }
+
+    .collaborations__list {
+        border-left: 1px solid var(--color-charcoal);
+        border-top: 1px solid var(--color-charcoal);
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .collaborations__name {
+        color: var(--color-taupe);
+        font-family: var(--font-sans);
+        font-size: 10px;
+        letter-spacing: 0.16em;
+        line-height: 1.6;
+        text-transform: uppercase;
+    }
+
+    .collaborations__tile {
+        background: var(--color-cream);
+        border-bottom: 1px solid var(--color-charcoal);
+        border-right: 1px solid var(--color-charcoal);
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        height: 100%;
+        justify-content: space-between;
+        min-height: 160px;
+        padding: 20px 24px;
+        transition: background var(--duration-base) ease;
+    }
+
+    .collaborations__tile:hover {
+        background: var(--color-parchment);
+    }
+
+    .collaborations__title {
+        font-size: clamp(34px, calc(25.33px + 2.71vw), 60px);
+        font-weight: 460;
+        letter-spacing: -0.01em;
+        line-height: 1.05;
+        margin-bottom: 88px;
+        max-width: 560px;
+        text-wrap: pretty;
+    }
+
+    @media (max-width: 1024px) {
+        .collaborations__eyebrow {
+            margin-bottom: 40px;
+        }
+
+        .collaborations__filler {
+            display: none;
+        }
+
+        .collaborations__grid {
+            display: block;
+        }
+
+        .collaborations__list {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .collaborations__list {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

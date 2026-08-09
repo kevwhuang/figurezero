@@ -1,0 +1,84 @@
+---
+import { Image } from 'astro:assets';
+
+import logo from '@images/figure_zero_logo.webp';
+---
+
+<section
+    class="hero flex flex-col justify-center"
+    aria-labelledby="hero-title"
+>
+    <div class="shell">
+        <p
+            class="eyebrow eyebrow--kicker"
+            data-rise
+        >
+            A student-run organization
+        </p>
+        <h1
+            id="hero-title"
+            class="hero__title uppercase bg-cream"
+            aria-label="Figure Zero"
+            data-letters
+        >
+            <span class="block"><span data-letter>F</span><span data-letter>i</span><span data-letter>g</span><span data-letter>u</span><span data-letter>r</span><span data-letter>e</span></span>
+            <span class="hero__row flex items-center">
+                <em><span data-letter>Z</span><span data-letter>e</span><span data-letter>r</span><span data-letter>o</span></em>
+                <Image class="hero__logo" alt="" data-pop densities={[1, 2]} src={logo} width={150} />
+            </span>
+        </h1>
+        <p
+            class="hero__term italic text-taupe"
+            data-rise
+        >
+            fig&middot;ure ze&middot;ro <span class="hero__noun font-sans not-italic uppercase">(noun)</span> &mdash; the figure before Figure 1. The cover.
+        </p>
+    </div>
+</section>
+
+<style>
+    .hero {
+        min-height: calc(90svh - var(--header-height));
+        padding-block: 48px 56px;
+    }
+
+    .hero__logo {
+        flex: none;
+        height: auto;
+        mix-blend-mode: multiply;
+        transform: translateY(-0.6vw);
+        width: clamp(54px, calc(22px + 10vw), 150px);
+    }
+
+    .hero__noun {
+        font-size: 11px;
+        letter-spacing: 0.14em;
+    }
+
+    .hero__row {
+        gap: 4vw;
+        padding-left: 13vw;
+    }
+
+    .hero__term {
+        font-size: clamp(16px, calc(14.33px + 0.52vw), 21px);
+    }
+
+    .hero__title {
+        font-family: var(--font-poster);
+        font-size: clamp(64px, calc(8px + 17.5vw), 232px);
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        line-height: 0.9;
+        margin-bottom: 56px;
+    }
+
+    .hero__title em {
+        font-style: italic;
+        font-weight: 600;
+    }
+
+    [data-letter] {
+        display: inline-block;
+    }
+</style>

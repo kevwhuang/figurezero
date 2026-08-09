@@ -1,31 +1,70 @@
 @import 'tailwindcss';
 
 @theme {
-    --color-cyan-20: #06b6d433;
-    --color-cyan-80: #06b6d4cc;
+    --color-charcoal: #1a1713;
+    --color-charcoal-10: #1a17131a;
+    --color-charcoal-15: #1a171326;
+    --color-cream: #faf8f3;
+    --color-cream-90: #faf8f3e6;
+    --color-linen: #e7e2d7;
+    --color-parchment: #f1ede2;
+    --color-taupe: #6e675d;
+    --color-umber: #3b362e;
+    --ease-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
+    --font-display:
+        'Bodoni Moda Variable',
+        serif;
+    --font-poster:
+        'Playfair Display Variable',
+        Georgia,
+        serif;
     --font-sans:
-        'Geist Sans',
+        'Archivo',
         system-ui,
         sans-serif;
+    --font-serif:
+        'Source Serif 4 Variable',
+        Georgia,
+        serif;
+    --shadow-cover:
+        0 1px 2px var(--color-charcoal-10),
+        0 12px 40px var(--color-charcoal-10);
+    --shadow-cover-hover:
+        0 2px 4px var(--color-charcoal-10),
+        0 24px 60px var(--color-charcoal-15);
 }
 
-a,
-button,
-label,
-select {
+:root {
+    --duration-base: 0.35s;
+    --duration-fast: 0.15s;
+    --duration-slow: 0.6s;
+    --header-height: 65px;
+    --measure-prose: 520px;
+    --section-pad: clamp(64px, calc(38.67px + 7.92vw), 140px);
+    --shell-pad: clamp(20px, calc(5.33px + 4.58vw), 64px);
+}
+
+a {
     cursor: pointer;
+}
+
+h1,
+h2,
+h3 {
+    font-family: var(--font-display);
 }
 
 html {
     scroll-behavior: smooth;
+    scroll-padding-top: var(--header-height);
 }
 
 html[data-astro-transition] {
     scroll-behavior: auto;
 }
 
-:disabled {
-    cursor: not-allowed;
+main {
+    overflow-x: clip;
 }
 
 :focus {
@@ -33,17 +72,21 @@ html[data-astro-transition] {
 }
 
 :focus-visible:not(input, select, textarea) {
-    border-radius: 2px;
-    outline: 2px solid var(--color-cyan-80);
-    outline-offset: 2px;
-}
-
-::placeholder {
-    user-select: none;
+    border-radius: 1px;
+    outline: 2px solid var(--color-charcoal);
+    outline-offset: 3px;
 }
 
 ::selection {
-    background: var(--color-cyan-20);
+    background: var(--color-charcoal);
+    color: var(--color-cream);
+}
+
+[data-letter],
+[data-pop],
+[data-rise],
+[data-scroll] {
+    opacity: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {

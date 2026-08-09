@@ -1,0 +1,19 @@
+---
+import Collaborations from '@sections/Collaborations.astro';
+import Footer from '@sections/Footer.astro';
+import Layout from '@/Layout.astro';
+import Navbar from '@sections/Navbar.astro';
+import Works from '@sections/Works.astro';
+---
+
+<Layout
+    description="Original cover illustrations by Figure Zero Project artists for scientific journals, alongside the publications we have collaborated with."
+    title={'Portfolio \u2014 Figure Zero Project'}
+>
+    <Navbar />
+    <main class="flex flex-col flex-1">
+        <Works />
+        <Collaborations />
+    </main>
+    <Footer />
+</Layout>

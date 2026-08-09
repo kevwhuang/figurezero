@@ -1,14 +1,20 @@
 ---
 import ErrorServer from '@sections/ErrorServer.astro';
+import Footer from '@sections/Footer.astro';
 import Layout from '@/Layout.astro';
+import Navbar from '@sections/Navbar.astro';
 
 export const prerender = false;
 ---
 
 <Layout
-    description="Something went wrong. Please try again."
+    description="Something went wrong on our end. Please try again, or return to the Figure Zero Project home page to keep exploring our work."
     noindex
     title={'Server Error \u2014 Figure Zero Project'}
 >
-    <ErrorServer />
+    <Navbar />
+    <main class="flex flex-col flex-1">
+        <ErrorServer />
+    </main>
+    <Footer />
 </Layout>

@@ -1,10 +1,68 @@
----
-
----
-
 <section
-    class="grid place-items-center min-h-screen"
+    class="section grid place-items-center min-h-[60svh]"
     aria-labelledby="error-not-found-title"
 >
-    <h1 id="error-not-found-title" class="font-bold text-4xl">404</h1>
+    <div
+        class="shell text-center"
+        data-scroll
+    >
+        <h1
+            id="error-not-found-title"
+            class="error-not-found__title"
+        >
+            404
+        </h1>
+        <p class="error-not-found__text">This page does not exist.</p>
+        <a
+            class="error-not-found__link"
+            href="/"
+        >
+            Back to home
+        </a>
+    </div>
 </section>
+
+<style>
+    .error-not-found__link {
+        border-bottom: 1px solid var(--color-charcoal);
+        display: inline-block;
+        font-family: var(--font-sans);
+        font-size: 11px;
+        letter-spacing: 0.16em;
+        padding-bottom: 2px;
+        position: relative;
+        text-transform: uppercase;
+        transition:
+            border-color var(--duration-fast) ease,
+            color var(--duration-fast) ease,
+            transform var(--duration-fast) ease;
+    }
+
+    .error-not-found__link:active {
+        transform: translateY(1px);
+    }
+
+    .error-not-found__link:hover {
+        border-color: var(--color-taupe);
+        color: var(--color-taupe);
+    }
+
+    .error-not-found__link::after {
+        content: '';
+        inset: -14px;
+        position: absolute;
+    }
+
+    .error-not-found__text {
+        color: var(--color-umber);
+        font-size: 17px;
+        margin-bottom: 40px;
+    }
+
+    .error-not-found__title {
+        font-size: clamp(96px, calc(53.33px + 13.33vw), 224px);
+        font-weight: 480;
+        line-height: 0.9;
+        margin-bottom: 24px;
+    }
+</style>

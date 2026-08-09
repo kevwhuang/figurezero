@@ -1,0 +1,102 @@
+---
+import DoodleUnderline from '@components/DoodleUnderline.astro';
+---
+
+<section
+    class="section border-t border-linen"
+    aria-label="Vision and mission"
+>
+    <div class="shell">
+        <div class="purpose__grid">
+            <div
+                class="purpose__block col-span-5 col-start-2"
+                data-scroll="left"
+            >
+                <div class="purpose__header">
+                    <span class="purpose__index">01</span>
+                    <h3 class="purpose__label">Vision</h3>
+                </div>
+                <p class="purpose__vision">To bridge the worlds of science and art by adding a brush of <span class="inline-block relative whitespace-nowrap">human creativity<DoodleUnderline /></span> in scientific journals. We envision a future where young artists have opportunities to transform scientific research into visual stories that elevate academic communication.</p>
+            </div>
+            <div
+                class="purpose__block purpose__block--mission"
+                data-scroll="right"
+            >
+                <div class="purpose__header">
+                    <span class="purpose__index">02</span>
+                    <h3 class="purpose__label">Mission</h3>
+                </div>
+                <p class="purpose__mission">At a time when AI-generated images are becoming increasingly common, our mission is to preserve human emotion through a collaboration between art and science. We provide students with opportunities to illustrate meaningful cover art while supporting journals that lack design resources. We strive to build a community where art and science can enhance each other, and students can continue their passions in interdisciplinary fields.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .purpose__block--mission {
+        grid-column: 8 / span 5;
+        padding-top: 72px;
+    }
+
+    .purpose__grid {
+        display: grid;
+        gap: 24px;
+        grid-template-columns: repeat(12, 1fr);
+        row-gap: 88px;
+    }
+
+    .purpose__header {
+        align-items: baseline;
+        border-bottom: 1px solid var(--color-charcoal);
+        display: flex;
+        gap: 18px;
+        margin-bottom: 24px;
+        padding-bottom: 12px;
+    }
+
+    .purpose__index {
+        font-family: var(--font-display);
+        font-size: 15px;
+    }
+
+    .purpose__label {
+        font-family: var(--font-sans);
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+    }
+
+    .purpose__mission {
+        color: var(--color-umber);
+        font-size: 17px;
+        line-height: 1.7;
+        text-wrap: pretty;
+    }
+
+    .purpose__vision {
+        font-family: var(--font-display);
+        font-size: clamp(20px, calc(17.67px + 0.73vw), 27px);
+        font-weight: 430;
+        line-height: 1.4;
+        text-wrap: pretty;
+    }
+
+    @media (max-width: 1024px) {
+        .purpose__block {
+            margin-bottom: 40px;
+        }
+
+        .purpose__block:last-child {
+            margin-bottom: 0;
+        }
+
+        .purpose__block--mission {
+            padding-top: 0;
+        }
+
+        .purpose__grid {
+            display: block;
+        }
+    }
+</style>

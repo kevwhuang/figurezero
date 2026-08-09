@@ -1,0 +1,168 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+
+import DoodleEllipse from '@components/DoodleEllipse.astro';
+import { compareNumericIds } from '@lib/utils';
+import { getImage } from '@lib/images';
+
+const works = (await getCollection('works')).sort(compareNumericIds);
+---
+
+<section aria-labelledby="works-title">
+    <div class="shell">
+        <div class="works__hero">
+            <p
+                class="eyebrow eyebrow--kicker"
+                data-rise
+            >
+                Images of our past work
+            </p>
+            <h1
+                id="works-title"
+                class="works__title"
+                data-rise
+            >
+                Port<span class="inline-block relative whitespace-nowrap"><em>folio</em><DoodleEllipse /></span>
+            </h1>
+        </div>
+        <ol class="works__list border-t border-charcoal">
+            {works.map((work, index) => (
+                <li>
+                    <article class="works__item">
+                        <figure
+                            class="works__figure"
+                            data-scroll={index % 2 === 0 ? 'left' : 'right'}
+                        >
+                            <Image
+                                class="works__cover"
+                                alt={`${work.data.title} cover illustration`}
+                                densities={[1, 2]}
+                                src={getImage(work.data.image)}
+                                width={700}
+                            />
+                        </figure>
+                        <div
+                            class="works__body col-span-5 col-start-8"
+                            data-scroll={index % 2 === 0 ? 'right' : 'left'}
+                        >
+                            <p
+                                class="works__index"
+                                aria-hidden="true"
+                            >
+                                {String(index + 1).padStart(2, '0')}
+                            </p>
+                            <h2 class="works__name">{work.data.title}</h2>
+                            <p class="works__credit">{work.data.artist}<br />{work.data.school}</p>
+                        </div>
+                    </article>
+                </li>
+            ))}
+        </ol>
+    </div>
+</section>
+
+<style>
+    .works__cover {
+        box-shadow: var(--shadow-cover);
+        height: auto;
+        transition:
+            box-shadow var(--duration-slow) var(--ease-soft),
+            transform var(--duration-slow) var(--ease-soft);
+        width: 100%;
+    }
+
+    .works__cover:hover {
+        box-shadow: var(--shadow-cover-hover);
+        transform: translateY(-8px);
+    }
+
+    .works__credit {
+        color: var(--color-taupe);
+        font-family: var(--font-sans);
+        font-size: 11px;
+        letter-spacing: 0.16em;
+        line-height: 1.8;
+        text-transform: uppercase;
+    }
+
+    .works__figure {
+        grid-column: 1 / span 6;
+    }
+
+    .works__hero {
+        padding-bottom: 72px;
+        padding-top: 120px;
+    }
+
+    .works__index {
+        -webkit-text-stroke: 1.2px var(--color-charcoal);
+        color: transparent;
+        font-family: var(--font-display);
+        font-size: clamp(56px, calc(40px + 5vw), 104px);
+        font-weight: 400;
+        line-height: 0.8;
+        margin-bottom: 24px;
+    }
+
+    .works__item {
+        align-items: end;
+        border-bottom: 1px solid var(--color-linen);
+        display: grid;
+        gap: 24px;
+        grid-template-columns: repeat(12, 1fr);
+        padding-block: 72px;
+    }
+
+    .works__list li:nth-child(2) .works__body,
+    .works__list li:nth-child(4) .works__body {
+        grid-column: 1 / span 5;
+        grid-row: 1;
+    }
+
+    .works__list li:nth-child(2) .works__figure {
+        grid-column: 6 / span 7;
+        grid-row: 1;
+    }
+
+    .works__list li:nth-child(3) .works__figure {
+        grid-column: 2 / span 5;
+    }
+
+    .works__list li:nth-child(4) .works__figure {
+        grid-column: 7 / span 6;
+        grid-row: 1;
+    }
+
+    .works__name {
+        font-size: clamp(26px, calc(21.33px + 1.46vw), 40px);
+        font-weight: 450;
+        letter-spacing: -0.005em;
+        line-height: 1.08;
+        margin-bottom: 18px;
+        text-wrap: pretty;
+    }
+
+    .works__title {
+        font-family: var(--font-poster);
+        font-size: clamp(58px, calc(17.33px + 12.71vw), 180px);
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        line-height: 0.9;
+    }
+
+    .works__title em {
+        font-style: italic;
+        font-weight: 600;
+    }
+
+    @media (max-width: 1024px) {
+        .works__figure {
+            margin-bottom: 40px;
+        }
+
+        .works__item {
+            display: block;
+        }
+    }
+</style>

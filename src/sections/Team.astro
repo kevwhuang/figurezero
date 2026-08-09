@@ -1,0 +1,219 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+
+import DoodleStar from '@components/DoodleStar.astro';
+import { getImage } from '@lib/images';
+
+const GROUPS = [
+    { key: 'artists', label: 'Artists' },
+    { key: 'investigators', label: 'Science investigators' },
+    { key: 'interns', label: 'Summer 2026 interns' },
+] as const;
+
+const members = (await getCollection('members')).sort((memberA, memberB) => memberA.data.name.localeCompare(memberB.data.name));
+
+const memberGroups = GROUPS.map(group => ({
+    label: group.label,
+    members: members.filter(member => member.data.group === group.key),
+}));
+
+const presidents = members.filter(member => member.data.group === 'co-presidents');
+---
+
+<section
+    id="team"
+    class="section border-t border-charcoal"
+    aria-labelledby="team-title"
+>
+    <h2
+        id="team-title"
+        class="shell team__title"
+        data-scroll
+    >
+        Our <span class="inline-block relative whitespace-nowrap"><em>team</em><DoodleStar /></span>
+    </h2>
+    <div class="shell">
+        <p
+            class="eyebrow mb-12"
+            data-scroll
+        >
+            Co-presidents
+        </p>
+        <ul>
+            {presidents.map((president, index) => (
+                <li>
+                    <article class:list={['team__president', { 'team__president--flipped': index === 1 }]}>
+                        <Image
+                            class="team__president-image aspect-[4/5] object-cover w-full"
+                            alt={president.data.name}
+                            data-scroll={index === 1 ? 'right' : 'left'}
+                            sizes="(max-width: 1024px) 100vw, 480px"
+                            src={getImage(president.data.image)}
+                            width={600}
+                            widths={[600, 1200]}
+                        />
+                        <div
+                            class="team__president-text col-span-6 col-start-7"
+                            data-scroll={index === 1 ? 'left' : 'right'}
+                        >
+                            <h3 class="team__president-name">{president.data.name}</h3>
+                            <p class="team__president-program">{president.data.program}</p>
+                            <p class="team__president-bio">{president.data.bio}</p>
+                        </div>
+                    </article>
+                </li>
+            ))}
+        </ul>
+    </div>
+    {memberGroups.map((group, index) => (
+        <div class:list={['shell team__group', { 'team__group--first': index === 0 }]}>
+            <p
+                class="eyebrow mb-12"
+                data-scroll
+            >
+                {group.label}
+            </p>
+            <ul
+                class="team__grid"
+                data-scroll="zoom"
+                data-scroll-stagger="0.08"
+            >
+                {group.members.map(member => (
+                    <li>
+                        <figure class="team__member">
+                            <Image class="aspect-[4/5] object-cover w-full" alt={member.data.name} densities={[1, 2]} src={getImage(member.data.image)} width={400} />
+                            <figcaption class="team__member-caption">
+                                <p class="team__member-name">{member.data.name}</p>
+                                {member.data.program && <p class="team__member-program">{member.data.program}</p>}
+                            </figcaption>
+                        </figure>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    ))}
+</section>
+
+<style>
+    .team__grid {
+        display: grid;
+        gap: 24px;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        row-gap: 56px;
+    }
+
+    .team__group {
+        margin-bottom: 88px;
+    }
+
+    .team__group:last-child {
+        margin-bottom: 0;
+    }
+
+    .team__group--first {
+        border-top: 1px solid var(--color-linen);
+        padding-top: 72px;
+    }
+
+    .team__member {
+        display: grid;
+        gap: 12px;
+    }
+
+    .team__member-caption {
+        display: grid;
+        gap: 4px;
+    }
+
+    .team__member-name {
+        font-family: var(--font-display);
+        font-size: 19px;
+    }
+
+    .team__member-program {
+        color: var(--color-taupe);
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
+    .team__president {
+        align-items: end;
+        display: grid;
+        gap: 24px;
+        grid-template-columns: repeat(12, 1fr);
+        margin-bottom: 120px;
+    }
+
+    .team__president--flipped {
+        align-items: start;
+        margin-bottom: 88px;
+    }
+
+    .team__president--flipped .team__president-image {
+        grid-column: 8 / span 5;
+        grid-row: 1;
+    }
+
+    .team__president--flipped .team__president-text {
+        grid-column: 2 / span 5;
+        grid-row: 1;
+        padding-top: 56px;
+    }
+
+    .team__president-bio {
+        color: var(--color-umber);
+        font-size: 17px;
+        line-height: 1.7;
+        max-width: var(--measure-prose);
+        text-wrap: pretty;
+    }
+
+    .team__president-image {
+        grid-column: 1 / span 5;
+    }
+
+    .team__president-name {
+        font-size: clamp(30px, calc(24px + 1.875vw), 48px);
+        font-weight: 460;
+        line-height: 1.02;
+        margin-bottom: 14px;
+    }
+
+    .team__president-program {
+        color: var(--color-taupe);
+        font-family: var(--font-sans);
+        font-size: 11px;
+        letter-spacing: 0.16em;
+        margin-bottom: 40px;
+        text-transform: uppercase;
+    }
+
+    .team__title {
+        font-family: var(--font-poster);
+        font-size: clamp(52px, calc(22.67px + 9.17vw), 140px);
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        line-height: 0.95;
+        margin-bottom: 88px;
+    }
+
+    .team__title em {
+        font-style: italic;
+        font-weight: 600;
+    }
+
+    @media (max-width: 1024px) {
+        .team__president {
+            display: block;
+        }
+
+        .team__president--flipped .team__president-text {
+            padding-top: 0;
+        }
+
+        .team__president-image {
+            margin-bottom: 40px;
+        }
+    }
+</style>
