@@ -1,20 +1,18 @@
 ---
 import { Image } from 'astro:assets';
 
-import logo from '@images/figure_zero_logo.webp';
+import logo from '@images/logos/figure_zero.webp';
 import { ROUTES } from '@lib/constants';
 
 const EMAIL = 'figure.zero.project@gmail.com';
 const INSTAGRAM = 'figure.zero.project';
 ---
 
-<footer class="footer border-t border-charcoal">
+<footer class="pb-8 pt-18 border-t border-charcoal">
     <div class="shell">
-        <p class="footer__wordmark">Figure <em class="font-semibold">Zero</em></p>
-        <p class="footer__tagline italic text-taupe">The figure before Figure 1. The cover.</p>
         <div class="footer__grid">
             <div class="col-span-3 col-start-1">
-                <Image class="footer__logo" alt="Figure Zero Project logo" densities={[1, 2]} quality="max" src={logo} width={64} />
+                <Image class="footer__logo" alt="Figure Zero Project logo" densities={[1, 2]} quality="max" src={logo} width={112} />
             </div>
             <div class="col-span-4 col-start-5">
                 <p
@@ -39,8 +37,16 @@ const INSTAGRAM = 'figure.zero.project';
                 </nav>
             </div>
             <div class="col-span-4 col-start-9">
-                <p class="eyebrow mb-5">Contact</p>
-                <address class="not-italic">
+                <p
+                    id="footer-contact-title"
+                    class="eyebrow mb-5"
+                >
+                    Contact
+                </p>
+                <address
+                    class="not-italic"
+                    aria-labelledby="footer-contact-title"
+                >
                     <ul class="grid gap-2.5">
                         <li>
                             <a
@@ -65,30 +71,15 @@ const INSTAGRAM = 'figure.zero.project';
             </div>
         </div>
         <div class="footer__bottom">
-            <p class="footer__copyright">&copy; 2026 Figure Zero Project</p>
-            <a
-                class="footer__top"
-                data-back-to-top
-                href="#top"
-            >
-                Back to top &uarr;
-            </a>
+            <p class="footer__copyright">&copy; 2026 Figure Zero Project. All rights reserved.</p>
         </div>
     </div>
 </footer>
 
 <style>
-    .footer {
-        padding-block: 72px 24px;
-    }
-
     .footer__bottom {
-        align-items: center;
         border-top: 1px solid var(--color-linen);
-        display: flex;
-        gap: 16px;
-        justify-content: space-between;
-        padding-block: 24px;
+        padding-top: 24px;
     }
 
     .footer__copyright {
@@ -102,14 +93,15 @@ const INSTAGRAM = 'figure.zero.project';
     .footer__grid {
         align-items: start;
         display: grid;
-        gap: 24px;
+        gap: 28px;
         grid-template-columns: repeat(12, 1fr);
-        margin-bottom: 64px;
+        margin-bottom: 56px;
     }
 
     .footer__link {
         color: var(--color-charcoal);
         font-size: 15px;
+        overflow-wrap: anywhere;
         position: relative;
         text-decoration: none;
         transition:
@@ -135,57 +127,10 @@ const INSTAGRAM = 'figure.zero.project';
         display: block;
         height: auto;
         mix-blend-mode: multiply;
-        width: 64px;
-    }
-
-    .footer__tagline {
-        font-size: 17px;
-        margin-bottom: 64px;
-    }
-
-    .footer__top {
-        color: var(--color-charcoal);
-        font-family: var(--font-sans);
-        font-size: 11px;
-        letter-spacing: 0.16em;
-        position: relative;
-        text-decoration: none;
-        text-transform: uppercase;
-        transition:
-            color var(--duration-fast) ease,
-            transform var(--duration-fast) ease;
-    }
-
-    .footer__top:active {
-        transform: translateY(1px);
-    }
-
-    .footer__top:hover {
-        color: var(--color-taupe);
-    }
-
-    .footer__top::after {
-        content: '';
-        inset: -14px;
-        position: absolute;
-    }
-
-    .footer__wordmark {
-        font-family: var(--font-poster);
-        font-size: clamp(56px, calc(24.53px + 9.83vw), 150px);
-        font-weight: 800;
-        letter-spacing: -0.02em;
-        line-height: 0.9;
-        margin-bottom: 20px;
-        text-transform: uppercase;
+        width: 112px;
     }
 
     @media (max-width: 768px) {
-        .footer__bottom {
-            align-items: flex-start;
-            flex-direction: column;
-        }
-
         .footer__grid {
             display: block;
         }
@@ -199,20 +144,3 @@ const INSTAGRAM = 'figure.zero.project';
         }
     }
 </style>
-
-<script>
-    function handleBackToTop(event: MouseEvent) {
-        if (!(event.target instanceof Element)) return;
-
-        if (!event.target.closest('[data-back-to-top]')) return;
-
-        event.preventDefault();
-
-        window.scrollTo({
-            behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
-            top: 0,
-        });
-    }
-
-    document.addEventListener('click', handleBackToTop);
-</script>

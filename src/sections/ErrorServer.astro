@@ -1,3 +1,7 @@
+---
+import DoodleEllipse from '@components/DoodleEllipse.astro';
+---
+
 <section
     class="section grid place-items-center min-h-[60svh]"
     aria-labelledby="error-server-title"
@@ -10,7 +14,7 @@
             id="error-server-title"
             class="error-server__title"
         >
-            500
+            <span class="inline-block relative">500<DoodleEllipse /></span>
         </h1>
         <p class="error-server__text">Something went wrong. Please try again.</p>
         <a

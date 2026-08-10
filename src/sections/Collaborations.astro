@@ -1,22 +1,43 @@
 ---
 import { Image } from 'astro:assets';
-import { getCollection } from 'astro:content';
 
+import DoodleStar from '@components/DoodleStar.astro';
 import DoodleWave from '@components/DoodleWave.astro';
-import { compareNumericIds } from '@lib/utils';
-import { getImage } from '@lib/images';
+import canadianJournalOfUndergraduateResearch from '@images/logos/canadian_journal_of_undergraduate_research.webp';
+import columbiaUndergraduateScienceJournal from '@images/logos/columbia_undergrad_science_journal.webp';
+import mcgillJournalOfMedicine from '@images/logos/mcgill_journal_of_medicine.webp';
+import mcmasterJournalOfDisabilities from '@images/logos/mcmaster_journal_of_disabilities.webp';
+import pocusJournal from '@images/logos/point_of_care_ultrasound_journal.webp';
+import undergraduateJournalOfExperimentalMicrobiologyAndImmunology from '@images/logos/undergraduate_journal_of_experimental_microbiology_and_immunology.webp';
+import universityOfTorontoJournalOfPublicHealth from '@images/logos/uoft_journal_of_public_health.webp';
+import universityOfTorontoMedicalJournal from '@images/logos/uoft_medical_journal.webp';
 
-const collaborations = (await getCollection('collaborations')).sort(compareNumericIds);
+const COLLABORATIONS = [
+    { image: canadianJournalOfUndergraduateResearch, name: 'Canadian Journal of Undergraduate Research' },
+    { image: columbiaUndergraduateScienceJournal, name: 'Columbia Undergraduate Science Journal' },
+    { image: mcgillJournalOfMedicine, name: 'McGill Journal of Medicine' },
+    { image: mcmasterJournalOfDisabilities, name: 'McMaster Journal of Disabilities' },
+    { image: pocusJournal, name: 'POCUS Journal' },
+    { image: undergraduateJournalOfExperimentalMicrobiologyAndImmunology, name: 'Undergraduate Journal of Experimental Microbiology and Immunology' },
+    { image: universityOfTorontoJournalOfPublicHealth, name: 'University of Toronto Journal of Public Health' },
+    { image: universityOfTorontoMedicalJournal, name: 'University of Toronto Medical Journal' },
+] as const;
 ---
 
 <section
     id="collaborations"
-    class="section"
+    class="section overflow-hidden relative isolate"
     aria-labelledby="collaborations-title"
 >
+    <div
+        class="collaborations__doodle absolute -z-10"
+        aria-hidden="true"
+    >
+        <DoodleWave />
+    </div>
     <div class="collaborations__grid shell">
         <p
-            class="collaborations__eyebrow eyebrow"
+            class="collaborations__eyebrow eyebrow col-span-3 col-start-1"
             data-scroll
         >
             Collaborations
@@ -31,32 +52,44 @@ const collaborations = (await getCollection('collaborations')).sort(compareNumer
             </h2>
             <ul
                 class="collaborations__list"
-                data-scroll="zoom"
+                data-scroll="fade"
                 data-scroll-stagger="0.08"
             >
-                {collaborations.map(entry => (
+                {COLLABORATIONS.map(collaboration => (
                     <li>
                         <figure class="collaborations__tile">
                             <Image
                                 class="self-start h-auto w-full mix-blend-multiply"
-                                alt={`${entry.data.name} logo`}
-                                densities={[1, 2]}
-                                src={getImage(entry.data.image)}
+                                alt=""
+                                sizes="(max-width: 768px) calc(100vw - 48px - 2 * clamp(24px, 9.33px + 4.58vw, 68px)), (max-width: 1024px) 44vw, 236px"
+                                src={collaboration.image}
                                 width={230}
+                                widths={[230, 460, 710, 940]}
                             />
-                            <figcaption class="collaborations__name">{entry.data.name}</figcaption>
+                            <figcaption class="collaborations__name">{collaboration.name}</figcaption>
                         </figure>
                     </li>
                 ))}
-                <li class="collaborations__filler" aria-hidden="true" />
+                <li
+                    class="collaborations__filler grid place-items-center"
+                    aria-hidden="true"
+                >
+                    <div class="collaborations__filler-doodle relative">
+                        <DoodleStar />
+                    </div>
+                </li>
             </ul>
         </div>
     </div>
 </section>
 
 <style>
-    .collaborations__eyebrow {
-        grid-column: 1 / span 3;
+    .collaborations__doodle {
+        height: 16px;
+        left: max(4%, calc(50% - 615px));
+        opacity: 0.08;
+        top: clamp(330px, calc(300px + 9.375vw), 420px);
+        width: clamp(180px, calc(140px + 12.5vw), 300px);
     }
 
     .collaborations__filler {
@@ -64,9 +97,15 @@ const collaborations = (await getCollection('collaborations')).sort(compareNumer
         border-right: 1px solid var(--color-charcoal);
     }
 
+    .collaborations__filler-doodle {
+        height: 36px;
+        opacity: 0.35;
+        width: 36px;
+    }
+
     .collaborations__grid {
         display: grid;
-        gap: 24px;
+        gap: 28px;
         grid-template-columns: repeat(12, 1fr);
     }
 
@@ -101,7 +140,7 @@ const collaborations = (await getCollection('collaborations')).sort(compareNumer
     }
 
     .collaborations__tile:hover {
-        background: var(--color-parchment);
+        background: var(--color-eggshell);
     }
 
     .collaborations__title {
@@ -115,8 +154,12 @@ const collaborations = (await getCollection('collaborations')).sort(compareNumer
     }
 
     @media (max-width: 1024px) {
+        .collaborations__doodle {
+            display: none;
+        }
+
         .collaborations__eyebrow {
-            margin-bottom: 40px;
+            margin-bottom: 48px;
         }
 
         .collaborations__filler {

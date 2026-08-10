@@ -1,16 +1,21 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
+type ScrollVariant = keyof typeof SCROLL_VARIANTS;
+
 const LETTER_DURATION = 0.8;
+const LETTER_OFFSET = 60;
 const LETTER_STAGGER = 0.045;
 const POP_DELAY = 0.3;
 const POP_DURATION = 0.7;
+const POP_SCALE = 0.6;
 const RISE_DURATION = 0.8;
 const RISE_OFFSET = 40;
 const RISE_STAGGER = 0.12;
 const SCROLL_DURATION = 0.9;
 
-const SCROLL_EASES: Record<string, string> = {
+const SCROLL_EASES: Record<ScrollVariant, string> = {
+    fade: 'power2.out',
     left: 'power2.out',
     right: 'power2.out',
     up: 'power2.out',
@@ -19,17 +24,18 @@ const SCROLL_EASES: Record<string, string> = {
 
 const SCROLL_START = 'top 85%';
 
-const SCROLL_VARIANTS: Record<string, gsap.TweenVars> = {
+const SCROLL_VARIANTS = {
+    fade: {},
     left: { x: -36 },
     right: { x: 36 },
     up: { y: 26 },
     zoom: { scale: 0.92, y: 12 },
-};
+} satisfies Record<string, gsap.TweenVars>;
 
 function getVariant(element: HTMLElement) {
     const variant = element.dataset.scroll || 'up';
 
-    return variant in SCROLL_VARIANTS ? variant : 'up';
+    return Object.hasOwn(SCROLL_VARIANTS, variant) ? variant as ScrollVariant : 'up';
 }
 
 function initLetterAnimations() {
@@ -40,7 +46,7 @@ function initLetterAnimations() {
         if (letters.length > 0) {
             gsap.fromTo(letters, {
                 opacity: 0,
-                yPercent: 60,
+                yPercent: LETTER_OFFSET,
             }, {
                 duration: LETTER_DURATION,
                 ease: 'power3.out',
@@ -53,7 +59,7 @@ function initLetterAnimations() {
         if (pops.length > 0) {
             gsap.fromTo(pops, {
                 opacity: 0,
-                scale: 0.6,
+                scale: POP_SCALE,
             }, {
                 delay: POP_DELAY,
                 duration: POP_DURATION,
@@ -105,11 +111,8 @@ function initScrollAnimations() {
         };
 
         if (stagger > 0) {
-            const children = element.children;
-
             gsap.set(element, { opacity: 1 });
-            gsap.set(children, from);
-            gsap.to(children, { ...to, stagger });
+            gsap.fromTo(element.children, from, { ...to, stagger });
         } else {
             gsap.fromTo(element, from, to);
         }
@@ -119,22 +122,23 @@ function initScrollAnimations() {
 gsap.registerPlugin(ScrollTrigger);
 
 export async function initMotion(): Promise<void> {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (reduceMotion) {
         document.querySelectorAll<HTMLElement>('[data-letter], [data-pop], [data-rise], [data-scroll]').forEach((element) => {
             element.style.opacity = '1';
         });
-
-        return;
+    } else {
+        initLetterAnimations();
+        initRiseAnimations();
+        initScrollAnimations();
     }
-
-    ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-    initLetterAnimations();
-    initRiseAnimations();
-    initScrollAnimations();
 
     await document.fonts.ready;
 
-    ScrollTrigger.refresh();
+    if (!reduceMotion) ScrollTrigger.refresh();
 
     if (window.location.hash) document.getElementById(window.location.hash.slice(1))?.scrollIntoView();
 }

@@ -1,3 +1,11 @@
-export function compareNumericIds(entryA: { id: string }, entryB: { id: string }): number {
-    return Number(entryA.id) - Number(entryB.id);
+import type { ImageMetadata } from 'astro';
+
+const IMAGES = import.meta.glob<ImageMetadata>('/src/images/**/*.webp', { eager: true, import: 'default' });
+
+export function resolveImage(path: string): ImageMetadata {
+    const image = IMAGES[`/src${path}`];
+
+    if (!image) throw new Error(`Unknown image: ${path}`);
+
+    return image;
 }

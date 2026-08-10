@@ -1,5 +1,3 @@
-export const CONTENT_DIR = 'src/content';
-
 export const ROUTES = [
     { href: '/', isFooter: true, isNavbar: false, label: 'Home' },
     { href: '/#about', isFooter: true, isNavbar: true, label: 'About us' },

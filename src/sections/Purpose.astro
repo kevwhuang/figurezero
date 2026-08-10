@@ -1,11 +1,18 @@
 ---
+import DoodleStar from '@components/DoodleStar.astro';
 import DoodleUnderline from '@components/DoodleUnderline.astro';
 ---
 
 <section
-    class="section border-t border-linen"
+    class="section overflow-hidden relative isolate border-t border-linen"
     aria-label="Vision and mission"
 >
+    <div
+        class="purpose__doodle-star absolute -z-10"
+        aria-hidden="true"
+    >
+        <DoodleStar />
+    </div>
     <div class="shell">
         <div class="purpose__grid">
             <div
@@ -13,8 +20,13 @@ import DoodleUnderline from '@components/DoodleUnderline.astro';
                 data-scroll="left"
             >
                 <div class="purpose__header">
-                    <span class="purpose__index">01</span>
-                    <h3 class="purpose__label">Vision</h3>
+                    <span
+                        class="purpose__index"
+                        aria-hidden="true"
+                    >
+                        01
+                    </span>
+                    <h2 class="purpose__label">Vision</h2>
                 </div>
                 <p class="purpose__vision">To bridge the worlds of science and art by adding a brush of <span class="inline-block relative whitespace-nowrap">human creativity<DoodleUnderline /></span> in scientific journals. We envision a future where young artists have opportunities to transform scientific research into visual stories that elevate academic communication.</p>
             </div>
@@ -23,8 +35,13 @@ import DoodleUnderline from '@components/DoodleUnderline.astro';
                 data-scroll="right"
             >
                 <div class="purpose__header">
-                    <span class="purpose__index">02</span>
-                    <h3 class="purpose__label">Mission</h3>
+                    <span
+                        class="purpose__index"
+                        aria-hidden="true"
+                    >
+                        02
+                    </span>
+                    <h2 class="purpose__label">Mission</h2>
                 </div>
                 <p class="purpose__mission">At a time when AI-generated images are becoming increasingly common, our mission is to preserve human emotion through a collaboration between art and science. We provide students with opportunities to illustrate meaningful cover art while supporting journals that lack design resources. We strive to build a community where art and science can enhance each other, and students can continue their passions in interdisciplinary fields.</p>
             </div>
@@ -38,11 +55,19 @@ import DoodleUnderline from '@components/DoodleUnderline.astro';
         padding-top: 72px;
     }
 
+    .purpose__doodle-star {
+        height: clamp(40px, calc(26.67px + 4.17vw), 80px);
+        left: 49%;
+        opacity: 0.08;
+        top: 42%;
+        transform: translate(25%, -37.5%);
+        width: clamp(40px, calc(26.67px + 4.17vw), 80px);
+    }
+
     .purpose__grid {
         display: grid;
-        gap: 24px;
+        gap: 88px 28px;
         grid-template-columns: repeat(12, 1fr);
-        row-gap: 88px;
     }
 
     .purpose__header {
@@ -50,7 +75,7 @@ import DoodleUnderline from '@components/DoodleUnderline.astro';
         border-bottom: 1px solid var(--color-charcoal);
         display: flex;
         gap: 18px;
-        margin-bottom: 24px;
+        margin-bottom: 32px;
         padding-bottom: 12px;
     }
 
@@ -95,8 +120,21 @@ import DoodleUnderline from '@components/DoodleUnderline.astro';
             padding-top: 0;
         }
 
+        .purpose__doodle-star {
+            height: 40px;
+            left: 72%;
+            top: 49%;
+            width: 40px;
+        }
+
         .purpose__grid {
             display: block;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .purpose__doodle-star {
+            display: none;
         }
     }
 </style>

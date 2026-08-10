@@ -2,48 +2,51 @@
 import { Image } from 'astro:assets';
 
 import DoodleEllipse from '@components/DoodleEllipse.astro';
-import photo from '@images/our_story/photo.webp';
+import DoodleScribble from '@components/DoodleScribble.astro';
+import photo from '@images/story.webp';
 ---
 
 <section
     id="story"
-    class="section border-t border-charcoal"
+    class="section overflow-hidden relative isolate border-t border-charcoal"
     aria-labelledby="story-title"
 >
+    <div
+        class="story__doodle absolute -z-10"
+        aria-hidden="true"
+    >
+        <DoodleScribble />
+    </div>
     <div class="shell story__grid">
-        <figure
-            class="col-span-5 col-start-1"
+        <Image
+            class="story__photo col-span-5 col-start-1"
+            alt="Leslie and Yolanda"
             data-scroll="left"
-        >
-            <Image
-                class="story__photo"
-                alt="Leslie and Yolanda"
-                densities={[1, 2]}
-                src={photo}
-                width={600}
-            />
-            <figcaption class="story__caption">Fig. 0.1 &mdash; Leslie &amp; Yolanda</figcaption>
-        </figure>
+            sizes="(max-width: 1024px) 100vw, 466px"
+            src={photo}
+            width={600}
+            widths={[600, 900, 1200]}
+        />
         <div class="col-span-6 col-start-7">
             <p
                 class="eyebrow mb-12"
-                data-scroll
+                data-scroll="right"
             >
                 Our story
             </p>
             <h2
                 id="story-title"
                 class="story__title"
-                data-scroll
+                data-scroll="right"
             >
                 It started on a <span class="inline-block relative whitespace-nowrap">FaceTime call.<DoodleEllipse /></span>
             </h2>
             <div
                 class="story__body"
-                data-scroll
+                data-scroll="right"
             >
-                <p>The Figure Zero Project was founded by two high school friends, Leslie and Yolanda. Honestly, they didn't have a lot in common. Yolanda can be quite calm; Leslie, not so much. Despite this, they shared a similar passion for catching sunrises at Woodbine Beach, crying at the Eras Tour, hwachae, almost peeing their pants laughing at photobooths, and, most importantly, art.</p>
-                <p>Although they eventually found themselves pursuing science, they found a way to bring art and scientific research together through the Figure Zero Project. Their journey began with illustrating journal covers, which soon expanded to a larger team that designs journal layouts and visual abstracts, and translates complex articles into words that anyone can understand. What started as an ordinary idea during a FaceTime call turned into a growing contribution to scientific communication. And they are only getting started.</p>
+                <p>The Figure Zero Project was founded by two high school friends, Leslie and Yolanda. Honestly, they didn't have a lot in common. Yolanda can be quite calm; Leslie, not so much. Despite this, they shared a similar passion for catching sunrises at Woodbine Beach, crying at the Eras Tour, hwachae, almost peeing their pants laughing at photo booths, and, most importantly, art.</p>
+                <p>Although they eventually found themselves pursuing science, they found a way to bring art and scientific research together through the Figure Zero Project. Their journey began with illustrating journal covers, which soon grew to include a larger team that designs journal layouts and visual abstracts, and translates complex articles into words that anyone can understand. What started as an ordinary idea during a FaceTime call turned into a growing contribution to scientific communication. And they are only getting started.</p>
             </div>
         </div>
     </div>
@@ -65,30 +68,29 @@ import photo from '@images/our_story/photo.webp';
     .story__body p:first-of-type::first-letter {
         float: left;
         font-family: var(--font-display);
-        font-size: 64px;
+        font-size: clamp(48px, calc(42.67px + 1.6667vw), 64px);
         line-height: 0.8;
         padding: 6px 10px 0 0;
     }
 
-    .story__caption {
-        color: var(--color-taupe);
-        font-family: var(--font-sans);
-        font-size: 10px;
-        letter-spacing: 0.16em;
-        text-transform: uppercase;
+    .story__doodle {
+        height: clamp(110px, calc(86.67px + 7.29vw), 180px);
+        left: max(-36px, calc(50% - 680px));
+        opacity: 0.08;
+        top: clamp(28px, calc(9.33px + 5.83vw), 84px);
+        width: clamp(180px, calc(140px + 12.5vw), 300px);
     }
 
     .story__grid {
         align-items: start;
         display: grid;
-        gap: 24px;
+        gap: 28px;
         grid-template-columns: repeat(12, 1fr);
     }
 
     .story__photo {
         display: block;
         height: auto;
-        margin-bottom: 12px;
         width: 100%;
     }
 

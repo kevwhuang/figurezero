@@ -3,13 +3,17 @@ import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 
 import DoodleEllipse from '@components/DoodleEllipse.astro';
-import { compareNumericIds } from '@lib/utils';
-import { getImage } from '@lib/images';
+import { resolveImage } from '@lib/utils';
 
-const works = (await getCollection('works')).sort(compareNumericIds);
+const portfolio = (await getCollection('portfolio')).sort((workA, workB) => workA.data.title.localeCompare(workB.data.title));
+
+const coverWidths = [558, 656, 460, 558];
 ---
 
-<section aria-labelledby="works-title">
+<section
+    class="overflow-hidden relative isolate"
+    aria-labelledby="works-title"
+>
     <div class="shell">
         <div class="works__hero">
             <p
@@ -27,25 +31,34 @@ const works = (await getCollection('works')).sort(compareNumericIds);
             </h1>
         </div>
         <ol class="works__list border-t border-charcoal">
-            {works.map((work, index) => (
+            {portfolio.map((work, index) => (
                 <li>
                     <article class="works__item">
                         <figure
-                            class="works__figure"
+                            class="works__figure col-span-6 col-start-1"
                             data-scroll={index % 2 === 0 ? 'left' : 'right'}
                         >
                             <Image
                                 class="works__cover"
                                 alt={`${work.data.title} cover illustration`}
-                                densities={[1, 2]}
-                                src={getImage(work.data.image)}
+                                sizes={`(max-width: 1024px) calc(100vw - 2 * clamp(24px, 9.33px + 4.58vw, 68px)), ${coverWidths[index] ?? 558}px`}
+                                src={resolveImage(work.data.image)}
                                 width={700}
+                                widths={[420, 700, 940, 1200]}
                             />
                         </figure>
                         <div
-                            class="works__body col-span-5 col-start-8"
+                            class="works__body col-span-5 col-start-8 relative"
                             data-scroll={index % 2 === 0 ? 'right' : 'left'}
                         >
+                            {index === 0 && (
+                                <div
+                                    class="works__doodle absolute -z-10"
+                                    aria-hidden="true"
+                                >
+                                    <DoodleEllipse />
+                                </div>
+                            )}
                             <p
                                 class="works__index"
                                 aria-hidden="true"
@@ -66,15 +79,12 @@ const works = (await getCollection('works')).sort(compareNumericIds);
     .works__cover {
         box-shadow: var(--shadow-cover);
         height: auto;
-        transition:
-            box-shadow var(--duration-slow) var(--ease-soft),
-            transform var(--duration-slow) var(--ease-soft);
+        transition: box-shadow var(--duration-slow) var(--ease-soft);
         width: 100%;
     }
 
     .works__cover:hover {
         box-shadow: var(--shadow-cover-hover);
-        transform: translateY(-8px);
     }
 
     .works__credit {
@@ -86,13 +96,17 @@ const works = (await getCollection('works')).sort(compareNumericIds);
         text-transform: uppercase;
     }
 
-    .works__figure {
-        grid-column: 1 / span 6;
+    .works__doodle {
+        height: clamp(64px, calc(47.33px + 5.21vw), 114px);
+        left: -28px;
+        opacity: 0.06;
+        top: -14px;
+        width: clamp(120px, calc(90px + 9.375vw), 210px);
     }
 
     .works__hero {
         padding-bottom: 72px;
-        padding-top: 120px;
+        padding-top: var(--section-pad);
     }
 
     .works__index {
@@ -102,14 +116,14 @@ const works = (await getCollection('works')).sort(compareNumericIds);
         font-size: clamp(56px, calc(40px + 5vw), 104px);
         font-weight: 400;
         line-height: 0.8;
-        margin-bottom: 24px;
+        margin-bottom: 32px;
     }
 
     .works__item {
         align-items: end;
         border-bottom: 1px solid var(--color-linen);
         display: grid;
-        gap: 24px;
+        gap: 28px;
         grid-template-columns: repeat(12, 1fr);
         padding-block: 72px;
     }
@@ -137,7 +151,7 @@ const works = (await getCollection('works')).sort(compareNumericIds);
     .works__name {
         font-size: clamp(26px, calc(21.33px + 1.46vw), 40px);
         font-weight: 450;
-        letter-spacing: -0.005em;
+        letter-spacing: -0.01em;
         line-height: 1.08;
         margin-bottom: 18px;
         text-wrap: pretty;
@@ -152,7 +166,6 @@ const works = (await getCollection('works')).sort(compareNumericIds);
     }
 
     .works__title em {
-        font-style: italic;
         font-weight: 600;
     }
 
@@ -163,6 +176,12 @@ const works = (await getCollection('works')).sort(compareNumericIds);
 
         .works__item {
             display: block;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .works__doodle {
+            left: -8px;
         }
     }
 </style>

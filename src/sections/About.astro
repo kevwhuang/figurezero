@@ -1,16 +1,23 @@
 ---
+import DoodleArrow from '@components/DoodleArrow.astro';
 import DoodleWave from '@components/DoodleWave.astro';
 ---
 
 <section
     id="about"
-    class="section border-t border-charcoal"
+    class="section overflow-hidden relative isolate border-t border-charcoal"
     aria-label="What is the Figure Zero Project?"
 >
+    <div
+        class="about__doodle-arrow absolute -z-10"
+        aria-hidden="true"
+    >
+        <DoodleArrow />
+    </div>
     <div class="shell">
         <div class="about__grid">
             <p
-                class="about__label eyebrow"
+                class="about__label eyebrow col-span-3 col-start-1"
                 data-scroll
             >
                 What is the<br />Figure Zero Project?
@@ -24,14 +31,14 @@ import DoodleWave from '@components/DoodleWave.astro';
                 </p>
                 <div
                     class="about__columns"
-                    data-scroll
+                    data-scroll="left"
                     data-scroll-stagger="0.15"
                 >
                     <p class="about__paragraph text-pretty text-umber">
-                        Many journals do not have graphic designers for their covers and illustrations, yet visuals are what aid understanding and grab people's attention &mdash; for both scientists and non-scientists. We achieve our goal of elevating science by recruiting passionate artists and celebrating self-expression from human creativity in the rising age of AI.
+                        Many journals do not have graphic designers for their covers and illustrations, yet visuals are what aid understanding and grab people's attention&ndash;for both scientists and non-scientists. We achieve our goal of elevating science by recruiting passionate artists and celebrating self-expression from human creativity in the rising age of AI.
                     </p>
                     <p class="about__paragraph text-pretty text-umber">
-                        While students benefit by building robust and meaningful portfolios, journals gain original artwork that highlights their research. Together, we build a diverse community connected by scientific journals' cover page &mdash; Figure Zero.
+                        While students benefit by building robust and meaningful portfolios, journals gain original artwork that highlights their research. Together, we build a diverse community connected by scientific journals' cover page&ndash;Figure Zero.
                     </p>
                 </div>
             </div>
@@ -46,19 +53,23 @@ import DoodleWave from '@components/DoodleWave.astro';
         grid-template-columns: 1fr 1fr;
     }
 
-    .about__grid {
-        display: grid;
-        gap: 24px;
-        grid-template-columns: repeat(12, 1fr);
+    .about__doodle-arrow {
+        height: clamp(90px, calc(70px + 6.25vw), 150px);
+        left: max(4%, calc(50% - 560px));
+        opacity: 0.08;
+        top: 28%;
+        width: clamp(200px, calc(153.33px + 14.58vw), 340px);
     }
 
-    .about__label {
-        grid-column: 1 / span 3;
+    .about__grid {
+        display: grid;
+        gap: 28px;
+        grid-template-columns: repeat(12, 1fr);
     }
 
     .about__paragraph {
         font-size: 17px;
-        line-height: 1.65;
+        line-height: 1.7;
     }
 
     .about__statement {
@@ -74,12 +85,25 @@ import DoodleWave from '@components/DoodleWave.astro';
             grid-template-columns: 1fr;
         }
 
+        .about__doodle-arrow {
+            height: 72px;
+            left: 30%;
+            top: 72px;
+            width: 220px;
+        }
+
         .about__grid {
             display: block;
         }
 
         .about__label {
-            margin-bottom: 40px;
+            margin-bottom: 48px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .about__doodle-arrow {
+            display: none;
         }
     }
 </style>

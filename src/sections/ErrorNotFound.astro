@@ -1,3 +1,7 @@
+---
+import DoodleEllipse from '@components/DoodleEllipse.astro';
+---
+
 <section
     class="section grid place-items-center min-h-[60svh]"
     aria-labelledby="error-not-found-title"
@@ -10,7 +14,7 @@
             id="error-not-found-title"
             class="error-not-found__title"
         >
-            404
+            <span class="inline-block relative">404<DoodleEllipse /></span>
         </h1>
         <p class="error-not-found__text">This page does not exist.</p>
         <a

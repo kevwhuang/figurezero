@@ -2,18 +2,18 @@ import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
-import { CONTENT_DIR } from '@lib/constants';
-
-const collaborations = defineCollection({
-    loader: glob({ base: `./${CONTENT_DIR}/collaborations`, pattern: '**/*.json' }),
+const portfolio = defineCollection({
+    loader: glob({ base: './src/content/portfolio', pattern: '**/*.json' }),
     schema: z.object({
+        artist: z.string(),
         image: z.string(),
-        name: z.string(),
+        school: z.string(),
+        title: z.string(),
     }),
 });
 
-const members = defineCollection({
-    loader: glob({ base: `./${CONTENT_DIR}/members`, pattern: '**/*.json' }),
+const team = defineCollection({
+    loader: glob({ base: './src/content/team', pattern: '**/*.json' }),
     schema: z.object({
         bio: z.string().optional(),
         group: z.enum(['artists', 'co-presidents', 'interns', 'investigators']),
@@ -23,23 +23,4 @@ const members = defineCollection({
     }),
 });
 
-const testimonies = defineCollection({
-    loader: glob({ base: `./${CONTENT_DIR}/testimonies`, pattern: '**/*.json' }),
-    schema: z.object({
-        image: z.string(),
-        journal: z.string(),
-        quote: z.string(),
-    }),
-});
-
-const works = defineCollection({
-    loader: glob({ base: `./${CONTENT_DIR}/works`, pattern: '**/*.json' }),
-    schema: z.object({
-        artist: z.string(),
-        image: z.string(),
-        school: z.string(),
-        title: z.string(),
-    }),
-});
-
-export const collections = { collaborations, members, testimonies, works };
+export const collections = { portfolio, team };

@@ -9,6 +9,6 @@ describe('ErrorNotFound', () => {
 
         const html = await container.renderToString(ErrorNotFound);
 
-        expect(html).toMatch(/<h1[^>]*>[\s]*404[\s]*<\/h1>/);
+        expect(html).toMatch(/<h1[^>]*>\s*<span[^>]*>\s*404\s*<svg[\s\S]*?<\/span>\s*<\/h1>/);
     });
 });

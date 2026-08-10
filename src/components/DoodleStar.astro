@@ -1,6 +1,7 @@
 <svg
     class="doodle-star"
     aria-hidden="true"
+    preserveAspectRatio="xMidYMid meet"
     viewBox="0 0 40 40"
 >
     <path class="doodle-star__stroke" d="M21.6 4.2 C 19.8 14.5, 20.3 24.9, 18.5 35.4" />
@@ -10,18 +11,18 @@
 
 <style>
     .doodle-star {
-        height: 0.4em;
+        height: 100%;
+        inset: 0;
         pointer-events: none;
         position: absolute;
-        right: -0.5em;
-        top: -0.15em;
-        width: 0.4em;
+        width: 100%;
     }
 
     .doodle-star__stroke {
         fill: none;
         stroke: var(--color-charcoal);
         stroke-linecap: round;
-        stroke-width: 2;
+        stroke-width: 2.5;
+        vector-effect: non-scaling-stroke;
     }
 </style>

@@ -1,13 +1,20 @@
 ---
 import { Image } from 'astro:assets';
 
-import logo from '@images/figure_zero_logo.webp';
+import DoodleEllipse from '@components/DoodleEllipse.astro';
+import logo from '@images/logos/figure_zero.webp';
 ---
 
 <section
-    class="hero flex flex-col justify-center"
+    class="hero flex flex-col justify-center overflow-hidden relative isolate bg-cream"
     aria-labelledby="hero-title"
 >
+    <div
+        class="hero__doodle absolute -z-10"
+        aria-hidden="true"
+    >
+        <DoodleEllipse />
+    </div>
     <div class="shell">
         <p
             class="eyebrow eyebrow--kicker"
@@ -17,22 +24,31 @@ import logo from '@images/figure_zero_logo.webp';
         </p>
         <h1
             id="hero-title"
-            class="hero__title uppercase bg-cream"
+            class="hero__title uppercase"
             aria-label="Figure Zero"
             data-letters
         >
-            <span class="block"><span data-letter>F</span><span data-letter>i</span><span data-letter>g</span><span data-letter>u</span><span data-letter>r</span><span data-letter>e</span></span>
-            <span class="hero__row flex items-center">
-                <em><span data-letter>Z</span><span data-letter>e</span><span data-letter>r</span><span data-letter>o</span></em>
-                <Image class="hero__logo" alt="" data-pop densities={[1, 2]} src={logo} width={150} />
+            <span
+                class="block"
+                aria-hidden="true"
+            ><span class="inline-block" data-letter>F</span><span class="inline-block" data-letter>i</span><span class="inline-block" data-letter>g</span><span class="inline-block" data-letter>u</span><span class="inline-block" data-letter>r</span><span class="inline-block" data-letter>e</span>
+            </span>
+            <span
+                class="hero__row flex items-end"
+                aria-hidden="true"
+            >
+                <em><span class="inline-block" data-letter>Z</span><span class="inline-block" data-letter>e</span><span class="inline-block" data-letter>r</span><span class="inline-block" data-letter>o</span></em>
+                <Image
+                    class="hero__logo"
+                    alt=""
+                    data-pop
+                    sizes="clamp(54px, 22px + 10vw, 150px)"
+                    src={logo}
+                    width={150}
+                    widths={[54, 108, 150, 300]}
+                />
             </span>
         </h1>
-        <p
-            class="hero__term italic text-taupe"
-            data-rise
-        >
-            fig&middot;ure ze&middot;ro <span class="hero__noun font-sans not-italic uppercase">(noun)</span> &mdash; the figure before Figure 1. The cover.
-        </p>
     </div>
 </section>
 
@@ -42,26 +58,25 @@ import logo from '@images/figure_zero_logo.webp';
         padding-block: 48px 56px;
     }
 
+    .hero__doodle {
+        height: clamp(200px, 26vw, 333px);
+        opacity: 0.07;
+        right: max(-4vw, calc(50% - 696px));
+        top: 34%;
+        width: clamp(338px, 44vw, 563px);
+    }
+
     .hero__logo {
         flex: none;
         height: auto;
+        margin-bottom: clamp(-1.6px, calc(-7.82px + 1.95vw), 17.1px);
         mix-blend-mode: multiply;
-        transform: translateY(-0.6vw);
         width: clamp(54px, calc(22px + 10vw), 150px);
     }
 
-    .hero__noun {
-        font-size: 11px;
-        letter-spacing: 0.14em;
-    }
-
     .hero__row {
-        gap: 4vw;
-        padding-left: 13vw;
-    }
-
-    .hero__term {
-        font-size: clamp(16px, calc(14.33px + 0.52vw), 21px);
+        gap: clamp(13px, 4vw, 52px);
+        padding-left: clamp(42px, 13vw, 166px);
     }
 
     .hero__title {
@@ -74,11 +89,15 @@ import logo from '@images/figure_zero_logo.webp';
     }
 
     .hero__title em {
-        font-style: italic;
         font-weight: 600;
     }
 
-    [data-letter] {
-        display: inline-block;
+    @media (max-width: 768px) {
+        .hero__doodle {
+            height: clamp(115px, calc(54.29px + 18.97vw), 200px);
+            right: -4vw;
+            top: 40%;
+            width: clamp(200px, calc(101.43px + 30.8vw), 338px);
+        }
     }
 </style>

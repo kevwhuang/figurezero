@@ -1,61 +1,81 @@
 ---
-import { getCollection } from 'astro:content';
+import DoodleScribble from '@components/DoodleScribble.astro';
 
-import { compareNumericIds } from '@lib/utils';
+const PROSE_THRESHOLD = 600;
 
-const testimonies = (await getCollection('testimonies')).sort(compareNumericIds);
+const TESTIMONIES = [
+    {
+        journal: 'Canadian Journal of Undergraduate Research',
+        quote: 'Working with the Figure Zero Project team on our Volume 10, Issue 2 was a fantastic experience and reminded us that research does not end when it is written; it finds new life when it is shared. With professionalism, care, and remarkable creative sensitivity, their team was a joy to work with and produced a beautiful original cover illustration that perfectly captured the spirit of our publication. Their work honoured the care and curiosity behind our authors\' research, strengthened the identity of our journal, and revealed what becomes possible when research and human creativity meet with purpose. We are grateful for a collaboration that not only enriched our journal but also affirmed the lasting power of artists and researchers coming together to make knowledge seen, felt, and remembered, and look forward to working with their artists again.',
+    },
+    {
+        journal: 'University of Toronto Journal of Public Health',
+        quote: 'Working with the Figure Zero Project team was such a positive and collaborative experience. Leslie, Yolanda, and their artists were thoughtful, creative, and incredibly receptive to our vision, and they brought the theme of our issue to life beautifully. We would be delighted to work with them again on a future issue.',
+    },
+] as const;
 ---
 
 <section
-    class="section"
+    class="section overflow-hidden relative isolate border-t border-linen"
     aria-label="Testimonies"
 >
+    <div
+        class="testimonies__doodle absolute -z-10"
+        aria-hidden="true"
+    >
+        <DoodleScribble />
+    </div>
     <div class="shell testimonies__grid">
         <p
-            class="eyebrow col-span-3 col-start-1"
+            class="eyebrow testimonies__label col-span-3 col-start-1"
             data-scroll
         >
             Testimonies
         </p>
-        <figure
-            class="testimonies__lead"
-            data-scroll
-        >
-            <div
-                class="testimonies__mark"
-                aria-hidden="true"
+        {TESTIMONIES.map(testimony => (
+            <figure
+                class="testimonies__figure col-span-8 col-start-5"
+                data-scroll
             >
-                &ldquo;
-            </div>
-            <blockquote class="testimonies__lead-quote">{testimonies[0].data.quote}&rdquo;</blockquote>
-            <figcaption class="eyebrow">&mdash; {testimonies[0].data.journal}</figcaption>
-        </figure>
-        <figure
-            class="col-span-8 col-start-5"
-            data-scroll="right"
-        >
-            <blockquote class="testimonies__spread-quote">&ldquo;{testimonies[1].data.quote}&rdquo;</blockquote>
-            <figcaption class="eyebrow">&mdash; {testimonies[1].data.journal}</figcaption>
-        </figure>
+                <div
+                    class="testimonies__mark"
+                    aria-hidden="true"
+                >
+                    &ldquo;
+                </div>
+                <blockquote class:list={['testimonies__quote', { 'testimonies__quote--prose': testimony.quote.length > PROSE_THRESHOLD }]}><span class="sr-only">&ldquo;</span>{testimony.quote}&rdquo;</blockquote>
+                <figcaption class="eyebrow">{testimony.journal}</figcaption>
+            </figure>
+        ))}
     </div>
 </section>
 
 <style>
+    .testimonies__doodle {
+        height: clamp(120px, calc(93.33px + 8.33vw), 200px);
+        left: max(2%, calc(50% - 660px));
+        opacity: 0.08;
+        top: 38%;
+        width: clamp(180px, calc(140px + 12.5vw), 300px);
+    }
+
     .testimonies__grid {
-        align-items: start;
         display: grid;
-        gap: 24px;
+        gap: 96px 28px;
         grid-template-columns: repeat(12, 1fr);
     }
 
-    .testimonies__lead {
-        grid-column: 4 / span 6;
-        margin-bottom: 120px;
+    .testimonies__mark {
+        font-family: var(--font-display);
+        font-size: clamp(72px, calc(59.33px + 3.96vw), 110px);
+        line-height: 0.45;
+        margin-bottom: 24px;
+        text-indent: -6px;
     }
 
-    .testimonies__lead-quote {
+    .testimonies__quote {
         font-family: var(--font-display);
-        font-size: clamp(20px, calc(17px + 0.94vw), 29px);
+        font-size: clamp(24px, calc(20.67px + 1.04vw), 34px);
         font-style: italic;
         font-weight: 420;
         line-height: 1.4;
@@ -63,38 +83,35 @@ const testimonies = (await getCollection('testimonies')).sort(compareNumericIds)
         text-wrap: pretty;
     }
 
-    .testimonies__mark {
-        font-family: var(--font-display);
-        font-size: 110px;
-        line-height: 0.42;
-        margin-bottom: 20px;
-        text-indent: -6px;
-    }
-
-    .testimonies__spread-quote {
+    .testimonies__quote--prose {
         color: var(--color-umber);
         column-gap: 32px;
         columns: 2;
+        font-family: var(--font-serif);
         font-size: 17px;
+        font-style: normal;
+        font-weight: 400;
         line-height: 1.7;
-        margin-bottom: 28px;
-        text-wrap: pretty;
     }
 
     @media (max-width: 1024px) {
+        .testimonies__doodle {
+            display: none;
+        }
+
+        .testimonies__figure:not(:last-of-type) {
+            margin-bottom: 64px;
+        }
+
         .testimonies__grid {
             display: block;
         }
 
-        .testimonies__grid > * {
-            margin-bottom: 40px;
+        .testimonies__label {
+            margin-bottom: 48px;
         }
 
-        .testimonies__grid > :last-child {
-            margin-bottom: 0;
-        }
-
-        .testimonies__spread-quote {
+        .testimonies__quote--prose {
             columns: 1;
         }
     }
