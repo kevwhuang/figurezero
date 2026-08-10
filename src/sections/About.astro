@@ -9,30 +9,30 @@ import DoodleWave from '@components/DoodleWave.astro';
     aria-label="What is the Figure Zero Project?"
 >
     <div
-        class="about__doodle-arrow absolute -z-10"
+        class="about__doodle-arrow absolute -z-1 max-md:hidden"
         aria-hidden="true"
     >
         <DoodleArrow />
     </div>
     <div class="shell">
-        <div class="about__grid">
+        <div class="grid grid-cols-12 gap-7 max-lg:block">
             <p
-                class="about__label eyebrow col-span-3 col-start-1"
+                class="eyebrow col-span-3 col-start-1 max-lg:mb-12"
                 data-scroll
             >
                 What is the<br />Figure Zero Project?
             </p>
             <div class="col-span-8 col-start-5">
                 <p
-                    class="about__statement font-display text-pretty"
+                    class="about__statement mb-(--pad-block) font-display text-pretty"
                     data-scroll
                 >
                     We are a student-run organization committed to making science more <span class="inline-block relative whitespace-nowrap"><em>engaging</em><DoodleWave /></span> and accessible to the public.
                 </p>
                 <div
-                    class="about__columns"
+                    class="grid grid-cols-2 gap-8 max-lg:grid-cols-1"
                     data-scroll="left"
-                    data-scroll-stagger="0.15"
+                    data-scroll-stagger="0.16"
                 >
                     <p class="about__paragraph text-pretty text-umber">
                         Many journals do not have graphic designers for their covers and illustrations, yet visuals are what aid understanding and grab people's attention&ndash;for both scientists and non-scientists. We achieve our goal of elevating science by recruiting passionate artists and celebrating self-expression from human creativity in the rising age of AI.
@@ -47,24 +47,12 @@ import DoodleWave from '@components/DoodleWave.astro';
 </section>
 
 <style>
-    .about__columns {
-        display: grid;
-        gap: 32px;
-        grid-template-columns: 1fr 1fr;
-    }
-
     .about__doodle-arrow {
         height: clamp(90px, calc(70px + 6.25vw), 150px);
         left: max(4%, calc(50% - 560px));
         opacity: 0.08;
         top: 28%;
         width: clamp(200px, calc(153.33px + 14.58vw), 340px);
-    }
-
-    .about__grid {
-        display: grid;
-        gap: 28px;
-        grid-template-columns: repeat(12, 1fr);
     }
 
     .about__paragraph {
@@ -77,33 +65,14 @@ import DoodleWave from '@components/DoodleWave.astro';
         font-weight: 440;
         letter-spacing: -0.01em;
         line-height: 1.12;
-        margin-bottom: 48px;
     }
 
     @media (max-width: 1024px) {
-        .about__columns {
-            grid-template-columns: 1fr;
-        }
-
         .about__doodle-arrow {
-            height: 72px;
+            height: clamp(72px, calc(-114px + 24.22vw), 134px);
             left: 30%;
             top: 72px;
-            width: 220px;
-        }
-
-        .about__grid {
-            display: block;
-        }
-
-        .about__label {
-            margin-bottom: 48px;
-        }
-    }
-
-    @media (max-width: 768px) {
-        .about__doodle-arrow {
-            display: none;
+            width: clamp(220px, calc(-27.89px + 32.28vw), 302.6px);
         }
     }
 </style>

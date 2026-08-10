@@ -1,16 +1,19 @@
 ---
 import DoodleScribble from '@components/DoodleScribble.astro';
 
-const PROSE_THRESHOLD = 600;
-
 const TESTIMONIES = [
     {
         journal: 'Canadian Journal of Undergraduate Research',
-        quote: 'Working with the Figure Zero Project team on our Volume 10, Issue 2 was a fantastic experience and reminded us that research does not end when it is written; it finds new life when it is shared. With professionalism, care, and remarkable creative sensitivity, their team was a joy to work with and produced a beautiful original cover illustration that perfectly captured the spirit of our publication. Their work honoured the care and curiosity behind our authors\' research, strengthened the identity of our journal, and revealed what becomes possible when research and human creativity meet with purpose. We are grateful for a collaboration that not only enriched our journal but also affirmed the lasting power of artists and researchers coming together to make knowledge seen, felt, and remembered, and look forward to working with their artists again.',
+        paragraphs: [
+            'Working with the Figure Zero Project team on our Volume 10, Issue 2 was a fantastic experience and reminded us that research does not end when it is written; it finds new life when it is shared. With professionalism, care, and remarkable creative sensitivity, their team was a joy to work with and produced a beautiful original cover illustration that perfectly captured the spirit of our publication.',
+            'Their work honoured the care and curiosity behind our authors\' research, strengthened the identity of our journal, and revealed what becomes possible when research and human creativity meet with purpose. We are grateful for a collaboration that not only enriched our journal but also affirmed the lasting power of artists and researchers coming together to make knowledge seen, felt, and remembered, and look forward to working with their artists again.',
+        ],
     },
     {
         journal: 'University of Toronto Journal of Public Health',
-        quote: 'Working with the Figure Zero Project team was such a positive and collaborative experience. Leslie, Yolanda, and their artists were thoughtful, creative, and incredibly receptive to our vision, and they brought the theme of our issue to life beautifully. We would be delighted to work with them again on a future issue.',
+        paragraphs: [
+            'Working with the Figure Zero Project team was such a positive and collaborative experience. Leslie, Yolanda, and their artists were thoughtful, creative, and incredibly receptive to our vision, and they brought the theme of our issue to life beautifully. We would be delighted to work with them again on a future issue.',
+        ],
     },
 ] as const;
 ---
@@ -20,7 +23,7 @@ const TESTIMONIES = [
     aria-label="Testimonies"
 >
     <div
-        class="testimonies__doodle absolute -z-10"
+        class="testimonies__doodle absolute -z-1"
         aria-hidden="true"
     >
         <DoodleScribble />
@@ -32,21 +35,28 @@ const TESTIMONIES = [
         >
             Testimonies
         </p>
-        {TESTIMONIES.map(testimony => (
-            <figure
-                class="testimonies__figure col-span-8 col-start-5"
-                data-scroll
-            >
-                <div
-                    class="testimonies__mark"
-                    aria-hidden="true"
-                >
-                    &ldquo;
-                </div>
-                <blockquote class:list={['testimonies__quote', { 'testimonies__quote--prose': testimony.quote.length > PROSE_THRESHOLD }]}><span class="sr-only">&ldquo;</span>{testimony.quote}&rdquo;</blockquote>
-                <figcaption class="eyebrow">{testimony.journal}</figcaption>
-            </figure>
-        ))}
+        <ul class="testimonies__list col-span-8 col-start-5 grid gap-(--gap-block)">
+            {TESTIMONIES.map(testimony => (
+                <li>
+                    <figure data-scroll>
+                        <div
+                            class="testimonies__mark select-none"
+                            aria-hidden="true"
+                        >
+                            &ldquo;
+                        </div>
+                        <blockquote class="testimonies__quote"><span class="sr-only">&ldquo;</span>{testimony.paragraphs.map(paragraph => <p>{paragraph}</p>)}<span class="sr-only">&rdquo;</span></blockquote>
+                        <div
+                            class="testimonies__mark testimonies__mark--closing select-none"
+                            aria-hidden="true"
+                        >
+                            &rdquo;
+                        </div>
+                        <figcaption class="eyebrow">{testimony.journal}</figcaption>
+                    </figure>
+                </li>
+            ))}
+        </ul>
     </div>
 </section>
 
@@ -61,7 +71,7 @@ const TESTIMONIES = [
 
     .testimonies__grid {
         display: grid;
-        gap: 96px 28px;
+        gap: var(--gap-block) 28px;
         grid-template-columns: repeat(12, 1fr);
     }
 
@@ -73,34 +83,31 @@ const TESTIMONIES = [
         text-indent: -6px;
     }
 
+    .testimonies__mark--closing {
+        margin-bottom: 28px;
+        margin-right: -6px;
+        margin-top: clamp(24px, calc(21.33px + 0.83vw), 32px);
+        text-align: right;
+        text-indent: 0;
+    }
+
     .testimonies__quote {
         font-family: var(--font-display);
-        font-size: clamp(24px, calc(20.67px + 1.04vw), 34px);
+        font-size: clamp(19px, calc(16.33px + 0.83vw), 27px);
         font-style: italic;
         font-weight: 420;
-        line-height: 1.4;
-        margin-bottom: 28px;
+        line-height: 1.5;
+        margin-bottom: 12px;
         text-wrap: pretty;
     }
 
-    .testimonies__quote--prose {
-        color: var(--color-umber);
-        column-gap: 32px;
-        columns: 2;
-        font-family: var(--font-serif);
-        font-size: 17px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 1.7;
+    .testimonies__quote p:not(:last-child) {
+        margin-bottom: 20px;
     }
 
     @media (max-width: 1024px) {
         .testimonies__doodle {
             display: none;
-        }
-
-        .testimonies__figure:not(:last-of-type) {
-            margin-bottom: 64px;
         }
 
         .testimonies__grid {
@@ -111,8 +118,8 @@ const TESTIMONIES = [
             margin-bottom: 48px;
         }
 
-        .testimonies__quote--prose {
-            columns: 1;
+        .testimonies__list {
+            gap: 64px;
         }
     }
 </style>

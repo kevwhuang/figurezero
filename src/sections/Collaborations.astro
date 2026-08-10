@@ -30,14 +30,14 @@ const COLLABORATIONS = [
     aria-labelledby="collaborations-title"
 >
     <div
-        class="collaborations__doodle absolute -z-10"
+        class="collaborations__doodle absolute -z-1 max-lg:hidden"
         aria-hidden="true"
     >
         <DoodleWave />
     </div>
-    <div class="collaborations__grid shell">
+    <div class="shell grid grid-cols-12 gap-7 max-lg:block">
         <p
-            class="collaborations__eyebrow eyebrow col-span-3 col-start-1"
+            class="eyebrow col-span-3 col-start-1 max-lg:mb-12"
             data-scroll
         >
             Collaborations
@@ -51,7 +51,7 @@ const COLLABORATIONS = [
                 The journals we have <span class="inline-block relative whitespace-nowrap">worked with<DoodleWave /></span>
             </h2>
             <ul
-                class="collaborations__list"
+                class="grid grid-cols-3 border-l border-t border-charcoal max-lg:grid-cols-2 max-md:grid-cols-1"
                 data-scroll="fade"
                 data-scroll-stagger="0.08"
             >
@@ -61,20 +61,20 @@ const COLLABORATIONS = [
                             <Image
                                 class="self-start h-auto w-full mix-blend-multiply"
                                 alt=""
-                                sizes="(max-width: 768px) calc(100vw - 48px - 2 * clamp(24px, 9.33px + 4.58vw, 68px)), (max-width: 1024px) 44vw, 236px"
+                                sizes="(max-width: 767px) calc(100vw - 48px - 2 * clamp(24px, 9.33px + 4.58vw, 68px)), (max-width: 1023px) 44vw, 230px"
                                 src={collaboration.image}
                                 width={230}
-                                widths={[230, 460, 710, 940]}
+                                widths={[230, 460, 710, 940, 1200]}
                             />
-                            <figcaption class="collaborations__name">{collaboration.name}</figcaption>
+                            <figcaption class="collaborations__name eyebrow">{collaboration.name}</figcaption>
                         </figure>
                     </li>
                 ))}
                 <li
-                    class="collaborations__filler grid place-items-center"
+                    class="grid place-items-center border-b border-r border-charcoal max-lg:hidden"
                     aria-hidden="true"
                 >
-                    <div class="collaborations__filler-doodle relative">
+                    <div class="relative h-9 w-9 opacity-35">
                         <DoodleStar />
                     </div>
                 </li>
@@ -92,37 +92,9 @@ const COLLABORATIONS = [
         width: clamp(180px, calc(140px + 12.5vw), 300px);
     }
 
-    .collaborations__filler {
-        border-bottom: 1px solid var(--color-charcoal);
-        border-right: 1px solid var(--color-charcoal);
-    }
-
-    .collaborations__filler-doodle {
-        height: 36px;
-        opacity: 0.35;
-        width: 36px;
-    }
-
-    .collaborations__grid {
-        display: grid;
-        gap: 28px;
-        grid-template-columns: repeat(12, 1fr);
-    }
-
-    .collaborations__list {
-        border-left: 1px solid var(--color-charcoal);
-        border-top: 1px solid var(--color-charcoal);
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-    }
-
     .collaborations__name {
-        color: var(--color-taupe);
-        font-family: var(--font-sans);
-        font-size: 10px;
         letter-spacing: 0.16em;
         line-height: 1.6;
-        text-transform: uppercase;
     }
 
     .collaborations__tile {
@@ -148,36 +120,8 @@ const COLLABORATIONS = [
         font-weight: 460;
         letter-spacing: -0.01em;
         line-height: 1.05;
-        margin-bottom: 88px;
+        margin-bottom: var(--gap-block);
         max-width: 560px;
         text-wrap: pretty;
-    }
-
-    @media (max-width: 1024px) {
-        .collaborations__doodle {
-            display: none;
-        }
-
-        .collaborations__eyebrow {
-            margin-bottom: 48px;
-        }
-
-        .collaborations__filler {
-            display: none;
-        }
-
-        .collaborations__grid {
-            display: block;
-        }
-
-        .collaborations__list {
-            grid-template-columns: repeat(2, 1fr);
-        }
-    }
-
-    @media (max-width: 768px) {
-        .collaborations__list {
-            grid-template-columns: 1fr;
-        }
     }
 </style>

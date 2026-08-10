@@ -12,20 +12,20 @@ import photo from '@images/story.webp';
     aria-labelledby="story-title"
 >
     <div
-        class="story__doodle absolute -z-10"
+        class="story__doodle absolute -z-1"
         aria-hidden="true"
     >
         <DoodleScribble />
     </div>
-    <div class="shell story__grid">
+    <div class="shell story__grid grid grid-cols-12 items-start gap-7">
         <Image
-            class="story__photo col-span-5 col-start-1"
+            class="block col-span-5 col-start-1 h-auto w-full"
             alt="Leslie and Yolanda"
             data-scroll="left"
-            sizes="(max-width: 1024px) 100vw, 466px"
+            sizes="(max-width: 1024px) calc(100vw - 2 * clamp(24px, 9.33px + 4.58vw, 68px)), 466px"
             src={photo}
             width={600}
-            widths={[600, 900, 1200]}
+            widths={[420, 600, 900, 1200]}
         />
         <div class="col-span-6 col-start-7">
             <p
@@ -36,13 +36,13 @@ import photo from '@images/story.webp';
             </p>
             <h2
                 id="story-title"
-                class="story__title"
+                class="story__title mb-(--gap-block)"
                 data-scroll="right"
             >
                 It started on a <span class="inline-block relative whitespace-nowrap">FaceTime call.<DoodleEllipse /></span>
             </h2>
             <div
-                class="story__body"
+                class="story__body text-pretty text-umber"
                 data-scroll="right"
             >
                 <p>The Figure Zero Project was founded by two high school friends, Leslie and Yolanda. Honestly, they didn't have a lot in common. Yolanda can be quite calm; Leslie, not so much. Despite this, they shared a similar passion for catching sunrises at Woodbine Beach, crying at the Eras Tour, hwachae, almost peeing their pants laughing at photo booths, and, most importantly, art.</p>
@@ -54,11 +54,9 @@ import photo from '@images/story.webp';
 
 <style>
     .story__body {
-        color: var(--color-umber);
         font-size: 17px;
         line-height: 1.7;
         max-width: var(--measure-prose);
-        text-wrap: pretty;
     }
 
     .story__body p:not(:last-child) {
@@ -70,7 +68,7 @@ import photo from '@images/story.webp';
         font-family: var(--font-display);
         font-size: clamp(48px, calc(42.67px + 1.6667vw), 64px);
         line-height: 0.8;
-        padding: 6px 10px 0 0;
+        padding: 8px 12px 0 0;
     }
 
     .story__doodle {
@@ -81,25 +79,11 @@ import photo from '@images/story.webp';
         width: clamp(180px, calc(140px + 12.5vw), 300px);
     }
 
-    .story__grid {
-        align-items: start;
-        display: grid;
-        gap: 28px;
-        grid-template-columns: repeat(12, 1fr);
-    }
-
-    .story__photo {
-        display: block;
-        height: auto;
-        width: 100%;
-    }
-
     .story__title {
         font-size: clamp(34px, calc(25.33px + 2.71vw), 60px);
         font-weight: 460;
         letter-spacing: -0.01em;
         line-height: 1.05;
-        margin-bottom: 48px;
     }
 
     @media (max-width: 1024px) {

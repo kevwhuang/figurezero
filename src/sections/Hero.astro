@@ -6,11 +6,11 @@ import logo from '@images/logos/figure_zero.webp';
 ---
 
 <section
-    class="hero flex flex-col justify-center overflow-hidden relative isolate bg-cream"
+    class="hero flex flex-col justify-center overflow-hidden relative isolate pb-(--gap-block) pt-(--pad-block) bg-cream"
     aria-labelledby="hero-title"
 >
     <div
-        class="hero__doodle absolute -z-10"
+        class="hero__doodle absolute -z-1"
         aria-hidden="true"
     >
         <DoodleEllipse />
@@ -39,10 +39,10 @@ import logo from '@images/logos/figure_zero.webp';
             >
                 <em><span class="inline-block" data-letter>Z</span><span class="inline-block" data-letter>e</span><span class="inline-block" data-letter>r</span><span class="inline-block" data-letter>o</span></em>
                 <Image
-                    class="hero__logo"
+                    class="hero__logo flex-none h-auto mix-blend-multiply"
                     alt=""
                     data-pop
-                    sizes="clamp(54px, 22px + 10vw, 150px)"
+                    sizes="(max-width: 768px) clamp(46px, 8.29px + 11.79vw, 98.8px), clamp(54px, 22px + 10vw, 150px)"
                     src={logo}
                     width={150}
                     widths={[54, 108, 150, 300]}
@@ -55,28 +55,24 @@ import logo from '@images/logos/figure_zero.webp';
 <style>
     .hero {
         min-height: calc(90svh - var(--header-height));
-        padding-block: 48px 56px;
     }
 
     .hero__doodle {
-        height: clamp(200px, 26vw, 333px);
+        height: clamp(200px, calc(0.47px + 25.98vw), 333px);
         opacity: 0.07;
         right: max(-4vw, calc(50% - 696px));
         top: 34%;
-        width: clamp(338px, 44vw, 563px);
+        width: clamp(338px, calc(0.46px + 43.95vw), 563px);
     }
 
     .hero__logo {
-        flex: none;
-        height: auto;
         margin-bottom: clamp(-1.6px, calc(-7.82px + 1.95vw), 17.1px);
-        mix-blend-mode: multiply;
         width: clamp(54px, calc(22px + 10vw), 150px);
     }
 
     .hero__row {
-        gap: clamp(13px, 4vw, 52px);
-        padding-left: clamp(42px, 13vw, 166px);
+        gap: clamp(13px, calc(0.01px + 4.06vw), 52px);
+        padding-left: clamp(42px, calc(0.66px + 12.92vw), 166px);
     }
 
     .hero__title {
@@ -85,7 +81,7 @@ import logo from '@images/logos/figure_zero.webp';
         font-weight: 800;
         letter-spacing: -0.02em;
         line-height: 0.9;
-        margin-bottom: 56px;
+        margin-bottom: var(--gap-block);
     }
 
     .hero__title em {
@@ -98,6 +94,16 @@ import logo from '@images/logos/figure_zero.webp';
             right: -4vw;
             top: 40%;
             width: clamp(200px, calc(101.43px + 30.8vw), 338px);
+        }
+
+        .hero__logo {
+            margin-bottom: clamp(2.39px, calc(-0.97px + 1.05vw), 7.09px);
+            width: clamp(46px, calc(8.29px + 11.79vw), 98.8px);
+        }
+
+        .hero__row {
+            gap: clamp(12px, calc(-1.37px + 4.18vw), 30.72px);
+            padding-left: clamp(28px, calc(-23.31px + 16.04vw), 99.84px);
         }
     }
 </style>

@@ -8,13 +8,13 @@ const EMAIL = 'figure.zero.project@gmail.com';
 const INSTAGRAM = 'figure.zero.project';
 ---
 
-<footer class="pb-8 pt-18 border-t border-charcoal">
+<footer class="pb-8 pt-(--pad-block) border-t border-charcoal">
     <div class="shell">
-        <div class="footer__grid">
+        <div class="footer__grid grid grid-cols-12 items-start gap-7 mb-(--gap-block)">
             <div class="col-span-3 col-start-1">
-                <Image class="footer__logo" alt="Figure Zero Project logo" densities={[1, 2]} quality="max" src={logo} width={112} />
+                <Image class="block h-auto w-28 mix-blend-multiply" alt="Figure Zero Project logo" densities={[1, 2]} quality="max" src={logo} width={112} />
             </div>
-            <div class="col-span-4 col-start-5">
+            <div class="col-span-4 col-start-5 max-lg:col-start-4">
                 <p
                     id="footer-navigation-title"
                     class="eyebrow mb-5"
@@ -36,7 +36,7 @@ const INSTAGRAM = 'figure.zero.project';
                     </ul>
                 </nav>
             </div>
-            <div class="col-span-4 col-start-9">
+            <div class="col-span-4 col-start-9 max-lg:col-span-5 max-lg:col-start-8">
                 <p
                     id="footer-contact-title"
                     class="eyebrow mb-5"
@@ -70,36 +70,20 @@ const INSTAGRAM = 'figure.zero.project';
                 </address>
             </div>
         </div>
-        <div class="footer__bottom">
-            <p class="footer__copyright">&copy; 2026 Figure Zero Project. All rights reserved.</p>
+        <div class="pt-6 border-t border-linen">
+            <p class="eyebrow footer__copyright">&copy; 2026 Figure Zero Project. All rights reserved.</p>
         </div>
     </div>
 </footer>
 
 <style>
-    .footer__bottom {
-        border-top: 1px solid var(--color-linen);
-        padding-top: 24px;
-    }
-
     .footer__copyright {
-        color: var(--color-taupe);
-        font-family: var(--font-sans);
-        font-size: 10px;
         letter-spacing: 0.16em;
-        text-transform: uppercase;
-    }
-
-    .footer__grid {
-        align-items: start;
-        display: grid;
-        gap: 28px;
-        grid-template-columns: repeat(12, 1fr);
-        margin-bottom: 56px;
     }
 
     .footer__link {
         color: var(--color-charcoal);
+        display: inline-block;
         font-size: 15px;
         overflow-wrap: anywhere;
         position: relative;
@@ -121,13 +105,6 @@ const INSTAGRAM = 'figure.zero.project';
         content: '';
         inset: -5px 0;
         position: absolute;
-    }
-
-    .footer__logo {
-        display: block;
-        height: auto;
-        mix-blend-mode: multiply;
-        width: 112px;
     }
 
     @media (max-width: 768px) {

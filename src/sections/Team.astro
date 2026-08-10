@@ -7,11 +7,13 @@ import { resolveImage } from '@lib/utils';
 
 import type { CollectionEntry } from 'astro:content';
 
-const GROUPS = [
+type GroupKey = CollectionEntry<'team'>['data']['group'];
+
+const GROUPS: { key: GroupKey; label: string }[] = [
     { key: 'artists', label: 'Artists' },
     { key: 'investigators', label: 'Science investigators' },
     { key: 'interns', label: 'Summer interns' },
-] as const satisfies readonly { key: CollectionEntry<'team'>['data']['group']; label: string }[];
+];
 
 const members = (await getCollection('team')).sort((memberA, memberB) => memberA.data.name.localeCompare(memberB.data.name));
 
@@ -53,18 +55,18 @@ const presidents = members.filter(member => member.data.group === 'co-presidents
                             <Image
                                 class="team__president-image aspect-[4/5] object-cover w-full"
                                 alt=""
-                                sizes="(max-width: 1024px) 100vw, 480px"
+                                sizes="(max-width: 1024px) calc(100vw - 2 * clamp(24px, 9.33px + 4.58vw, 68px)), 480px"
                                 src={resolveImage(president.data.image)}
                                 width={600}
-                                widths={[600, 1200]}
+                                widths={[420, 600, 1200]}
                             />
                         </div>
                         <div
-                            class="team__president-text col-span-6 col-start-7"
+                            class="team__president-text col-span-6 col-start-7 pt-12"
                             data-scroll={index === 1 ? 'left' : 'right'}
                         >
                             <h4 class="team__president-name">{president.data.name}</h4>
-                            <p class="team__president-program">{president.data.program}</p>
+                            <p class="eyebrow team__president-program">{president.data.program}</p>
                             <p class="team__president-bio">{president.data.bio}</p>
                         </div>
                     </article>
@@ -76,7 +78,7 @@ const presidents = members.filter(member => member.data.group === 'co-presidents
         <div class:list={['shell team__group', { 'team__group--first': index === 0 }]}>
             {index === 1 && (
                 <div
-                    class="team__doodle absolute -z-10"
+                    class="team__doodle absolute -z-1 max-md:hidden"
                     aria-hidden="true"
                 >
                     <DoodleScribble />
@@ -89,13 +91,13 @@ const presidents = members.filter(member => member.data.group === 'co-presidents
                 {group.label}
             </h3>
             <ul
-                class="team__grid"
+                class="team__grid flex flex-wrap justify-center gap-x-6 gap-y-[clamp(32px,calc(24px+2.5vw),56px)]"
                 data-scroll="zoom"
                 data-scroll-stagger="0.08"
             >
                 {group.members.map(member => (
                     <li>
-                        <figure class="team__member">
+                        <figure class="team__member grid gap-3">
                             <div class="overflow-hidden">
                                 <Image
                                     class="team__member-photo aspect-[4/5] object-cover w-full"
@@ -106,7 +108,7 @@ const presidents = members.filter(member => member.data.group === 'co-presidents
                                     widths={[220, 400, 440, 800]}
                                 />
                             </div>
-                            <figcaption class="team__member-caption">
+                            <figcaption class="grid gap-1">
                                 <p class="team__member-name">{member.data.name}</p>
                                 {member.data.program && <p class="team__member-program">{member.data.program}</p>}
                             </figcaption>
@@ -123,24 +125,17 @@ const presidents = members.filter(member => member.data.group === 'co-presidents
         height: clamp(120px, calc(100px + 6.25vw), 180px);
         opacity: 0.07;
         right: 0;
-        top: clamp(-88px, calc(-45.33px - 3.33vw), -56px);
+        top: calc(-1 * var(--gap-block));
         width: clamp(200px, calc(153.33px + 14.58vw), 340px);
-    }
-
-    .team__grid {
-        column-gap: 24px;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        row-gap: 56px;
     }
 
     .team__grid li {
         flex: 0 0 calc((100% - 48px) / 3);
+        min-width: 0;
     }
 
     .team__group {
-        margin-bottom: 88px;
+        margin-bottom: var(--gap-block);
         position: relative;
     }
 
@@ -150,26 +145,17 @@ const presidents = members.filter(member => member.data.group === 'co-presidents
 
     .team__group--first {
         border-top: 1px solid var(--color-linen);
-        padding-top: 72px;
-    }
-
-    .team__member {
-        display: grid;
-        gap: 12px;
+        padding-top: var(--pad-block);
     }
 
     .team__member:hover .team__member-photo {
         transform: scale(1.04);
     }
 
-    .team__member-caption {
-        display: grid;
-        gap: 4px;
-    }
-
     .team__member-name {
         font-family: var(--font-display);
         font-size: 17px;
+        overflow-wrap: anywhere;
     }
 
     .team__member-photo {
@@ -180,6 +166,7 @@ const presidents = members.filter(member => member.data.group === 'co-presidents
         color: var(--color-taupe);
         font-size: 13px;
         line-height: 1.5;
+        overflow-wrap: anywhere;
     }
 
     .team__president {
@@ -187,7 +174,7 @@ const presidents = members.filter(member => member.data.group === 'co-presidents
         display: grid;
         gap: 28px;
         grid-template-columns: repeat(12, 1fr);
-        margin-bottom: 88px;
+        margin-bottom: var(--gap-block);
     }
 
     .team__president--flipped .team__president-frame {
@@ -205,6 +192,7 @@ const presidents = members.filter(member => member.data.group === 'co-presidents
         font-size: 17px;
         line-height: 1.7;
         max-width: var(--measure-prose);
+        overflow-wrap: anywhere;
         text-wrap: pretty;
     }
 
@@ -221,20 +209,13 @@ const presidents = members.filter(member => member.data.group === 'co-presidents
         font-size: clamp(30px, calc(24px + 1.875vw), 48px);
         font-weight: 460;
         line-height: 1.02;
-        margin-bottom: 14px;
+        margin-bottom: 16px;
+        overflow-wrap: anywhere;
     }
 
     .team__president-program {
-        color: var(--color-taupe);
-        font-family: var(--font-sans);
-        font-size: 11px;
         letter-spacing: 0.16em;
         margin-bottom: 40px;
-        text-transform: uppercase;
-    }
-
-    .team__president-text {
-        padding-top: 48px;
     }
 
     .team__title {
@@ -243,7 +224,7 @@ const presidents = members.filter(member => member.data.group === 'co-presidents
         font-weight: 800;
         letter-spacing: -0.02em;
         line-height: 0.95;
-        margin-bottom: 88px;
+        margin-bottom: var(--gap-block);
     }
 
     .team__title em {
@@ -265,14 +246,6 @@ const presidents = members.filter(member => member.data.group === 'co-presidents
     }
 
     @media (max-width: 768px) {
-        .team__doodle {
-            display: none;
-        }
-
-        .team__grid {
-            row-gap: 32px;
-        }
-
         .team__grid li {
             flex-basis: calc((100% - 24px) / 2);
         }

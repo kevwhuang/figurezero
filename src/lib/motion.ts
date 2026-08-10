@@ -1,7 +1,7 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-type ScrollVariant = keyof typeof SCROLL_VARIANTS;
+type ScrollVariant = 'fade' | 'left' | 'right' | 'up' | 'zoom';
 
 const LETTER_DURATION = 0.8;
 const LETTER_OFFSET = 60;
@@ -22,21 +22,16 @@ const SCROLL_EASES: Record<ScrollVariant, string> = {
     zoom: 'back.out(1.4)',
 };
 
+const SCROLL_OFFSET = 26;
 const SCROLL_START = 'top 85%';
 
-const SCROLL_VARIANTS = {
+const SCROLL_VARIANTS: Record<ScrollVariant, gsap.TweenVars> = {
     fade: {},
-    left: { x: -36 },
-    right: { x: 36 },
-    up: { y: 26 },
+    left: { x: -SCROLL_OFFSET },
+    right: { x: SCROLL_OFFSET },
+    up: { y: SCROLL_OFFSET },
     zoom: { scale: 0.92, y: 12 },
-} satisfies Record<string, gsap.TweenVars>;
-
-function getVariant(element: HTMLElement) {
-    const variant = element.dataset.scroll || 'up';
-
-    return Object.hasOwn(SCROLL_VARIANTS, variant) ? variant as ScrollVariant : 'up';
-}
+};
 
 function initLetterAnimations() {
     document.querySelectorAll<HTMLElement>('[data-letters]').forEach((container) => {
@@ -88,8 +83,9 @@ function initRiseAnimations() {
 
 function initScrollAnimations() {
     document.querySelectorAll<HTMLElement>('[data-scroll]').forEach((element) => {
+        const scroll = element.dataset.scroll || 'up';
         const stagger = Number.parseFloat(element.dataset.scrollStagger || '0');
-        const variant = getVariant(element);
+        const variant = Object.hasOwn(SCROLL_VARIANTS, scroll) ? scroll as ScrollVariant : 'up';
 
         const from: gsap.TweenVars = {
             opacity: 0,
@@ -113,9 +109,7 @@ function initScrollAnimations() {
         if (stagger > 0) {
             gsap.set(element, { opacity: 1 });
             gsap.fromTo(element.children, from, { ...to, stagger });
-        } else {
-            gsap.fromTo(element, from, to);
-        }
+        } else gsap.fromTo(element, from, to);
     });
 }
 
@@ -124,9 +118,9 @@ gsap.registerPlugin(ScrollTrigger);
 export async function initMotion(): Promise<void> {
     ScrollTrigger.getAll().forEach(trigger => trigger.kill());
 
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    if (reduceMotion) {
+    if (prefersReducedMotion) {
         document.querySelectorAll<HTMLElement>('[data-letter], [data-pop], [data-rise], [data-scroll]').forEach((element) => {
             element.style.opacity = '1';
         });
@@ -138,7 +132,7 @@ export async function initMotion(): Promise<void> {
 
     await document.fonts.ready;
 
-    if (!reduceMotion) ScrollTrigger.refresh();
+    if (!prefersReducedMotion) ScrollTrigger.refresh();
 
     if (window.location.hash) document.getElementById(window.location.hash.slice(1))?.scrollIntoView();
 }

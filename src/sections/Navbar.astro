@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 
+import IconMenu from '@components/IconMenu.astro';
 import logo from '@images/logos/figure_zero.webp';
 import { ROUTES } from '@lib/constants';
 ---
@@ -12,11 +13,15 @@ import { ROUTES } from '@lib/constants';
             aria-label="Figure Zero Project home"
             href="/"
         >
-            <Image class="navbar__logo" alt="" densities={[1, 2]} quality="max" src={logo} width={32} />
+            <Image class="navbar__logo block size-8 mix-blend-multiply" alt="" densities={[1, 2]} quality="max" src={logo} width={32} />
             <span class="navbar__wordmark">Figure Zero Project</span>
         </a>
         <nav aria-label="Primary">
-            <ul class="navbar__menu flex items-center">
+            <ul
+                id="navbar-menu"
+                class="navbar__menu flex items-center gap-[clamp(14px,calc(9.33px+1.46vw),28px)]"
+                data-nav-menu
+            >
                 {ROUTES.filter(route => route.isNavbar).map(route => (
                     <li>
                         <a
@@ -28,6 +33,16 @@ import { ROUTES } from '@lib/constants';
                     </li>
                 ))}
             </ul>
+            <button
+                class="navbar__toggle"
+                aria-controls="navbar-menu"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+                data-nav-toggle
+                type="button"
+            >
+                <IconMenu />
+            </button>
         </nav>
     </div>
 </header>
@@ -102,15 +117,38 @@ import { ROUTES } from '@lib/constants';
     }
 
     .navbar__logo {
-        display: block;
-        height: 32px;
-        mix-blend-mode: multiply;
         transition: transform var(--duration-fast) ease;
+    }
+
+    .navbar__toggle {
+        align-items: center;
+        color: var(--color-charcoal);
+        display: none;
+        height: 32px;
+        justify-content: center;
+        position: relative;
+        transition:
+            color var(--duration-fast) ease,
+            transform var(--duration-fast) ease;
         width: 32px;
     }
 
-    .navbar__menu {
-        gap: 28px;
+    .navbar__toggle:active {
+        transform: translateY(1px);
+    }
+
+    .navbar__toggle:hover {
+        color: var(--color-taupe);
+    }
+
+    .navbar__toggle::after {
+        content: '';
+        inset: -8px;
+        position: absolute;
+    }
+
+    .navbar__toggle[aria-expanded='true'] {
+        --icon-menu-open: 1;
     }
 
     .navbar__wordmark {
@@ -121,19 +159,142 @@ import { ROUTES } from '@lib/constants';
     }
 
     @media (max-width: 768px) {
-        .navbar__menu {
-            gap: 16px;
+        .navbar:has(.navbar__menu--open) {
+            backdrop-filter: none;
+            background: var(--color-cream);
         }
 
-        .navbar__wordmark {
-            display: none;
+        .navbar::after {
+            background: var(--color-charcoal-35);
+            content: '';
+            inset: var(--header-height) 0 0;
+            opacity: 0;
+            position: fixed;
+            transition:
+                opacity var(--duration-fast) ease,
+                visibility 0s ease var(--duration-fast);
+            visibility: hidden;
+            z-index: -1;
+        }
+
+        .navbar:has(.navbar__menu--open)::after {
+            opacity: 1;
+            transition: opacity var(--duration-fast) ease;
+            visibility: visible;
+        }
+
+        .navbar__brand::after {
+            inset: -16px -6px;
+        }
+
+        .navbar__link {
+            padding: 14px var(--shell-pad);
+        }
+
+        .navbar__link::after {
+            content: none;
+        }
+
+        .navbar__link--active {
+            border-bottom: none;
+            text-decoration: underline;
+            text-decoration-thickness: 1px;
+            text-underline-offset: 5px;
+        }
+
+        .navbar__menu {
+            align-items: stretch;
+            background: var(--color-cream);
+            border-bottom: 1px solid var(--color-linen);
+            flex-direction: column;
+            gap: 0;
+            inset-inline: 0;
+            opacity: 0;
+            padding-block: 6px 10px;
+            position: fixed;
+            top: var(--header-height);
+            transition:
+                opacity var(--duration-fast) ease,
+                visibility 0s ease var(--duration-fast);
+            visibility: hidden;
+        }
+
+        .navbar__menu li {
+            transition: none;
+        }
+
+        .navbar__menu--instant {
+            transition: none;
+        }
+
+        .navbar__menu--open {
+            opacity: 1;
+            transition: opacity var(--duration-fast) ease;
+            visibility: visible;
+        }
+
+        .navbar__toggle {
+            display: flex;
         }
     }
 </style>
 
 <script>
+    const FOCUSABLE_SELECTOR = 'a, button';
+    const MOBILE_QUERY = '(max-width: 768px)';
+
+    let controller: AbortController;
+    let header: HTMLElement | null;
+    let menu: HTMLElement | null;
+    let toggle: HTMLButtonElement | null;
+
+    function closeMenu(shouldRestoreFocus = false) {
+        menu?.classList.remove('navbar__menu--open');
+        toggle?.setAttribute('aria-expanded', 'false');
+
+        if (shouldRestoreFocus) toggle?.focus();
+    }
+
+    function handleKeyDown(event: KeyboardEvent) {
+        if (!menu?.classList.contains('navbar__menu--open')) return;
+
+        if (event.key === 'Escape') {
+            closeMenu(true);
+
+            return;
+        }
+
+        if (event.key === 'Tab' && header) trapTabKey(event, header);
+    }
+
+    function handleMediaChange(event: MediaQueryListEvent) {
+        if (!event.matches) {
+            closeMenu();
+
+            return;
+        }
+
+        menu?.classList.add('navbar__menu--instant');
+        requestAnimationFrame(() => requestAnimationFrame(() => menu?.classList.remove('navbar__menu--instant')));
+    }
+
+    function handleMouseDown(event: MouseEvent) {
+        if (!menu?.classList.contains('navbar__menu--open')) return;
+        if (!(event.target instanceof Element)) return;
+
+        if (!event.target.closest('.navbar') || event.clientY >= menu.getBoundingClientRect().bottom) closeMenu();
+    }
+
     function initNavbar() {
+        if (controller) controller.abort();
+
+        controller = new AbortController();
+
         const currentPath = normalizePath(window.location.pathname);
+
+        header = document.querySelector<HTMLElement>('.navbar');
+        menu = document.querySelector<HTMLElement>('[data-nav-menu]');
+        toggle = document.querySelector<HTMLButtonElement>('[data-nav-toggle]');
 
         document.querySelectorAll<HTMLAnchorElement>('.navbar__link').forEach((link) => {
             const linkPath = normalizePath(link.pathname);
@@ -144,11 +305,43 @@ import { ROUTES } from '@lib/constants';
 
             if (isActive) link.setAttribute('aria-current', 'page');
             else link.removeAttribute('aria-current');
+
+            link.addEventListener('click', () => closeMenu(), { signal: controller.signal });
         });
+
+        toggle?.addEventListener('click', () => {
+            if (menu?.classList.contains('navbar__menu--open')) closeMenu(true);
+            else openMenu();
+        }, { signal: controller.signal });
+
+        document.addEventListener('keydown', handleKeyDown, { signal: controller.signal });
+        document.addEventListener('mousedown', handleMouseDown, { signal: controller.signal });
+        window.matchMedia(MOBILE_QUERY).addEventListener('change', handleMediaChange, { signal: controller.signal });
     }
 
     function normalizePath(path: string) {
         return path.replace(/\/$/, '') || '/';
+    }
+
+    function openMenu() {
+        menu?.classList.add('navbar__menu--open');
+        toggle?.setAttribute('aria-expanded', 'true');
+        menu?.querySelector<HTMLElement>('a')?.focus();
+    }
+
+    function trapTabKey(event: KeyboardEvent, container: HTMLElement) {
+        const targets = container.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR);
+
+        const first = targets[0];
+        const last = targets[targets.length - 1];
+
+        if (event.shiftKey && (document.activeElement === first || !container.contains(document.activeElement))) {
+            event.preventDefault();
+            last?.focus();
+        } else if (!event.shiftKey && (document.activeElement === last || !container.contains(document.activeElement))) {
+            event.preventDefault();
+            first?.focus();
+        }
     }
 
     document.addEventListener('astro:page-load', initNavbar);

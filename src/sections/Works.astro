@@ -5,9 +5,9 @@ import { getCollection } from 'astro:content';
 import DoodleEllipse from '@components/DoodleEllipse.astro';
 import { resolveImage } from '@lib/utils';
 
-const portfolio = (await getCollection('portfolio')).sort((workA, workB) => workA.data.title.localeCompare(workB.data.title));
-
 const coverWidths = [558, 656, 460, 558];
+
+const works = (await getCollection('portfolio')).sort((workA, workB) => workA.data.title.localeCompare(workB.data.title));
 ---
 
 <section
@@ -31,7 +31,7 @@ const coverWidths = [558, 656, 460, 558];
             </h1>
         </div>
         <ol class="works__list border-t border-charcoal">
-            {portfolio.map((work, index) => (
+            {works.map((work, index) => (
                 <li>
                     <article class="works__item">
                         <figure
@@ -39,9 +39,9 @@ const coverWidths = [558, 656, 460, 558];
                             data-scroll={index % 2 === 0 ? 'left' : 'right'}
                         >
                             <Image
-                                class="works__cover"
+                                class="works__cover hover:shadow-cover-hover h-auto w-full shadow-cover"
                                 alt={`${work.data.title} cover illustration`}
-                                sizes={`(max-width: 1024px) calc(100vw - 2 * clamp(24px, 9.33px + 4.58vw, 68px)), ${coverWidths[index] ?? 558}px`}
+                                sizes={`(max-width: 1024px) calc(100vw - 2 * clamp(24px, 9.33px + 4.58vw, 68px)), ${coverWidths[index] ?? coverWidths[0]}px`}
                                 src={resolveImage(work.data.image)}
                                 width={700}
                                 widths={[420, 700, 940, 1200]}
@@ -53,7 +53,7 @@ const coverWidths = [558, 656, 460, 558];
                         >
                             {index === 0 && (
                                 <div
-                                    class="works__doodle absolute -z-10"
+                                    class="works__doodle absolute -z-1"
                                     aria-hidden="true"
                                 >
                                     <DoodleEllipse />
@@ -65,8 +65,8 @@ const coverWidths = [558, 656, 460, 558];
                             >
                                 {String(index + 1).padStart(2, '0')}
                             </p>
-                            <h2 class="works__name">{work.data.title}</h2>
-                            <p class="works__credit">{work.data.artist}<br />{work.data.school}</p>
+                            <h2 class="works__name text-pretty">{work.data.title}</h2>
+                            <p class="eyebrow works__credit">{work.data.artist}<br />{work.data.school}</p>
                         </div>
                     </article>
                 </li>
@@ -77,23 +77,13 @@ const coverWidths = [558, 656, 460, 558];
 
 <style>
     .works__cover {
-        box-shadow: var(--shadow-cover);
-        height: auto;
         transition: box-shadow var(--duration-slow) var(--ease-soft);
-        width: 100%;
-    }
-
-    .works__cover:hover {
-        box-shadow: var(--shadow-cover-hover);
     }
 
     .works__credit {
-        color: var(--color-taupe);
-        font-family: var(--font-sans);
-        font-size: 11px;
         letter-spacing: 0.16em;
         line-height: 1.8;
-        text-transform: uppercase;
+        overflow-wrap: anywhere;
     }
 
     .works__doodle {
@@ -105,7 +95,7 @@ const coverWidths = [558, 656, 460, 558];
     }
 
     .works__hero {
-        padding-bottom: 72px;
+        padding-bottom: var(--pad-block);
         padding-top: var(--section-pad);
     }
 
@@ -125,7 +115,7 @@ const coverWidths = [558, 656, 460, 558];
         display: grid;
         gap: 28px;
         grid-template-columns: repeat(12, 1fr);
-        padding-block: 72px;
+        padding-block: var(--pad-block);
     }
 
     .works__list li:nth-child(2) .works__body,
@@ -153,8 +143,8 @@ const coverWidths = [558, 656, 460, 558];
         font-weight: 450;
         letter-spacing: -0.01em;
         line-height: 1.08;
-        margin-bottom: 18px;
-        text-wrap: pretty;
+        margin-bottom: 16px;
+        overflow-wrap: anywhere;
     }
 
     .works__title {

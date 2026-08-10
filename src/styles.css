@@ -1,3 +1,46 @@
+.error__link {
+    border-bottom: 1px solid var(--color-charcoal);
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    padding-bottom: 2px;
+    position: relative;
+    text-transform: uppercase;
+    transition:
+        border-color var(--duration-fast) ease,
+        color var(--duration-fast) ease,
+        transform var(--duration-fast) ease;
+}
+
+.error__link:active {
+    transform: translateY(1px);
+}
+
+.error__link:hover {
+    border-color: var(--color-taupe);
+    color: var(--color-taupe);
+}
+
+.error__link::after {
+    content: '';
+    inset: -14px;
+    position: absolute;
+}
+
+.error__text {
+    color: var(--color-umber);
+    font-size: 17px;
+    margin-bottom: 40px;
+}
+
+.error__title {
+    font-size: clamp(96px, calc(53.33px + 13.33vw), 224px);
+    font-weight: 480;
+    line-height: 0.9;
+    margin-bottom: 24px;
+}
+
 .eyebrow {
     color: var(--color-taupe);
     font-family: var(--font-sans);
@@ -9,8 +52,8 @@
 .eyebrow--kicker {
     border-top: 1px solid var(--color-charcoal);
     letter-spacing: 0.2em;
-    margin-bottom: 48px;
-    padding-top: 14px;
+    margin-bottom: var(--pad-block);
+    padding-top: 12px;
 }
 
 .section {
