@@ -1,6 +1,6 @@
 {
     "name": "figurezero",
-    "version": "26.8.9",
+    "version": "26.8.10",
     "type": "module",
     "author": "Kevin Huang",
     "scripts": {
@@ -40,7 +40,7 @@
         "eslint-plugin-astro": "^3.1.0",
         "eslint-plugin-jsx-a11y": "^6.10.2",
         "typescript": "^6.0.3",
-        "typescript-eslint": "^8.66.0",
+        "typescript-eslint": "^8.67.0",
         "vitest": "^4.1.10"
     }
 }

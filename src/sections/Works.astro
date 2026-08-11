@@ -41,6 +41,8 @@ const works = (await getCollection('portfolio')).sort((workA, workB) => workA.da
                             <Image
                                 class="works__cover hover:shadow-cover-hover h-auto w-full shadow-cover"
                                 alt={`${work.data.title} cover illustration`}
+                                fetchpriority={index === 0 ? 'high' : undefined}
+                                loading={index === 0 ? 'eager' : 'lazy'}
                                 sizes={`(max-width: 1024px) calc(100vw - 2 * clamp(24px, 9.33px + 4.58vw, 68px)), ${coverWidths[index] ?? coverWidths[0]}px`}
                                 src={resolveImage(work.data.image)}
                                 width={700}
