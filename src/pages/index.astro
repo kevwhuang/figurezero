@@ -6,7 +6,6 @@ import Layout from '@/Layout.astro';
 import Navbar from '@sections/Navbar.astro';
 import Purpose from '@sections/Purpose.astro';
 import Story from '@sections/Story.astro';
-import Team from '@sections/Team.astro';
 import Testimonies from '@sections/Testimonies.astro';
 ---
 
@@ -15,13 +14,12 @@ import Testimonies from '@sections/Testimonies.astro';
     title="Figure Zero Project"
 >
     <Navbar />
-    <main class="flex flex-col flex-1">
+    <main class="flex flex-1 flex-col">
         <Hero />
         <About />
-        <Testimonies />
-        <Story />
         <Purpose />
-        <Team />
+        <Story />
+        <Testimonies />
     </main>
     <Footer />
 </Layout>

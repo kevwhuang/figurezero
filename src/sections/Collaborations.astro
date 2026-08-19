@@ -1,7 +1,6 @@
 ---
 import { Image } from 'astro:assets';
 
-import DoodleStar from '@components/DoodleStar.astro';
 import DoodleWave from '@components/DoodleWave.astro';
 import canadianJournalOfUndergraduateResearch from '@images/logos/canadian_journal_of_undergraduate_research.webp';
 import columbiaUndergraduateScienceJournal from '@images/logos/columbia_undergrad_science_journal.webp';
@@ -25,7 +24,6 @@ const COLLABORATIONS = [
 ---
 
 <section
-    id="collaborations"
     class="section overflow-hidden relative isolate"
     aria-labelledby="collaborations-title"
 >
@@ -51,33 +49,27 @@ const COLLABORATIONS = [
                 The journals we have <span class="inline-block relative whitespace-nowrap">worked with<DoodleWave /></span>
             </h2>
             <ul
-                class="grid grid-cols-3 border-l border-t border-charcoal max-lg:grid-cols-2 max-md:grid-cols-1"
+                class="collaborations__list flex flex-wrap"
                 data-scroll="fade"
                 data-scroll-stagger="0.08"
             >
                 {COLLABORATIONS.map(collaboration => (
-                    <li>
+                    <li class="collaborations__item">
                         <figure class="collaborations__tile">
-                            <Image
-                                class="self-start h-auto w-full mix-blend-multiply"
-                                alt=""
-                                sizes="(max-width: 767px) calc(100vw - 48px - 2 * clamp(24px, 9.33px + 4.58vw, 68px)), (max-width: 1023px) 44vw, 230px"
-                                src={collaboration.image}
-                                width={230}
-                                widths={[230, 460, 710, 940, 1200]}
-                            />
+                            <div class="collaborations__plate">
+                                <Image
+                                    class="block h-auto w-full mix-blend-multiply"
+                                    alt=""
+                                    sizes="(max-width: 767px) calc(100vw - 2 * clamp(24px, 9.33px + 4.58vw, 68px)), (max-width: 1023px) calc((100vw - 2 * clamp(24px, 9.33px + 4.58vw, 68px) - 40px) / 2), 406px"
+                                    src={collaboration.image}
+                                    width={406}
+                                    widths={[406, 640, 820, 1000, 1280]}
+                                />
+                            </div>
                             <figcaption class="collaborations__name eyebrow">{collaboration.name}</figcaption>
                         </figure>
                     </li>
                 ))}
-                <li
-                    class="grid place-items-center border-b border-r border-charcoal max-lg:hidden"
-                    aria-hidden="true"
-                >
-                    <div class="relative h-9 w-9 opacity-35">
-                        <DoodleStar />
-                    </div>
-                </li>
             </ul>
         </div>
     </div>
@@ -97,22 +89,26 @@ const COLLABORATIONS = [
         line-height: 1.6;
     }
 
+    .collaborations__item {
+        flex: 0 0 calc((100% - 40px) / 2);
+        min-width: 0;
+    }
+
+    .collaborations__list {
+        column-gap: 40px;
+        row-gap: var(--pad-block);
+    }
+
+    .collaborations__plate {
+        align-self: start;
+        background: var(--color-bone);
+        width: 100%;
+    }
+
     .collaborations__tile {
-        background: var(--color-cream);
-        border-bottom: 1px solid var(--color-charcoal);
-        border-right: 1px solid var(--color-charcoal);
         display: flex;
         flex-direction: column;
         gap: 20px;
-        height: 100%;
-        justify-content: space-between;
-        min-height: 160px;
-        padding: 20px 24px;
-        transition: background var(--duration-base) ease;
-    }
-
-    .collaborations__tile:hover {
-        background: var(--color-eggshell);
     }
 
     .collaborations__title {
@@ -123,5 +119,11 @@ const COLLABORATIONS = [
         margin-bottom: var(--gap-block);
         max-width: 560px;
         text-wrap: pretty;
+    }
+
+    @media (max-width: 768px) {
+        .collaborations__item {
+            flex-basis: 100%;
+        }
     }
 </style>

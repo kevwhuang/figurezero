@@ -9,6 +9,6 @@ describe('ErrorServer', () => {
 
         const html = await container.renderToString(ErrorServer);
 
-        expect(html).toMatch(/<h1[^>]*>\s*<span[^>]*>\s*500\s*<svg[\s\S]*?<\/span>\s*<\/h1>/);
+        expect(html).toMatch(/<h1[^>]*>\s*500\s*<\/h1>/);
     });
 });

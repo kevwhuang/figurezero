@@ -26,24 +26,31 @@ const presidents = members.filter(member => member.data.group === 'co-presidents
 ---
 
 <section
-    id="team"
-    class="section overflow-hidden relative isolate border-t border-charcoal"
+    class="team overflow-hidden relative isolate"
     aria-labelledby="team-title"
 >
-    <h2
-        id="team-title"
-        class="shell team__title"
-        data-scroll
-    >
-        Our <em>team</em>
-    </h2>
     <div class="shell">
-        <h3
+        <div class="team__hero">
+            <p
+                class="eyebrow eyebrow--kicker"
+                data-rise
+            >
+                The people behind the project
+            </p>
+            <h1
+                id="team-title"
+                class="team__title"
+                data-rise
+            >
+                Our <em>team</em>
+            </h1>
+        </div>
+        <h2
             class="eyebrow mb-12"
             data-scroll
         >
             Co-presidents
-        </h3>
+        </h2>
         <ul>
             {presidents.map((president, index) => (
                 <li>
@@ -65,7 +72,7 @@ const presidents = members.filter(member => member.data.group === 'co-presidents
                             class="team__president-text col-span-6 col-start-7 pt-12"
                             data-scroll={index === 1 ? 'left' : 'right'}
                         >
-                            <h4 class="team__president-name">{president.data.name}</h4>
+                            <h3 class="team__president-name">{president.data.name}</h3>
                             <p class="eyebrow team__president-program">{president.data.program}</p>
                             <p class="team__president-bio">{president.data.bio}</p>
                         </div>
@@ -84,12 +91,12 @@ const presidents = members.filter(member => member.data.group === 'co-presidents
                     <DoodleScribble />
                 </div>
             )}
-            <h3
+            <h2
                 class="eyebrow mb-12"
                 data-scroll
             >
                 {group.label}
-            </h3>
+            </h2>
             <ul
                 class="team__grid flex flex-wrap justify-center gap-x-6 gap-y-[clamp(32px,calc(24px+2.5vw),56px)]"
                 data-scroll="zoom"
@@ -121,6 +128,10 @@ const presidents = members.filter(member => member.data.group === 'co-presidents
 </section>
 
 <style>
+    .team {
+        padding-bottom: var(--section-pad);
+    }
+
     .team__doodle {
         height: clamp(120px, calc(100px + 6.25vw), 180px);
         opacity: 0.07;
@@ -146,6 +157,11 @@ const presidents = members.filter(member => member.data.group === 'co-presidents
     .team__group--first {
         border-top: 1px solid var(--color-linen);
         padding-top: var(--pad-block);
+    }
+
+    .team__hero {
+        padding-bottom: var(--pad-block);
+        padding-top: var(--section-pad);
     }
 
     .team__member:hover .team__member-photo {
@@ -220,11 +236,10 @@ const presidents = members.filter(member => member.data.group === 'co-presidents
 
     .team__title {
         font-family: var(--font-poster);
-        font-size: clamp(52px, calc(22.67px + 9.17vw), 140px);
+        font-size: clamp(58px, calc(17.33px + 12.71vw), 180px);
         font-weight: 800;
         letter-spacing: -0.02em;
-        line-height: 0.95;
-        margin-bottom: var(--gap-block);
+        line-height: 0.9;
     }
 
     .team__title em {

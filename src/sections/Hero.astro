@@ -1,8 +1,5 @@
 ---
-import { Image } from 'astro:assets';
-
 import DoodleEllipse from '@components/DoodleEllipse.astro';
-import logo from '@images/logos/figure_zero.webp';
 ---
 
 <section
@@ -38,16 +35,9 @@ import logo from '@images/logos/figure_zero.webp';
                 aria-hidden="true"
             >
                 <em><span class="inline-block" data-letter>Z</span><span class="inline-block" data-letter>e</span><span class="inline-block" data-letter>r</span><span class="inline-block" data-letter>o</span></em>
-                <Image
-                    class="hero__logo flex-none h-auto mix-blend-multiply"
-                    alt=""
+                <span
+                    class="hero__logo flex-none"
                     data-pop
-                    fetchpriority="high"
-                    loading="eager"
-                    sizes="(max-width: 768px) clamp(46px, 8.29px + 11.79vw, 98.8px), clamp(54px, 22px + 10vw, 150px)"
-                    src={logo}
-                    width={150}
-                    widths={[54, 108, 150, 300]}
                 />
             </span>
         </h1>
@@ -68,7 +58,13 @@ import logo from '@images/logos/figure_zero.webp';
     }
 
     .hero__logo {
+        aspect-ratio: 1;
+        background-color: currentColor;
         margin-bottom: clamp(-1.6px, calc(-7.82px + 1.95vw), 17.1px);
+        mask-image: url('../images/logos/figure_zero.webp');
+        mask-position: center;
+        mask-repeat: no-repeat;
+        mask-size: contain;
         width: clamp(54px, calc(22px + 10vw), 150px);
     }
 

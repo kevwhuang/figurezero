@@ -1,7 +1,12 @@
 export const ROUTES = [
-    { href: '/', isFooter: true, isNavbar: false, label: 'Home' },
-    { href: '/#about', isFooter: true, isNavbar: true, label: 'About us' },
-    { href: '/#team', isFooter: false, isNavbar: true, label: 'Team' },
-    { href: '/portfolio', isFooter: true, isNavbar: true, label: 'Portfolio' },
-    { href: '/portfolio#collaborations', isFooter: true, isNavbar: false, label: 'Collaborations' },
+    { href: '/', label: 'Home' },
+    { href: '/team', label: 'Team' },
+    { href: '/portfolio', label: 'Portfolio' },
 ] as const;
+
+export const THEME_COLORS = {
+    dark: '#191510',
+    light: '#faf8f3',
+} as const;
+
+export const THEME_KEY = 'figurezero_theme';

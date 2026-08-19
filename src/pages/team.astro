@@ -1,0 +1,17 @@
+---
+import Footer from '@sections/Footer.astro';
+import Layout from '@/Layout.astro';
+import Navbar from '@sections/Navbar.astro';
+import Team from '@sections/Team.astro';
+---
+
+<Layout
+    description="Figure Zero Project's team of co-presidents, artists, science investigators, and summer interns creates original cover illustrations for scientific journals."
+    title={'Team \u2014 Figure Zero Project'}
+>
+    <Navbar />
+    <main class="flex flex-1 flex-col">
+        <Team />
+    </main>
+    <Footer />
+</Layout>

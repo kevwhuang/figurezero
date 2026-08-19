@@ -1,16 +1,17 @@
 @import 'tailwindcss';
 
 @theme {
-    --color-charcoal: #1a1713;
-    --color-charcoal-10: #1a17131a;
-    --color-charcoal-15: #1a171326;
-    --color-charcoal-35: #1a171359;
-    --color-cream: #faf8f3;
-    --color-cream-90: #faf8f3e6;
-    --color-eggshell: #f6f3ea;
-    --color-linen: #e7e2d7;
-    --color-taupe: #6e675d;
-    --color-umber: #3b362e;
+    --color-bone: light-dark(#faf8f3, #f4f0e5);
+    --color-charcoal: light-dark(#1a1713, #f1ece1);
+    --color-charcoal-10: light-dark(#1a17131a, #0000001a);
+    --color-charcoal-15: light-dark(#1a171326, #00000026);
+    --color-charcoal-35: light-dark(#1a171359, #00000059);
+    --color-cream: light-dark(#faf8f3, #191510);
+    --color-cream-90: light-dark(#faf8f3e6, #191510e6);
+    --color-eggshell: light-dark(#f6f3ea, #221e18);
+    --color-linen: light-dark(#e7e2d7, #332e26);
+    --color-taupe: light-dark(#6e675d, #a79d8c);
+    --color-umber: light-dark(#3b362e, #cfc7b7);
     --ease-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
     --font-display:
         'Bodoni Moda Variable',
@@ -36,11 +37,10 @@
 }
 
 :root {
-    --duration-base: 0.35s;
     --duration-fast: 0.15s;
     --duration-slow: 0.6s;
     --gap-block: clamp(56px, calc(45.33px + 3.33vw), 88px);
-    --header-height: 65px;
+    --header-height: 64px;
     --measure-prose: 520px;
     --pad-block: clamp(48px, calc(40px + 2.5vw), 72px);
     --section-pad: clamp(72px, calc(45.33px + 8.33vw), 152px);
@@ -59,8 +59,14 @@ h3 {
 }
 
 html {
+    color-scheme: light dark;
     scroll-behavior: smooth;
     scroll-padding-top: var(--header-height);
+    touch-action: manipulation;
+}
+
+img {
+    user-select: none;
 }
 
 main {
@@ -91,6 +97,14 @@ main {
 
 html[data-astro-transition] {
     scroll-behavior: auto;
+}
+
+html[data-theme='dark'] {
+    color-scheme: dark;
+}
+
+html[data-theme='light'] {
+    color-scheme: light;
 }
 
 @media (prefers-reduced-motion: reduce) {

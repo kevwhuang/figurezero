@@ -1,0 +1,48 @@
+---
+
+---
+
+<svg
+    class="icon-theme"
+    aria-hidden="true"
+    viewBox="0 0 24 24"
+>
+    <g class="icon-theme__moon">
+        <path class="icon-theme__fill" d="M16.4 3.8 C 10.2 4.9, 5.6 9.3, 6 13.8 C 6.4 18.3, 11.4 21.3, 16.4 20.2 C 12.6 17.9, 11 14.8, 11.1 12 C 11.2 9.2, 13 5.9, 16.4 3.8 Z" />
+    </g>
+    <g class="icon-theme__sun">
+        <path class="icon-theme__fill" d="M12 6.8 C 14.9 6.7, 17.3 9.1, 17.2 12 C 17.1 14.9, 14.7 17.3, 11.8 17.2 C 8.9 17.1, 6.7 14.6, 6.8 11.7 C 6.9 8.8, 9.1 6.8, 12 6.8 Z" />
+        <path class="icon-theme__stroke" d="M20.6 12.1 C 19.8 12.05, 19 12, 18.2 11.95 M18.1 18.2 C 17.5 17.6, 16.9 17, 16.35 16.4 M12.05 20.6 C 12 19.8, 11.95 19, 11.9 18.2 M5.9 18.1 C 6.5 17.5, 7.1 16.9, 7.65 16.35 M3.4 12.05 C 4.2 12, 5 11.95, 5.8 11.9 M5.9 5.9 C 6.5 6.5, 7.1 7.1, 7.65 7.65 M12.05 3.4 C 12 4.2, 11.95 5, 11.9 5.8 M18.1 5.9 C 17.5 6.5, 16.95 7.1, 16.4 7.65" />
+    </g>
+</svg>
+
+<style>
+    .icon-theme {
+        display: block;
+        height: 24px;
+        pointer-events: none;
+        width: 24px;
+    }
+
+    .icon-theme__fill {
+        fill: currentColor;
+    }
+
+    .icon-theme__moon {
+        color: light-dark(currentcolor, transparent);
+        transition: color var(--duration-fast) ease;
+    }
+
+    .icon-theme__stroke {
+        fill: none;
+        stroke: currentColor;
+        stroke-linecap: round;
+        stroke-width: 2.2;
+        vector-effect: non-scaling-stroke;
+    }
+
+    .icon-theme__sun {
+        color: light-dark(transparent, currentcolor);
+        transition: color var(--duration-fast) ease;
+    }
+</style>

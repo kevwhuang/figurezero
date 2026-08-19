@@ -1,19 +1,17 @@
 ---
-import { Image } from 'astro:assets';
-
 import IconMenu from '@components/IconMenu.astro';
-import logo from '@images/logos/figure_zero.webp';
-import { ROUTES } from '@lib/constants';
+import IconTheme from '@components/IconTheme.astro';
+import { ROUTES, THEME_KEY } from '@lib/constants';
 ---
 
 <header class="navbar sticky top-0 z-50 border-b border-linen">
-    <div class="shell flex items-center justify-between h-full">
+    <div class="navbar__bar shell">
         <a
             class="navbar__brand flex items-center"
             aria-label="Figure Zero Project home"
             href="/"
         >
-            <Image class="navbar__logo block size-8 mix-blend-multiply" alt="" densities={[1, 2]} loading="eager" src={logo} width={32} />
+            <span class="navbar__logo block size-8" aria-hidden="true" />
             <span class="navbar__wordmark">Figure Zero Project</span>
         </a>
         <nav aria-label="Primary">
@@ -22,7 +20,7 @@ import { ROUTES } from '@lib/constants';
                 class="navbar__menu flex items-center gap-[clamp(14px,calc(9.33px+1.46vw),28px)]"
                 data-nav-menu
             >
-                {ROUTES.filter(route => route.isNavbar).map(route => (
+                {ROUTES.map(route => (
                     <li>
                         <a
                             class="navbar__link"
@@ -33,6 +31,17 @@ import { ROUTES } from '@lib/constants';
                     </li>
                 ))}
             </ul>
+        </nav>
+        <div class="navbar__controls flex items-center gap-4">
+            <button
+                class="navbar__theme"
+                aria-label="Dark theme"
+                aria-pressed="false"
+                data-theme-toggle
+                type="button"
+            >
+                <IconTheme />
+            </button>
             <button
                 class="navbar__toggle"
                 aria-controls="navbar-menu"
@@ -43,7 +52,7 @@ import { ROUTES } from '@lib/constants';
             >
                 <IconMenu />
             </button>
-        </nav>
+        </div>
     </div>
 </header>
 
@@ -54,10 +63,18 @@ import { ROUTES } from '@lib/constants';
         height: var(--header-height);
     }
 
+    .navbar__bar {
+        align-items: center;
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        height: 100%;
+    }
+
     .navbar__brand {
         color: var(--color-charcoal);
         flex: none;
         gap: 12px;
+        justify-self: start;
         position: relative;
         text-decoration: none;
         transition: color var(--duration-fast) ease;
@@ -76,6 +93,10 @@ import { ROUTES } from '@lib/constants';
         content: '';
         inset: -16px -8px;
         position: absolute;
+    }
+
+    .navbar__controls {
+        justify-self: end;
     }
 
     .navbar__link {
@@ -117,7 +138,39 @@ import { ROUTES } from '@lib/constants';
     }
 
     .navbar__logo {
+        background-color: currentColor;
+        mask-image: url('../images/logos/figure_zero.webp');
+        mask-position: center;
+        mask-repeat: no-repeat;
+        mask-size: contain;
         transition: transform var(--duration-fast) ease;
+    }
+
+    .navbar__theme {
+        align-items: center;
+        color: var(--color-charcoal);
+        display: flex;
+        height: 32px;
+        justify-content: center;
+        position: relative;
+        transition:
+            color var(--duration-fast) ease,
+            transform var(--duration-fast) ease;
+        width: 32px;
+    }
+
+    .navbar__theme:active {
+        transform: translateY(1px);
+    }
+
+    .navbar__theme:hover {
+        color: var(--color-taupe);
+    }
+
+    .navbar__theme::after {
+        content: '';
+        inset: -8px;
+        position: absolute;
     }
 
     .navbar__toggle {
@@ -153,7 +206,7 @@ import { ROUTES } from '@lib/constants';
 
     .navbar__wordmark {
         font-family: var(--font-display);
-        font-size: 17px;
+        font-size: clamp(14px, calc(13px + 0.3125vw), 17px);
         letter-spacing: 0.02em;
         transition: transform var(--duration-fast) ease;
     }
@@ -181,6 +234,11 @@ import { ROUTES } from '@lib/constants';
             opacity: 1;
             transition: opacity var(--duration-fast) ease;
             visibility: visible;
+        }
+
+        .navbar__bar {
+            display: flex;
+            justify-content: space-between;
         }
 
         .navbar__brand::after {
@@ -239,13 +297,34 @@ import { ROUTES } from '@lib/constants';
     }
 </style>
 
+<script define:vars={{ themeKey: THEME_KEY }}>
+    let stored;
+
+    try {
+        const raw = localStorage.getItem(themeKey);
+
+        stored = raw ? JSON.parse(raw).theme : null;
+    } catch {
+        stored = null;
+    }
+
+    if (stored === 'dark' || stored === 'light') document.documentElement.dataset.theme = stored;
+</script>
+
 <script>
+    import { THEME_COLORS, THEME_KEY } from '@lib/constants';
+    import { loadTheme, saveTheme } from '@lib/store';
+
+    const DARK_QUERY = '(prefers-color-scheme: dark)';
     const FOCUSABLE_SELECTOR = 'a, button';
     const MOBILE_QUERY = '(max-width: 768px)';
+    const REDUCED_QUERY = '(prefers-reduced-motion: reduce)';
 
     let controller: AbortController;
     let header: HTMLElement | null;
     let menu: HTMLElement | null;
+    let themeChoice: Theme | null;
+    let themeToggle: HTMLButtonElement | null;
     let toggle: HTMLButtonElement | null;
 
     function closeMenu(shouldRestoreFocus = false) {
@@ -253,6 +332,20 @@ import { ROUTES } from '@lib/constants';
         toggle?.setAttribute('aria-expanded', 'false');
 
         if (shouldRestoreFocus) toggle?.focus();
+    }
+
+    function getChoice(): Theme | null {
+        return themeChoice ?? loadTheme();
+    }
+
+    function getTheme(): Theme {
+        return getChoice() ?? (window.matchMedia(DARK_QUERY).matches ? 'dark' : 'light');
+    }
+
+    function handleColorSchemeChange() {
+        if (getChoice()) return;
+
+        syncTheme();
     }
 
     function handleKeyDown(event: KeyboardEvent) {
@@ -285,6 +378,32 @@ import { ROUTES } from '@lib/constants';
         if (!event.target.closest('.navbar') || event.clientY >= menu.getBoundingClientRect().bottom) closeMenu();
     }
 
+    function handleNavToggle() {
+        if (menu?.classList.contains('navbar__menu--open')) closeMenu(true);
+        else openMenu();
+    }
+
+    function handleStorage(event: StorageEvent) {
+        if (event.key !== THEME_KEY) return;
+
+        syncTheme();
+    }
+
+    function handleThemeToggle() {
+        const next: Theme = getTheme() === 'dark' ? 'light' : 'dark';
+
+        themeChoice = next;
+        saveTheme(next);
+
+        if (!document.startViewTransition || window.matchMedia(REDUCED_QUERY).matches) {
+            syncTheme();
+
+            return;
+        }
+
+        document.startViewTransition(syncTheme);
+    }
+
     function initNavbar() {
         if (controller) controller.abort();
 
@@ -294,12 +413,15 @@ import { ROUTES } from '@lib/constants';
 
         header = document.querySelector<HTMLElement>('.navbar');
         menu = document.querySelector<HTMLElement>('[data-nav-menu]');
+        themeToggle = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
         toggle = document.querySelector<HTMLButtonElement>('[data-nav-toggle]');
+
+        syncTheme();
 
         document.querySelectorAll<HTMLAnchorElement>('.navbar__link').forEach((link) => {
             const linkPath = normalizePath(link.pathname);
 
-            const isActive = !link.hash && linkPath === currentPath;
+            const isActive = linkPath === currentPath;
 
             link.classList.toggle('navbar__link--active', isActive);
 
@@ -309,13 +431,14 @@ import { ROUTES } from '@lib/constants';
             link.addEventListener('click', () => closeMenu(), { signal: controller.signal });
         });
 
-        toggle?.addEventListener('click', () => {
-            if (menu?.classList.contains('navbar__menu--open')) closeMenu(true);
-            else openMenu();
-        }, { signal: controller.signal });
+        toggle?.addEventListener('click', handleNavToggle, { signal: controller.signal });
+
+        themeToggle?.addEventListener('click', handleThemeToggle, { signal: controller.signal });
 
         document.addEventListener('keydown', handleKeyDown, { signal: controller.signal });
         document.addEventListener('mousedown', handleMouseDown, { signal: controller.signal });
+        window.addEventListener('storage', handleStorage, { signal: controller.signal });
+        window.matchMedia(DARK_QUERY).addEventListener('change', handleColorSchemeChange, { signal: controller.signal });
         window.matchMedia(MOBILE_QUERY).addEventListener('change', handleMediaChange, { signal: controller.signal });
     }
 
@@ -327,6 +450,19 @@ import { ROUTES } from '@lib/constants';
         menu?.classList.add('navbar__menu--open');
         toggle?.setAttribute('aria-expanded', 'true');
         menu?.querySelector<HTMLElement>('a')?.focus();
+    }
+
+    function syncTheme() {
+        const choice = getChoice();
+        const meta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
+        const theme = getTheme();
+
+        if (choice) document.documentElement.dataset.theme = choice;
+        else delete document.documentElement.dataset.theme;
+
+        themeToggle?.setAttribute('aria-pressed', String(theme === 'dark'));
+
+        if (meta) meta.content = THEME_COLORS[theme];
     }
 
     function trapTabKey(event: KeyboardEvent, container: HTMLElement) {

@@ -1,7 +1,4 @@
 ---
-import { Image } from 'astro:assets';
-
-import logo from '@images/logos/figure_zero.webp';
 import { ROUTES } from '@lib/constants';
 
 const EMAIL = 'figure.zero.project@gmail.com';
@@ -12,7 +9,11 @@ const INSTAGRAM = 'figure.zero.project';
     <div class="shell">
         <div class="footer__grid grid grid-cols-12 items-start gap-7 mb-(--gap-block)">
             <div class="col-span-3 col-start-1">
-                <Image class="block h-auto w-28 mix-blend-multiply" alt="Figure Zero Project logo" densities={[1, 2]} src={logo} width={112} />
+                <span
+                    class="footer__logo block"
+                    aria-label="Figure Zero Project"
+                    role="img"
+                />
             </div>
             <div class="col-span-4 col-start-5 max-lg:col-start-4">
                 <p
@@ -23,7 +24,7 @@ const INSTAGRAM = 'figure.zero.project';
                 </p>
                 <nav aria-labelledby="footer-navigation-title">
                     <ul class="grid gap-2.5">
-                        {ROUTES.filter(route => route.isFooter).map(route => (
+                        {ROUTES.map(route => (
                             <li>
                                 <a
                                     class="footer__link"
@@ -71,7 +72,7 @@ const INSTAGRAM = 'figure.zero.project';
             </div>
         </div>
         <div class="pt-6 border-t border-linen">
-            <p class="eyebrow footer__copyright">&copy; 2026 Figure Zero Project. All rights reserved.</p>
+            <p class="eyebrow footer__copyright">&copy; 2026 Figure Zero Project</p>
         </div>
     </div>
 </footer>
@@ -105,6 +106,18 @@ const INSTAGRAM = 'figure.zero.project';
         content: '';
         inset: -5px 0;
         position: absolute;
+    }
+
+    .footer__logo {
+        --logo-size: clamp(128px, calc(117.33px + 3.33vw), 160px);
+        aspect-ratio: 1;
+        background-color: currentColor;
+        mask-image: url('../images/logos/figure_zero.webp');
+        mask-position: center;
+        mask-repeat: no-repeat;
+        mask-size: contain;
+        translate: calc(var(--logo-size) * -0.13) calc(var(--logo-size) * -0.08);
+        width: var(--logo-size);
     }
 
     @media (max-width: 768px) {
