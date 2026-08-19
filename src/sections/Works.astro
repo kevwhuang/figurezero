@@ -5,7 +5,7 @@ import { getCollection } from 'astro:content';
 import DoodleEllipse from '@components/DoodleEllipse.astro';
 import { resolveImage } from '@lib/utils';
 
-const coverWidths = [558, 656, 460, 558];
+const COVER_WIDTHS = [558, 656, 460, 558] as const;
 
 const works = (await getCollection('portfolio')).sort((workA, workB) => workA.data.title.localeCompare(workB.data.title));
 ---
@@ -15,7 +15,7 @@ const works = (await getCollection('portfolio')).sort((workA, workB) => workA.da
     aria-labelledby="works-title"
 >
     <div class="shell">
-        <div class="works__hero">
+        <div class="pb-(--pad-block) pt-(--section-pad)">
             <p
                 class="eyebrow eyebrow--kicker"
                 data-rise
@@ -24,26 +24,27 @@ const works = (await getCollection('portfolio')).sort((workA, workB) => workA.da
             </p>
             <h1
                 id="works-title"
-                class="works__title"
+                class="works__title font-extrabold leading-[0.9] tracking-[-0.02em]"
+                aria-label="Portfolio"
                 data-rise
             >
-                Port<span class="inline-block relative whitespace-nowrap"><em>folio</em><DoodleEllipse /></span>
+                The Port<span class="inline-block relative whitespace-nowrap"><em>folio</em><DoodleEllipse /></span>
             </h1>
         </div>
         <ol class="works__list border-t border-charcoal">
             {works.map((work, index) => (
                 <li>
-                    <article class="works__item">
+                    <article class="works__item grid grid-cols-12 items-end gap-7 py-(--pad-block) border-b border-linen">
                         <figure
                             class="works__figure col-span-6 col-start-1"
                             data-scroll={index % 2 === 0 ? 'left' : 'right'}
                         >
                             <Image
-                                class="works__cover hover:shadow-cover-hover h-auto w-full shadow-cover"
+                                class="works__cover hover:shadow-cover-hover h-auto w-full shadow-cover duration-(--duration-slow) ease-soft transition-shadow"
                                 alt={`${work.data.title} cover illustration`}
                                 fetchpriority={index === 0 ? 'high' : undefined}
                                 loading={index === 0 ? 'eager' : 'lazy'}
-                                sizes={`(max-width: 1024px) calc(100vw - 2 * clamp(24px, 9.33px + 4.58vw, 68px)), ${coverWidths[index] ?? coverWidths[0]}px`}
+                                sizes={`(max-width: 1024px) calc(100vw - 2 * clamp(24px, 9.33px + 4.58vw, 68px)), ${COVER_WIDTHS[index] ?? COVER_WIDTHS[0]}px`}
                                 src={resolveImage(work.data.image)}
                                 width={700}
                                 widths={[420, 700, 940, 1200]}
@@ -55,20 +56,20 @@ const works = (await getCollection('portfolio')).sort((workA, workB) => workA.da
                         >
                             {index === 0 && (
                                 <div
-                                    class="works__doodle absolute -z-1"
+                                    class="works__doodle -left-7 -top-3.5 absolute -z-1 opacity-[0.14]"
                                     aria-hidden="true"
                                 >
                                     <DoodleEllipse />
                                 </div>
                             )}
                             <p
-                                class="works__index"
+                                class="works__index mb-8 font-display font-normal leading-[0.8] text-transparent select-none"
                                 aria-hidden="true"
                             >
                                 {String(index + 1).padStart(2, '0')}
                             </p>
-                            <h2 class="works__name text-pretty">{work.data.title}</h2>
-                            <p class="eyebrow works__credit">{work.data.artist}<br />{work.data.school}</p>
+                            <h2 class="works__name mb-4 font-[450] leading-[1.08] text-pretty tracking-[-0.01em] wrap-anywhere">{work.data.title}</h2>
+                            <p class="eyebrow works__credit leading-[1.8] wrap-anywhere">{work.data.artist}<br />{work.data.school}</p>
                         </div>
                     </article>
                 </li>
@@ -78,46 +79,18 @@ const works = (await getCollection('portfolio')).sort((workA, workB) => workA.da
 </section>
 
 <style>
-    .works__cover {
-        transition: box-shadow var(--duration-slow) var(--ease-soft);
-    }
-
     .works__credit {
         letter-spacing: 0.16em;
-        line-height: 1.8;
-        overflow-wrap: anywhere;
     }
 
     .works__doodle {
         height: clamp(64px, calc(47.33px + 5.21vw), 114px);
-        left: -28px;
-        opacity: 0.06;
-        top: -14px;
         width: clamp(120px, calc(90px + 9.375vw), 210px);
-    }
-
-    .works__hero {
-        padding-bottom: var(--pad-block);
-        padding-top: var(--section-pad);
     }
 
     .works__index {
         -webkit-text-stroke: 1.2px var(--color-charcoal);
-        color: transparent;
-        font-family: var(--font-display);
         font-size: clamp(56px, calc(40px + 5vw), 104px);
-        font-weight: 400;
-        line-height: 0.8;
-        margin-bottom: 32px;
-    }
-
-    .works__item {
-        align-items: end;
-        border-bottom: 1px solid var(--color-linen);
-        display: grid;
-        gap: 28px;
-        grid-template-columns: repeat(12, 1fr);
-        padding-block: var(--pad-block);
     }
 
     .works__list li:nth-child(2) .works__body,
@@ -141,20 +114,12 @@ const works = (await getCollection('portfolio')).sort((workA, workB) => workA.da
     }
 
     .works__name {
-        font-size: clamp(26px, calc(21.33px + 1.46vw), 40px);
-        font-weight: 450;
-        letter-spacing: -0.01em;
-        line-height: 1.08;
-        margin-bottom: 16px;
-        overflow-wrap: anywhere;
+        font-size: clamp(28px, calc(24px + 1.25vw), 40px);
     }
 
     .works__title {
         font-family: var(--font-poster);
         font-size: clamp(58px, calc(17.33px + 12.71vw), 180px);
-        font-weight: 800;
-        letter-spacing: -0.02em;
-        line-height: 0.9;
     }
 
     .works__title em {

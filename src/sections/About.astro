@@ -9,37 +9,33 @@ import DoodleWave from '@components/DoodleWave.astro';
     aria-label="What is the Figure Zero Project?"
 >
     <div
-        class="about__doodle-arrow absolute -z-1 max-md:hidden"
+        class="about__doodle-arrow absolute left-[max(4%,calc(50%_-_560px))] top-[28%] -z-1 opacity-[0.14] max-md:hidden"
         aria-hidden="true"
     >
         <DoodleArrow />
     </div>
     <div class="shell">
         <div class="grid grid-cols-12 gap-7 max-lg:block">
-            <p
+            <h2
                 class="eyebrow col-span-3 col-start-1 max-lg:mb-12"
                 data-scroll
             >
                 What is the<br />Figure Zero Project?
-            </p>
+            </h2>
             <div class="col-span-8 col-start-5">
                 <p
-                    class="about__statement mb-(--pad-block) font-display text-pretty"
+                    class="about__statement mb-(--pad-block) font-[440] font-display leading-[1.12] text-pretty tracking-[-0.01em]"
                     data-scroll
                 >
                     We are a student-run organization committed to making science more <span class="inline-block relative whitespace-nowrap"><em>engaging</em><DoodleWave /></span> and <span class="inline-block relative whitespace-nowrap">accessible<DoodleUnderline /></span> to the public.
                 </p>
                 <div
-                    class="grid grid-cols-2 gap-8 max-lg:grid-cols-1"
+                    class="grid grid-cols-2 gap-7 max-lg:grid-cols-1"
                     data-scroll="left"
                     data-scroll-stagger="0.16"
                 >
-                    <p class="about__paragraph text-pretty text-umber">
-                        Many journals do not have graphic designers for their covers and illustrations, yet visuals are what aid understanding and grab people's attention. We achieve our goal of elevating science by recruiting passionate artists and writers who value self-expression from human creativity in the rising age of AI.
-                    </p>
-                    <p class="about__paragraph text-pretty text-umber">
-                        While students benefit by building robust and meaningful portfolios, journals and researchers gain original artwork and writing that highlight their research. Together, we build a diverse community connected by scientific journals' cover page&mdash;Figure Zero.
-                    </p>
+                    <p class="about__body leading-[1.7] text-[18px] text-pretty text-umber">Many journals do not have graphic designers for their covers and illustrations, yet visuals are what aid understanding and grab people's attention. We achieve our goal of elevating science by recruiting passionate artists and writers who value self-expression from human creativity in the rising age of AI.</p>
+                    <p class="about__body leading-[1.7] text-[18px] text-pretty text-umber">While students benefit by building robust and meaningful portfolios, journals and researchers gain original artwork and writing that highlight their research. Together, we build a diverse community connected by scientific journals' cover page&mdash;Figure Zero.</p>
                 </div>
             </div>
         </div>
@@ -49,22 +45,11 @@ import DoodleWave from '@components/DoodleWave.astro';
 <style>
     .about__doodle-arrow {
         height: clamp(90px, calc(70px + 6.25vw), 150px);
-        left: max(4%, calc(50% - 560px));
-        opacity: 0.08;
-        top: 28%;
         width: clamp(200px, calc(153.33px + 14.58vw), 340px);
-    }
-
-    .about__paragraph {
-        font-size: 17px;
-        line-height: 1.7;
     }
 
     .about__statement {
         font-size: clamp(28px, calc(20px + 2.5vw), 52px);
-        font-weight: 440;
-        letter-spacing: -0.01em;
-        line-height: 1.12;
     }
 
     @media (max-width: 1024px) {
@@ -72,7 +57,7 @@ import DoodleWave from '@components/DoodleWave.astro';
             height: clamp(72px, calc(-114px + 24.22vw), 134px);
             left: 30%;
             top: 72px;
-            width: clamp(220px, calc(-27.89px + 32.28vw), 302.6px);
+            width: clamp(220px, calc(-25.99px + 32.03vw), 302px);
         }
     }
 </style>

@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 
 import DoodleEllipse from '@components/DoodleEllipse.astro';
 import DoodleScribble from '@components/DoodleScribble.astro';
-import photo from '@images/story.webp';
+import foundersPhoto from '@images/story.webp';
 ---
 
 <section
@@ -11,57 +11,47 @@ import photo from '@images/story.webp';
     aria-labelledby="story-title"
 >
     <div
-        class="story__doodle absolute -z-1"
+        class="story__doodle absolute right-[max(0px,calc(50%_-_664px))] -z-1 opacity-[0.14]"
         aria-hidden="true"
     >
         <DoodleScribble />
     </div>
-    <div class="shell story__grid grid grid-cols-12 items-start gap-7">
-        <Image
-            class="block col-span-5 col-start-1 h-auto w-full"
-            alt="Leslie and Yolanda"
-            data-scroll="left"
-            sizes="(max-width: 1024px) calc(100vw - 2 * clamp(24px, 9.33px + 4.58vw, 68px)), 466px"
-            src={photo}
-            width={600}
-            widths={[420, 600, 900, 1200]}
-        />
-        <div class="col-span-6 col-start-7">
+    <div class="shell story__grid grid grid-cols-12 items-center gap-7">
+        <div class="col-span-6 col-start-1">
             <p
                 class="eyebrow mb-12"
-                data-scroll="right"
+                data-scroll="left"
             >
                 Our story
             </p>
             <h2
                 id="story-title"
-                class="story__title mb-(--gap-block)"
-                data-scroll="right"
+                class="story__title mb-(--gap-block) font-[460] leading-[1.05] tracking-[-0.01em]"
+                data-scroll="left"
             >
                 It started on a <span class="inline-block relative whitespace-nowrap">FaceTime call.<DoodleEllipse /></span>
             </h2>
             <div
-                class="story__body text-pretty text-umber"
-                data-scroll="right"
+                class="story__body max-w-(--measure-prose) leading-[1.7] text-[18px] text-pretty text-umber"
+                data-scroll="left"
             >
                 <p>The Figure Zero Project was founded by two high school friends, Leslie and Yolanda. Honestly, they didn't have a lot in common. Yolanda can be quite calm; Leslie, not so much. Despite this, they shared a similar passion for catching sunrises at Woodbine Beach, crying at the Eras Tour, hwachae, almost peeing their pants laughing at photo booths, and, most importantly, art.</p>
                 <p>Although they eventually found themselves pursuing science, they found a way to bring art and scientific research together through the Figure Zero Project. Their journey began with illustrating journal covers, which soon grew to include a larger team that designs journal layouts and visual abstracts, and translates complex articles into words that anyone can understand. What started as an ordinary idea during a FaceTime call turned into a growing contribution to scientific communication. And they are only getting started.</p>
             </div>
         </div>
+        <Image
+            class="block col-span-5 col-start-8 h-auto w-full"
+            alt="Leslie and Yolanda"
+            data-scroll="right"
+            sizes="(max-width: 1024px) calc(100vw - 2 * clamp(24px, 9.33px + 4.58vw, 68px)), 460px"
+            src={foundersPhoto}
+            width={600}
+            widths={[420, 600, 900, 1200]}
+        />
     </div>
 </section>
 
 <style>
-    .story__body {
-        font-size: 17px;
-        line-height: 1.7;
-        max-width: var(--measure-prose);
-    }
-
-    .story__body p:not(:last-child) {
-        margin-bottom: 20px;
-    }
-
     .story__body p:first-of-type::first-letter {
         float: left;
         font-family: var(--font-display);
@@ -70,19 +60,18 @@ import photo from '@images/story.webp';
         padding: 8px 12px 0 0;
     }
 
+    .story__body p:not(:last-child) {
+        margin-bottom: 20px;
+    }
+
     .story__doodle {
         height: clamp(110px, calc(86.67px + 7.29vw), 180px);
-        left: max(-36px, calc(50% - 680px));
-        opacity: 0.08;
-        top: clamp(28px, calc(9.33px + 5.83vw), 84px);
+        top: clamp(151px, calc(587.65px - 34.1176vw), 238px);
         width: clamp(180px, calc(140px + 12.5vw), 300px);
     }
 
     .story__title {
         font-size: clamp(34px, calc(25.33px + 2.71vw), 60px);
-        font-weight: 460;
-        letter-spacing: -0.01em;
-        line-height: 1.05;
     }
 
     @media (max-width: 1024px) {

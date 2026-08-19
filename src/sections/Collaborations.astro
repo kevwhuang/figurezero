@@ -6,7 +6,7 @@ import canadianJournalOfUndergraduateResearch from '@images/logos/canadian_journ
 import columbiaUndergraduateScienceJournal from '@images/logos/columbia_undergrad_science_journal.webp';
 import mcgillJournalOfMedicine from '@images/logos/mcgill_journal_of_medicine.webp';
 import mcmasterJournalOfDisabilities from '@images/logos/mcmaster_journal_of_disabilities.webp';
-import pocusJournal from '@images/logos/point_of_care_ultrasound_journal.webp';
+import pointOfCareUltrasoundJournal from '@images/logos/point_of_care_ultrasound_journal.webp';
 import undergraduateJournalOfExperimentalMicrobiologyAndImmunology from '@images/logos/undergraduate_journal_of_experimental_microbiology_and_immunology.webp';
 import universityOfTorontoJournalOfPublicHealth from '@images/logos/uoft_journal_of_public_health.webp';
 import universityOfTorontoMedicalJournal from '@images/logos/uoft_medical_journal.webp';
@@ -16,7 +16,7 @@ const COLLABORATIONS = [
     { image: columbiaUndergraduateScienceJournal, name: 'Columbia Undergraduate Science Journal' },
     { image: mcgillJournalOfMedicine, name: 'McGill Journal of Medicine' },
     { image: mcmasterJournalOfDisabilities, name: 'McMaster Journal of Disabilities' },
-    { image: pocusJournal, name: 'POCUS Journal' },
+    { image: pointOfCareUltrasoundJournal, name: 'POCUS Journal' },
     { image: undergraduateJournalOfExperimentalMicrobiologyAndImmunology, name: 'Undergraduate Journal of Experimental Microbiology and Immunology' },
     { image: universityOfTorontoJournalOfPublicHealth, name: 'University of Toronto Journal of Public Health' },
     { image: universityOfTorontoMedicalJournal, name: 'University of Toronto Medical Journal' },
@@ -28,97 +28,73 @@ const COLLABORATIONS = [
     aria-labelledby="collaborations-title"
 >
     <div
-        class="collaborations__doodle absolute -z-1 max-lg:hidden"
+        class="collaborations__doodle absolute left-[max(4%,calc(50%_-_616px))] -z-1 h-4 opacity-[0.14]"
         aria-hidden="true"
     >
         <DoodleWave />
     </div>
-    <div class="shell grid grid-cols-12 gap-7 max-lg:block">
+    <div class="shell">
         <p
-            class="eyebrow col-span-3 col-start-1 max-lg:mb-12"
+            class="eyebrow mb-12"
             data-scroll
         >
             Collaborations
         </p>
-        <div class="col-span-9 col-start-4">
-            <h2
-                id="collaborations-title"
-                class="collaborations__title"
-                data-scroll
-            >
-                The journals we have <span class="inline-block relative whitespace-nowrap">worked with<DoodleWave /></span>
-            </h2>
-            <ul
-                class="collaborations__list flex flex-wrap"
-                data-scroll="fade"
-                data-scroll-stagger="0.08"
-            >
-                {COLLABORATIONS.map(collaboration => (
-                    <li class="collaborations__item">
-                        <figure class="collaborations__tile">
-                            <div class="collaborations__plate">
-                                <Image
-                                    class="block h-auto w-full mix-blend-multiply"
-                                    alt=""
-                                    sizes="(max-width: 767px) calc(100vw - 2 * clamp(24px, 9.33px + 4.58vw, 68px)), (max-width: 1023px) calc((100vw - 2 * clamp(24px, 9.33px + 4.58vw, 68px) - 40px) / 2), 406px"
-                                    src={collaboration.image}
-                                    width={406}
-                                    widths={[406, 640, 820, 1000, 1280]}
-                                />
-                            </div>
-                            <figcaption class="collaborations__name eyebrow">{collaboration.name}</figcaption>
-                        </figure>
-                    </li>
-                ))}
-            </ul>
-        </div>
+        <h2
+            id="collaborations-title"
+            class="collaborations__title max-w-[560px] mb-(--gap-block) font-[460] leading-[1.05] text-pretty tracking-[-0.01em]"
+            data-scroll
+        >
+            The journals we have <span class="inline-block relative whitespace-nowrap">worked with<DoodleWave /></span>
+        </h2>
+        <ul
+            class="collaborations__list [--column-gap:40px] flex flex-wrap justify-center gap-x-(--column-gap) gap-y-(--pad-block)"
+            data-scroll="fade"
+            data-scroll-stagger="0.08"
+        >
+            {COLLABORATIONS.map(collaboration => (
+                <li class="collaborations__item basis-[calc((100%_-_2_*_var(--column-gap))_/_3)] grow-0 shrink-0 min-w-0">
+                    <figure class="flex flex-col gap-5">
+                        <div class="w-full bg-bone">
+                            <Image
+                                class="block h-auto w-full mix-blend-multiply"
+                                alt=""
+                                sizes="(max-width: 768px) calc(100vw - 2 * clamp(24px, 9.33px + 4.58vw, 68px)), (max-width: 1024px) calc((100vw - 2 * clamp(24px, 9.33px + 4.58vw, 68px) - 40px) / 2), 400px"
+                                src={collaboration.image}
+                                width={400}
+                                widths={[400, 640, 800, 1000, 1280]}
+                            />
+                        </div>
+                        <figcaption class="collaborations__name eyebrow leading-[1.6] text-balance text-center wrap-anywhere">{collaboration.name}</figcaption>
+                    </figure>
+                </li>
+            ))}
+        </ul>
     </div>
 </section>
 
 <style>
     .collaborations__doodle {
-        height: 16px;
-        left: max(4%, calc(50% - 615px));
-        opacity: 0.08;
         top: clamp(330px, calc(300px + 9.375vw), 420px);
         width: clamp(180px, calc(140px + 12.5vw), 300px);
     }
 
     .collaborations__name {
         letter-spacing: 0.16em;
-        line-height: 1.6;
-    }
-
-    .collaborations__item {
-        flex: 0 0 calc((100% - 40px) / 2);
-        min-width: 0;
-    }
-
-    .collaborations__list {
-        column-gap: 40px;
-        row-gap: var(--pad-block);
-    }
-
-    .collaborations__plate {
-        align-self: start;
-        background: var(--color-bone);
-        width: 100%;
-    }
-
-    .collaborations__tile {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
     }
 
     .collaborations__title {
         font-size: clamp(34px, calc(25.33px + 2.71vw), 60px);
-        font-weight: 460;
-        letter-spacing: -0.01em;
-        line-height: 1.05;
-        margin-bottom: var(--gap-block);
-        max-width: 560px;
-        text-wrap: pretty;
+    }
+
+    @media (max-width: 1024px) {
+        .collaborations__doodle {
+            display: none;
+        }
+
+        .collaborations__item {
+            flex-basis: calc((100% - var(--column-gap)) / 2);
+        }
     }
 
     @media (max-width: 768px) {

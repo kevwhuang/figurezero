@@ -5,7 +5,7 @@ const IMAGES = import.meta.glob<ImageMetadata>('/src/images/**/*.webp', { eager:
 export function resolveImage(path: string): ImageMetadata {
     const image = IMAGES[`/src${path}`];
 
-    if (!image) throw new Error(`Unknown image: ${path}`);
+    if (!image) throw new Error(`figurezero: failed to resolve image ${path}`);
 
     return image;
 }

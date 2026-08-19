@@ -8,7 +8,6 @@
     --color-charcoal-35: light-dark(#1a171359, #00000059);
     --color-cream: light-dark(#faf8f3, #191510);
     --color-cream-90: light-dark(#faf8f3e6, #191510e6);
-    --color-eggshell: light-dark(#f6f3ea, #221e18);
     --color-linen: light-dark(#e7e2d7, #332e26);
     --color-taupe: light-dark(#6e675d, #a79d8c);
     --color-umber: light-dark(#3b362e, #cfc7b7);
@@ -29,11 +28,12 @@
         Georgia,
         serif;
     --shadow-cover:
-        0 1px 2px var(--color-charcoal-10),
+        0 2px 2px var(--color-charcoal-10),
         0 12px 40px var(--color-charcoal-10);
     --shadow-cover-hover:
         0 2px 4px var(--color-charcoal-10),
         0 24px 60px var(--color-charcoal-15);
+    --spacing: 4px;
 }
 
 :root {
@@ -52,6 +52,10 @@ button {
     cursor: pointer;
 }
 
+button {
+    user-select: none;
+}
+
 h1,
 h2,
 h3 {
@@ -63,6 +67,18 @@ html {
     scroll-behavior: smooth;
     scroll-padding-top: var(--header-height);
     touch-action: manipulation;
+}
+
+html[data-astro-transition] {
+    scroll-behavior: auto;
+}
+
+html[data-theme='dark'] {
+    color-scheme: dark;
+}
+
+html[data-theme='light'] {
+    color-scheme: light;
 }
 
 img {
@@ -78,9 +94,9 @@ main {
 }
 
 :focus-visible:not(input, select, textarea) {
-    border-radius: 1px;
+    border-radius: 2px;
     outline: 2px solid var(--color-charcoal);
-    outline-offset: 3px;
+    outline-offset: 4px;
 }
 
 ::selection {
@@ -88,23 +104,12 @@ main {
     color: var(--color-cream);
 }
 
+[data-doodle],
 [data-letter],
 [data-pop],
 [data-rise],
 [data-scroll] {
     opacity: 0;
-}
-
-html[data-astro-transition] {
-    scroll-behavior: auto;
-}
-
-html[data-theme='dark'] {
-    color-scheme: dark;
-}
-
-html[data-theme='light'] {
-    color-scheme: light;
 }
 
 @media (prefers-reduced-motion: reduce) {

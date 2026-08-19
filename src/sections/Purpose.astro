@@ -8,86 +8,69 @@ import DoodleUnderline from '@components/DoodleUnderline.astro';
     aria-label="Vision and mission"
 >
     <div
-        class="purpose__doodle-star absolute -z-1 max-md:hidden"
+        class="purpose__doodle-star absolute left-[49%] top-[42%] -z-1 h-(--star-size) w-(--star-size) -translate-y-[37.5%] opacity-[0.14] translate-x-[25%] max-md:hidden"
         aria-hidden="true"
     >
         <DoodleStar />
     </div>
     <div class="shell">
-        <div class="grid grid-cols-12 gap-7 max-lg:block">
-            <div
+        <ol class="grid grid-cols-12 items-center gap-7 max-lg:block">
+            <li
                 class="col-span-5 col-start-2 max-lg:mb-10"
                 data-scroll="left"
             >
                 <div class="flex items-baseline gap-4 mb-8 pb-3 border-b border-charcoal">
                     <span
-                        class="purpose__index"
+                        class="purpose__index font-display text-[14px] select-none"
                         aria-hidden="true"
                     >
                         01
                     </span>
-                    <h2 class="purpose__label uppercase">Vision</h2>
+                    <h2 class="purpose__label font-semibold text-[12px] tracking-[0.2em] uppercase">Vision</h2>
                 </div>
-                <p class="purpose__vision font-display text-pretty">We envision a future where science is visually engaging, accessible, and understandable to all; where young artists have opportunities to transform scientific research into visual stories that elevate academic communication; and where writers increase health literacy. We envision a future in which <span class="inline-block relative whitespace-nowrap">human creativity<DoodleUnderline /></span> is preserved and encouraged through collaboration with artists and writers, even as AI use continues to grow.</p>
-            </div>
-            <div
-                class="col-span-5 col-start-8 pt-18 max-lg:pt-0"
+                <p class="purpose__vision font-[430] font-display leading-[1.4] text-pretty text-umber">We envision a future where science is visually engaging, accessible, and understandable to all; where young artists have opportunities to transform scientific research into visual stories that elevate academic communication; and where writers increase health literacy. We envision a future in which <span class="inline-block relative whitespace-nowrap">human creativity<DoodleUnderline /></span> is preserved and encouraged through collaboration with artists and writers, even as AI use continues to grow.</p>
+            </li>
+            <li
+                class="col-span-5 col-start-8"
                 data-scroll="right"
             >
                 <div class="flex items-baseline gap-4 mb-8 pb-3 border-b border-charcoal">
                     <span
-                        class="purpose__index"
+                        class="purpose__index font-display text-[14px] select-none"
                         aria-hidden="true"
                     >
                         02
                     </span>
-                    <h2 class="purpose__label uppercase">Mission</h2>
+                    <h2 class="purpose__label font-semibold text-[12px] tracking-[0.2em] uppercase">Mission</h2>
                 </div>
-                <p class="purpose__mission text-pretty text-umber">At a time when AI-generated images and writing are becoming increasingly common, our mission is to preserve human emotion and increase health literacy. We provide students with opportunities to create meaningful visual content while collaborating with stakeholders that share our vision. Additionally, we aim to create informational resources that present scientific information in an accessible, engaging, and understandable manner. We strive to build a community where art and science can enhance each other, and students can continue their passions in interdisciplinary fields.</p>
-            </div>
-        </div>
+                <p class="purpose__mission font-[430] font-display leading-[1.4] text-pretty text-umber">At a time when AI-generated images and writing are becoming increasingly common, our mission is to preserve human emotion and increase health literacy. We provide students with opportunities to create meaningful visual content while collaborating with stakeholders that share our vision. Additionally, we aim to create informational resources that present scientific information in an accessible, engaging, and understandable manner. We strive to build a community where art and science can enhance each other, and students can continue their passions in interdisciplinary fields.</p>
+            </li>
+        </ol>
     </div>
 </section>
 
 <style>
     .purpose__doodle-star {
-        height: clamp(40px, calc(26.67px + 4.17vw), 80px);
-        left: 49%;
-        opacity: 0.08;
-        top: 42%;
-        transform: translate(25%, -37.5%);
-        width: clamp(40px, calc(26.67px + 4.17vw), 80px);
-    }
-
-    .purpose__index {
-        font-family: var(--font-display);
-        font-size: 15px;
+        --star-size: clamp(40px, calc(26.67px + 4.17vw), 80px);
     }
 
     .purpose__label {
         font-family: var(--font-sans);
-        font-size: 12px;
-        font-weight: 600;
-        letter-spacing: 0.2em;
     }
 
     .purpose__mission {
-        font-size: 17px;
-        line-height: 1.7;
+        font-size: clamp(20px, calc(17.33px + 0.8333vw), 28px);
     }
 
     .purpose__vision {
-        font-size: clamp(19px, calc(16.33px + 0.83vw), 27px);
-        font-weight: 430;
-        line-height: 1.4;
+        font-size: clamp(20px, calc(17.33px + 0.8333vw), 28px);
     }
 
     @media (max-width: 1024px) {
         .purpose__doodle-star {
-            height: clamp(40px, calc(-48.11px + 11.47vw), 69.37px);
+            --star-size: clamp(40px, calc(-50.01px + 11.72vw), 70px);
             left: 72%;
             top: 49%;
-            width: clamp(40px, calc(-48.11px + 11.47vw), 69.37px);
         }
     }
 </style>

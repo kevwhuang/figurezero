@@ -23,36 +23,40 @@ const TESTIMONIES = [
     aria-label="Testimonies"
 >
     <div
-        class="testimonies__doodle absolute -z-1"
+        class="testimonies__doodle absolute -z-1 max-lg:hidden"
         aria-hidden="true"
     >
         <DoodleScribble />
     </div>
-    <div class="shell testimonies__grid">
-        <p
-            class="eyebrow testimonies__label col-span-3 col-start-1"
+    <div class="shell grid grid-cols-12 gap-7 max-lg:block">
+        <h2
+            class="eyebrow col-span-3 col-start-1 max-lg:mb-12"
             data-scroll
         >
             Testimonies
-        </p>
-        <ul class="testimonies__list col-span-8 col-start-5 grid gap-(--gap-block)">
+        </h2>
+        <ul class="col-span-8 col-start-5 grid gap-(--gap-block)">
             {TESTIMONIES.map(testimony => (
                 <li>
                     <figure data-scroll>
                         <div
-                            class="testimonies__mark select-none"
+                            class="testimonies__mark mb-6 font-display select-none"
                             aria-hidden="true"
                         >
                             &ldquo;
                         </div>
-                        <blockquote class="testimonies__quote"><span class="sr-only">&ldquo;</span>{testimony.paragraphs.map(paragraph => <p>{paragraph}</p>)}<span class="sr-only">&rdquo;</span></blockquote>
+                        <blockquote class="testimonies__quote font-display italic text-pretty">
+                            <span class="sr-only">&ldquo;</span>
+                            {testimony.paragraphs.map(paragraph => <p class="mb-5">{paragraph}</p>)}
+                            <span class="sr-only">&rdquo;</span>
+                        </blockquote>
                         <div
-                            class="testimonies__mark testimonies__mark--closing select-none"
+                            class="testimonies__mark testimonies__mark--closing mb-6 font-display text-right select-none"
                             aria-hidden="true"
                         >
                             &rdquo;
                         </div>
-                        <figcaption class="eyebrow">{testimony.journal}</figcaption>
+                        <figcaption class="testimonies__journal eyebrow"><cite class="not-italic">{testimony.journal}</cite></figcaption>
                     </figure>
                 </li>
             ))}
@@ -64,62 +68,32 @@ const TESTIMONIES = [
     .testimonies__doodle {
         height: clamp(120px, calc(93.33px + 8.33vw), 200px);
         left: max(2%, calc(50% - 660px));
-        opacity: 0.08;
+        opacity: 0.14;
         top: 38%;
         width: clamp(180px, calc(140px + 12.5vw), 300px);
     }
 
-    .testimonies__grid {
-        display: grid;
-        gap: var(--gap-block) 28px;
-        grid-template-columns: repeat(12, 1fr);
+    .testimonies__journal {
+        overflow-wrap: anywhere;
     }
 
     .testimonies__mark {
-        font-family: var(--font-display);
-        font-size: clamp(72px, calc(59.33px + 3.96vw), 110px);
+        --mark-nudge: -6px;
+        font-size: clamp(72px, calc(61.33px + 3.3333vw), 104px);
         line-height: 0.45;
-        margin-bottom: 24px;
-        text-indent: -6px;
+        text-indent: var(--mark-nudge);
     }
 
     .testimonies__mark--closing {
-        margin-bottom: 28px;
-        margin-right: -6px;
-        margin-top: clamp(24px, calc(21.33px + 0.83vw), 32px);
-        text-align: right;
+        margin-right: var(--mark-nudge);
         text-indent: 0;
     }
 
     .testimonies__quote {
-        font-family: var(--font-display);
-        font-size: clamp(19px, calc(16.33px + 0.83vw), 27px);
-        font-style: italic;
+        font-size: clamp(20px, calc(17.33px + 0.8333vw), 28px);
         font-weight: 420;
         line-height: 1.5;
-        margin-bottom: 12px;
-        text-wrap: pretty;
-    }
-
-    .testimonies__quote p:not(:last-child) {
-        margin-bottom: 20px;
-    }
-
-    @media (max-width: 1024px) {
-        .testimonies__doodle {
-            display: none;
-        }
-
-        .testimonies__grid {
-            display: block;
-        }
-
-        .testimonies__label {
-            margin-bottom: 48px;
-        }
-
-        .testimonies__list {
-            gap: 64px;
-        }
+        margin-bottom: clamp(24px, calc(21.33px + 0.83vw), 32px);
+        overflow-wrap: anywhere;
     }
 </style>

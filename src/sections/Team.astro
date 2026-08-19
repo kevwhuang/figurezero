@@ -2,35 +2,36 @@
 import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 
-import DoodleScribble from '@components/DoodleScribble.astro';
 import { resolveImage } from '@lib/utils';
 
 import type { CollectionEntry } from 'astro:content';
 
 type GroupKey = CollectionEntry<'team'>['data']['group'];
 
-const GROUPS: { key: GroupKey; label: string }[] = [
+const GROUPS = [
     { key: 'artists', label: 'Artists' },
     { key: 'investigators', label: 'Science investigators' },
     { key: 'interns', label: 'Summer interns' },
-];
+] as const satisfies readonly { key: GroupKey; label: string }[];
 
 const members = (await getCollection('team')).sort((memberA, memberB) => memberA.data.name.localeCompare(memberB.data.name));
 
+const membersByGroup = Object.groupBy(members, member => member.data.group);
+
+const coPresidents = membersByGroup['co-presidents'] ?? [];
+
 const memberGroups = GROUPS.map(group => ({
     label: group.label,
-    members: members.filter(member => member.data.group === group.key),
+    members: membersByGroup[group.key] ?? [],
 }));
-
-const presidents = members.filter(member => member.data.group === 'co-presidents');
 ---
 
 <section
-    class="team overflow-hidden relative isolate"
+    class="section team overflow-hidden relative isolate"
     aria-labelledby="team-title"
 >
     <div class="shell">
-        <div class="team__hero">
+        <div class="pb-(--pad-block)">
             <p
                 class="eyebrow eyebrow--kicker"
                 data-rise
@@ -39,7 +40,7 @@ const presidents = members.filter(member => member.data.group === 'co-presidents
             </p>
             <h1
                 id="team-title"
-                class="team__title"
+                class="team__title font-[800] leading-[0.9] tracking-[-0.02em]"
                 data-rise
             >
                 Our <em>team</em>
@@ -52,29 +53,29 @@ const presidents = members.filter(member => member.data.group === 'co-presidents
             Co-presidents
         </h2>
         <ul>
-            {presidents.map((president, index) => (
+            {coPresidents.map((coPresident, index) => (
                 <li>
-                    <article class:list={['team__president', { 'team__president--flipped': index === 1 }]}>
+                    <article class:list={['team__president grid grid-cols-12 items-start gap-7 mb-(--gap-block) max-lg:block', { 'team__president--flipped': index === 1 }]}>
                         <div
-                            class="team__president-frame col-span-5 col-start-1 overflow-hidden"
+                            class="team__president-frame col-span-5 col-start-1 overflow-hidden max-lg:mb-10"
                             data-scroll={index === 1 ? 'right' : 'left'}
                         >
                             <Image
-                                class="team__president-image aspect-[4/5] object-cover w-full"
+                                class="team__president-image aspect-4/5 object-cover w-full duration-(--duration-slow) ease-soft transition-[transform]"
                                 alt=""
-                                sizes="(max-width: 1024px) calc(100vw - 2 * clamp(24px, 9.33px + 4.58vw, 68px)), 480px"
-                                src={resolveImage(president.data.image)}
+                                sizes="(max-width: 1024px) calc(100vw - 2 * clamp(24px, 9.33px + 4.58vw, 68px)), 460px"
+                                src={resolveImage(coPresident.data.image)}
                                 width={600}
                                 widths={[420, 600, 1200]}
                             />
                         </div>
                         <div
-                            class="team__president-text col-span-6 col-start-7 pt-12"
+                            class="team__president-text col-span-6 col-start-7 pt-12 max-lg:pt-0"
                             data-scroll={index === 1 ? 'left' : 'right'}
                         >
-                            <h3 class="team__president-name">{president.data.name}</h3>
-                            <p class="eyebrow team__president-program">{president.data.program}</p>
-                            <p class="team__president-bio">{president.data.bio}</p>
+                            <h3 class="team__president-name mb-4 font-[460] leading-[1.02] wrap-anywhere">{coPresident.data.name}</h3>
+                            <p class="eyebrow team__president-program mb-10 wrap-anywhere">{coPresident.data.program}</p>
+                            <p class="team__president-bio max-w-(--measure-prose) leading-[1.7] text-[18px] text-pretty wrap-anywhere text-umber">{coPresident.data.bio}</p>
                         </div>
                     </article>
                 </li>
@@ -82,15 +83,10 @@ const presidents = members.filter(member => member.data.group === 'co-presidents
         </ul>
     </div>
     {memberGroups.map((group, index) => (
-        <div class:list={['shell team__group', { 'team__group--first': index === 0 }]}>
-            {index === 1 && (
-                <div
-                    class="team__doodle absolute -z-1 max-md:hidden"
-                    aria-hidden="true"
-                >
-                    <DoodleScribble />
-                </div>
-            )}
+        <section
+            class:list={['shell last:mb-0 relative mb-(--gap-block)', { 'pt-(--pad-block) border-t border-linen': index === 0 }]}
+            aria-label={group.label}
+        >
             <h2
                 class="eyebrow mb-12"
                 data-scroll
@@ -103,94 +99,41 @@ const presidents = members.filter(member => member.data.group === 'co-presidents
                 data-scroll-stagger="0.08"
             >
                 {group.members.map(member => (
-                    <li>
+                    <li class="min-w-0">
                         <figure class="team__member grid gap-3">
                             <div class="overflow-hidden">
                                 <Image
-                                    class="team__member-photo aspect-[4/5] object-cover w-full"
+                                    class="team__member-photo aspect-4/5 object-cover w-full duration-(--duration-slow) ease-soft transition-[transform]"
                                     alt=""
-                                    sizes="(max-width: 768px) 43vw, (max-width: 1280px) 29vw, 368px"
+                                    sizes="(max-width: 768px) 43vw, min(29vw, 368px)"
                                     src={resolveImage(member.data.image)}
                                     width={400}
                                     widths={[220, 400, 440, 800]}
                                 />
                             </div>
                             <figcaption class="grid gap-1">
-                                <p class="team__member-name">{member.data.name}</p>
-                                {member.data.program && <p class="team__member-program">{member.data.program}</p>}
+                                <p class="team__member-name font-display text-[18px] wrap-anywhere">{member.data.name}</p>
+                                {member.data.program && <p class="team__member-program leading-[1.5] text-[14px] wrap-anywhere text-taupe">{member.data.program}</p>}
                             </figcaption>
                         </figure>
                     </li>
                 ))}
             </ul>
-        </div>
+        </section>
     ))}
 </section>
 
 <style>
     .team {
-        padding-bottom: var(--section-pad);
-    }
-
-    .team__doodle {
-        height: clamp(120px, calc(100px + 6.25vw), 180px);
-        opacity: 0.07;
-        right: 0;
-        top: calc(-1 * var(--gap-block));
-        width: clamp(200px, calc(153.33px + 14.58vw), 340px);
+        --photo-zoom: 1.04;
     }
 
     .team__grid li {
         flex: 0 0 calc((100% - 48px) / 3);
-        min-width: 0;
-    }
-
-    .team__group {
-        margin-bottom: var(--gap-block);
-        position: relative;
-    }
-
-    .team__group:last-child {
-        margin-bottom: 0;
-    }
-
-    .team__group--first {
-        border-top: 1px solid var(--color-linen);
-        padding-top: var(--pad-block);
-    }
-
-    .team__hero {
-        padding-bottom: var(--pad-block);
-        padding-top: var(--section-pad);
     }
 
     .team__member:hover .team__member-photo {
-        transform: scale(1.04);
-    }
-
-    .team__member-name {
-        font-family: var(--font-display);
-        font-size: 17px;
-        overflow-wrap: anywhere;
-    }
-
-    .team__member-photo {
-        transition: transform var(--duration-slow) var(--ease-soft);
-    }
-
-    .team__member-program {
-        color: var(--color-taupe);
-        font-size: 13px;
-        line-height: 1.5;
-        overflow-wrap: anywhere;
-    }
-
-    .team__president {
-        align-items: start;
-        display: grid;
-        gap: 28px;
-        grid-template-columns: repeat(12, 1fr);
-        margin-bottom: var(--gap-block);
+        transform: scale(var(--photo-zoom));
     }
 
     .team__president--flipped .team__president-frame {
@@ -203,61 +146,25 @@ const presidents = members.filter(member => member.data.group === 'co-presidents
         grid-row: 1;
     }
 
-    .team__president-bio {
-        color: var(--color-umber);
-        font-size: 17px;
-        line-height: 1.7;
-        max-width: var(--measure-prose);
-        overflow-wrap: anywhere;
-        text-wrap: pretty;
-    }
-
     .team__president-frame:hover .team__president-image {
-        transform: scale(1.04);
-    }
-
-    .team__president-image {
-        transition: transform var(--duration-slow) var(--ease-soft);
+        transform: scale(var(--photo-zoom));
     }
 
     .team__president-name {
-        font-family: var(--font-display);
-        font-size: clamp(30px, calc(24px + 1.875vw), 48px);
-        font-weight: 460;
-        line-height: 1.02;
-        margin-bottom: 16px;
-        overflow-wrap: anywhere;
+        font-size: clamp(28px, calc(21.33px + 2.0833vw), 48px);
     }
 
     .team__president-program {
         letter-spacing: 0.16em;
-        margin-bottom: 40px;
     }
 
     .team__title {
         font-family: var(--font-poster);
         font-size: clamp(58px, calc(17.33px + 12.71vw), 180px);
-        font-weight: 800;
-        letter-spacing: -0.02em;
-        line-height: 0.9;
     }
 
     .team__title em {
         font-weight: 600;
-    }
-
-    @media (max-width: 1024px) {
-        .team__president {
-            display: block;
-        }
-
-        .team__president-frame {
-            margin-bottom: 40px;
-        }
-
-        .team__president-text {
-            padding-top: 0;
-        }
     }
 
     @media (max-width: 768px) {

@@ -13,11 +13,15 @@ export function loadTheme(): Theme | null {
         if (theme === 'dark' || theme === 'light') return theme;
 
         localStorage.removeItem(THEME_KEY);
-
-        return null;
     } catch {
-        return null;
+        try {
+            localStorage.removeItem(THEME_KEY);
+        } catch {
+            return null;
+        }
     }
+
+    return null;
 }
 
 export function saveTheme(theme: Theme): void {
