@@ -19,11 +19,11 @@ const TESTIMONIES = [
 ---
 
 <section
-    class="section overflow-hidden relative isolate border-t border-linen"
+    class="section isolate overflow-hidden relative border-t border-linen"
     aria-label="Testimonies"
 >
     <div
-        class="testimonies__doodle absolute -z-1 max-lg:hidden"
+        class="testimonies__doodle absolute left-[max(2%,calc(50%_-_660px))] top-[38%] -z-1 w-(--doodle-width) opacity-[0.14] max-lg:hidden"
         aria-hidden="true"
     >
         <DoodleScribble />
@@ -40,23 +40,23 @@ const TESTIMONIES = [
                 <li>
                     <figure data-scroll>
                         <div
-                            class="testimonies__mark mb-6 font-display select-none"
+                            class="testimonies__mark mb-6 -indent-1.5 font-display leading-[0.45] select-none"
                             aria-hidden="true"
                         >
                             &ldquo;
                         </div>
-                        <blockquote class="testimonies__quote font-display italic text-pretty">
+                        <blockquote class="testimonies__quote font-[420] font-display italic leading-[1.5] text-lead text-pretty wrap-anywhere">
                             <span class="sr-only">&ldquo;</span>
                             {testimony.paragraphs.map(paragraph => <p class="mb-5">{paragraph}</p>)}
                             <span class="sr-only">&rdquo;</span>
                         </blockquote>
                         <div
-                            class="testimonies__mark testimonies__mark--closing mb-6 font-display text-right select-none"
+                            class="testimonies__mark -mr-1.5 mb-6 font-display leading-[0.45] text-right select-none"
                             aria-hidden="true"
                         >
                             &rdquo;
                         </div>
-                        <figcaption class="testimonies__journal eyebrow"><cite class="not-italic">{testimony.journal}</cite></figcaption>
+                        <figcaption class="eyebrow wrap-anywhere"><cite class="not-italic">{testimony.journal}</cite></figcaption>
                     </figure>
                 </li>
             ))}
@@ -67,33 +67,13 @@ const TESTIMONIES = [
 <style>
     .testimonies__doodle {
         height: clamp(120px, calc(93.33px + 8.33vw), 200px);
-        left: max(2%, calc(50% - 660px));
-        opacity: 0.14;
-        top: 38%;
-        width: clamp(180px, calc(140px + 12.5vw), 300px);
-    }
-
-    .testimonies__journal {
-        overflow-wrap: anywhere;
     }
 
     .testimonies__mark {
-        --mark-nudge: -6px;
         font-size: clamp(72px, calc(61.33px + 3.3333vw), 104px);
-        line-height: 0.45;
-        text-indent: var(--mark-nudge);
-    }
-
-    .testimonies__mark--closing {
-        margin-right: var(--mark-nudge);
-        text-indent: 0;
     }
 
     .testimonies__quote {
-        font-size: clamp(20px, calc(17.33px + 0.8333vw), 28px);
-        font-weight: 420;
-        line-height: 1.5;
         margin-bottom: clamp(24px, calc(21.33px + 0.83vw), 32px);
-        overflow-wrap: anywhere;
     }
 </style>

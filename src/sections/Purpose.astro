@@ -4,7 +4,7 @@ import DoodleUnderline from '@components/DoodleUnderline.astro';
 ---
 
 <section
-    class="section overflow-hidden relative isolate border-t border-linen"
+    class="section isolate overflow-hidden relative border-t border-linen"
     aria-label="Vision and mission"
 >
     <div
@@ -21,14 +21,14 @@ import DoodleUnderline from '@components/DoodleUnderline.astro';
             >
                 <div class="flex items-baseline gap-4 mb-8 pb-3 border-b border-charcoal">
                     <span
-                        class="purpose__index font-display text-[14px] select-none"
+                        class="font-display text-[14px] select-none"
                         aria-hidden="true"
                     >
                         01
                     </span>
                     <h2 class="purpose__label font-semibold text-[12px] tracking-[0.2em] uppercase">Vision</h2>
                 </div>
-                <p class="purpose__vision font-[430] font-display leading-[1.4] text-pretty text-umber">We envision a future where science is visually engaging, accessible, and understandable to all; where young artists have opportunities to transform scientific research into visual stories that elevate academic communication; and where writers increase health literacy. We envision a future in which <span class="inline-block relative whitespace-nowrap">human creativity<DoodleUnderline /></span> is preserved and encouraged through collaboration with artists and writers, even as AI use continues to grow.</p>
+                <p class="font-[430] font-display leading-[1.4] text-lead text-pretty text-umber">We envision a future where science is visually engaging, accessible, and understandable to all; where young artists have opportunities to transform scientific research into visual stories that elevate academic communication; and where writers increase health literacy. We envision a future in which <span class="inline-block relative whitespace-nowrap">human creativity<DoodleUnderline /></span> is preserved and encouraged through collaboration with artists and writers, even as AI use continues to grow.</p>
             </li>
             <li
                 class="col-span-5 col-start-8"
@@ -36,14 +36,14 @@ import DoodleUnderline from '@components/DoodleUnderline.astro';
             >
                 <div class="flex items-baseline gap-4 mb-8 pb-3 border-b border-charcoal">
                     <span
-                        class="purpose__index font-display text-[14px] select-none"
+                        class="font-display text-[14px] select-none"
                         aria-hidden="true"
                     >
                         02
                     </span>
                     <h2 class="purpose__label font-semibold text-[12px] tracking-[0.2em] uppercase">Mission</h2>
                 </div>
-                <p class="purpose__mission font-[430] font-display leading-[1.4] text-pretty text-umber">At a time when AI-generated images and writing are becoming increasingly common, our mission is to preserve human emotion and increase health literacy. We provide students with opportunities to create meaningful visual content while collaborating with stakeholders that share our vision. Additionally, we aim to create informational resources that present scientific information in an accessible, engaging, and understandable manner. We strive to build a community where art and science can enhance each other, and students can continue their passions in interdisciplinary fields.</p>
+                <p class="font-[430] font-display leading-[1.4] text-lead text-pretty text-umber">At a time when AI-generated images and writing are becoming increasingly common, our mission is to preserve human emotion and increase health literacy. We provide students with opportunities to create meaningful visual content while collaborating with stakeholders that share our vision. Additionally, we aim to create informational resources that present scientific information in an accessible, engaging, and understandable manner. We strive to build a community where art and science can enhance each other, and students can continue their passions in interdisciplinary fields.</p>
             </li>
         </ol>
     </div>
@@ -56,14 +56,6 @@ import DoodleUnderline from '@components/DoodleUnderline.astro';
 
     .purpose__label {
         font-family: var(--font-sans);
-    }
-
-    .purpose__mission {
-        font-size: clamp(20px, calc(17.33px + 0.8333vw), 28px);
-    }
-
-    .purpose__vision {
-        font-size: clamp(20px, calc(17.33px + 0.8333vw), 28px);
     }
 
     @media (max-width: 1024px) {

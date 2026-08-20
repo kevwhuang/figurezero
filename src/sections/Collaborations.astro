@@ -24,11 +24,11 @@ const COLLABORATIONS = [
 ---
 
 <section
-    class="section overflow-hidden relative isolate"
+    class="section isolate overflow-hidden relative"
     aria-labelledby="collaborations-title"
 >
     <div
-        class="collaborations__doodle absolute left-[max(4%,calc(50%_-_616px))] -z-1 h-4 opacity-[0.14]"
+        class="collaborations__doodle absolute left-[max(4%,calc(50%_-_616px))] -z-1 h-4 w-(--doodle-width) opacity-[0.14] max-lg:hidden"
         aria-hidden="true"
     >
         <DoodleWave />
@@ -42,18 +42,18 @@ const COLLABORATIONS = [
         </p>
         <h2
             id="collaborations-title"
-            class="collaborations__title max-w-[560px] mb-(--gap-block) font-[460] leading-[1.05] text-pretty tracking-[-0.01em]"
+            class="max-w-[560px] mb-(--gap-block) font-[460] leading-[1.05] text-heading text-pretty tracking-[-0.01em]"
             data-scroll
         >
             The journals we have <span class="inline-block relative whitespace-nowrap">worked with<DoodleWave /></span>
         </h2>
         <ul
-            class="collaborations__list [--column-gap:40px] flex flex-wrap justify-center gap-x-(--column-gap) gap-y-(--pad-block)"
+            class="flex flex-wrap justify-center gap-x-(--gap-grid) gap-y-(--pad-block)"
             data-scroll="fade"
             data-scroll-stagger="0.08"
         >
             {COLLABORATIONS.map(collaboration => (
-                <li class="collaborations__item basis-[calc((100%_-_2_*_var(--column-gap))_/_3)] grow-0 shrink-0 min-w-0">
+                <li class="basis-[calc((100%_-_2_*_var(--gap-grid))_/_3)] grow-0 shrink-0 min-w-0 max-lg:basis-[calc((100%_-_var(--gap-grid))_/_2)] max-md:basis-full">
                     <figure class="flex flex-col gap-5">
                         <div class="w-full bg-bone">
                             <Image
@@ -76,30 +76,9 @@ const COLLABORATIONS = [
 <style>
     .collaborations__doodle {
         top: clamp(330px, calc(300px + 9.375vw), 420px);
-        width: clamp(180px, calc(140px + 12.5vw), 300px);
     }
 
     .collaborations__name {
         letter-spacing: 0.16em;
-    }
-
-    .collaborations__title {
-        font-size: clamp(34px, calc(25.33px + 2.71vw), 60px);
-    }
-
-    @media (max-width: 1024px) {
-        .collaborations__doodle {
-            display: none;
-        }
-
-        .collaborations__item {
-            flex-basis: calc((100% - var(--column-gap)) / 2);
-        }
-    }
-
-    @media (max-width: 768px) {
-        .collaborations__item {
-            flex-basis: 100%;
-        }
     }
 </style>

@@ -7,16 +7,16 @@ import foundersPhoto from '@images/story.webp';
 ---
 
 <section
-    class="section overflow-hidden relative isolate border-t border-charcoal"
+    class="section isolate overflow-hidden relative border-t border-charcoal"
     aria-labelledby="story-title"
 >
     <div
-        class="story__doodle absolute right-[max(0px,calc(50%_-_664px))] -z-1 opacity-[0.14]"
+        class="story__doodle absolute right-[max(0px,calc(50%_-_664px))] -z-1 w-(--doodle-width) opacity-[0.14]"
         aria-hidden="true"
     >
         <DoodleScribble />
     </div>
-    <div class="shell story__grid grid grid-cols-12 items-center gap-7">
+    <div class="shell grid grid-cols-12 items-center gap-7 max-lg:*:last:mb-0 max-lg:*:mb-10 max-lg:block">
         <div class="col-span-6 col-start-1">
             <p
                 class="eyebrow mb-12"
@@ -26,13 +26,13 @@ import foundersPhoto from '@images/story.webp';
             </p>
             <h2
                 id="story-title"
-                class="story__title mb-(--gap-block) font-[460] leading-[1.05] tracking-[-0.01em]"
+                class="mb-(--gap-block) font-[460] leading-[1.05] text-heading tracking-[-0.01em]"
                 data-scroll="left"
             >
                 It started on a <span class="inline-block relative whitespace-nowrap">FaceTime call.<DoodleEllipse /></span>
             </h2>
             <div
-                class="story__body max-w-(--measure-prose) leading-[1.7] text-[18px] text-pretty text-umber"
+                class="story__body *:not-last:mb-5 max-w-(--measure-prose) leading-[1.7] text-[18px] text-pretty text-umber max-lg:max-w-none"
                 data-scroll="left"
             >
                 <p>The Figure Zero Project was founded by two high school friends, Leslie and Yolanda. Honestly, they didn't have a lot in common. Yolanda can be quite calm; Leslie, not so much. Despite this, they shared a similar passion for catching sunrises at Woodbine Beach, crying at the Eras Tour, hwachae, almost peeing their pants laughing at photo booths, and, most importantly, art.</p>
@@ -60,31 +60,8 @@ import foundersPhoto from '@images/story.webp';
         padding: 8px 12px 0 0;
     }
 
-    .story__body p:not(:last-child) {
-        margin-bottom: 20px;
-    }
-
     .story__doodle {
         height: clamp(110px, calc(86.67px + 7.29vw), 180px);
         top: clamp(151px, calc(587.65px - 34.1176vw), 238px);
-        width: clamp(180px, calc(140px + 12.5vw), 300px);
-    }
-
-    .story__title {
-        font-size: clamp(34px, calc(25.33px + 2.71vw), 60px);
-    }
-
-    @media (max-width: 1024px) {
-        .story__grid {
-            display: block;
-        }
-
-        .story__grid > * {
-            margin-bottom: 40px;
-        }
-
-        .story__grid > :last-child {
-            margin-bottom: 0;
-        }
     }
 </style>

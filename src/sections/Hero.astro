@@ -3,11 +3,11 @@ import DoodleEllipse from '@components/DoodleEllipse.astro';
 ---
 
 <section
-    class="hero flex flex-col overflow-hidden relative isolate py-[calc(var(--section-pad)*2)]"
+    class="flex flex-col isolate overflow-hidden relative py-[calc(var(--section-pad)*2)]"
     aria-labelledby="hero-title"
 >
     <div
-        class="hero__doodle absolute right-[max(-4%,calc(50%_-_696px))] top-[34%] -z-1"
+        class="hero__doodle absolute right-[max(-4%,calc(50%_-_696px))] top-[34%] -z-1 max-md:top-[40%]"
         aria-hidden="true"
         data-doodle
     >
@@ -30,7 +30,7 @@ import DoodleEllipse from '@components/DoodleEllipse.astro';
                 class="hero__row flex items-end"
                 aria-hidden="true"
             >
-                <em><span class="inline-block" data-letter>Z</span><span class="inline-block" data-letter>e</span><span class="inline-block" data-letter>r</span><span class="inline-block" data-letter>o</span></em>
+                <span class="font-semibold italic"><span class="inline-block" data-letter>Z</span><span class="inline-block" data-letter>e</span><span class="inline-block" data-letter>r</span><span class="inline-block" data-letter>o</span></span>
                 <span class="hero__logo flex-none aspect-square bg-current mask-center mask-contain mask-no-repeat" data-pop />
             </span>
         </h1>
@@ -58,15 +58,5 @@ import DoodleEllipse from '@components/DoodleEllipse.astro';
     .hero__title {
         font-family: var(--font-poster);
         font-size: clamp(64px, calc(10.67px + 16.6667vw), 224px);
-    }
-
-    .hero__title em {
-        font-weight: 600;
-    }
-
-    @media (max-width: 768px) {
-        .hero__doodle {
-            top: 40%;
-        }
     }
 </style>

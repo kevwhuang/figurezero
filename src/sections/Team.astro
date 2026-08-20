@@ -14,6 +14,11 @@ const GROUPS = [
     { key: 'interns', label: 'Summer interns' },
 ] as const satisfies readonly { key: GroupKey; label: string }[];
 
+const PRESIDENT_LAYOUTS = [
+    { frame: 'col-span-5 col-start-1 overflow-hidden', frameScroll: 'left', text: 'col-span-6 col-start-7', textScroll: 'right' },
+    { frame: 'col-span-5 col-start-8 overflow-hidden row-start-1', frameScroll: 'right', text: 'col-span-6 col-start-1 row-start-1', textScroll: 'left' },
+] as const;
+
 const members = (await getCollection('team')).sort((memberA, memberB) => memberA.data.name.localeCompare(memberB.data.name));
 
 const membersByGroup = Object.groupBy(members, member => member.data.group);
@@ -24,10 +29,15 @@ const memberGroups = GROUPS.map(group => ({
     label: group.label,
     members: membersByGroup[group.key] ?? [],
 }));
+
+const presidents = coPresidents.map((coPresident, index) => ({
+    data: coPresident.data,
+    ...(PRESIDENT_LAYOUTS[index] ?? PRESIDENT_LAYOUTS[0]),
+}));
 ---
 
 <section
-    class="section team overflow-hidden relative isolate"
+    class="section team isolate overflow-hidden relative"
     aria-labelledby="team-title"
 >
     <div class="shell">
@@ -40,10 +50,10 @@ const memberGroups = GROUPS.map(group => ({
             </p>
             <h1
                 id="team-title"
-                class="team__title font-[800] leading-[0.9] tracking-[-0.02em]"
+                class="team__title font-[800] leading-[0.9] text-title tracking-[-0.02em]"
                 data-rise
             >
-                Our <em>team</em>
+                Our <em class="font-semibold">team</em>
             </h1>
         </div>
         <h2
@@ -53,29 +63,29 @@ const memberGroups = GROUPS.map(group => ({
             Co-presidents
         </h2>
         <ul>
-            {coPresidents.map((coPresident, index) => (
+            {presidents.map(president => (
                 <li>
-                    <article class:list={['team__president grid grid-cols-12 items-start gap-7 mb-(--gap-block) max-lg:block', { 'team__president--flipped': index === 1 }]}>
+                    <article class="grid grid-cols-12 items-start gap-7 mb-(--gap-block) max-lg:block">
                         <div
-                            class="team__president-frame col-span-5 col-start-1 overflow-hidden max-lg:mb-10"
-                            data-scroll={index === 1 ? 'right' : 'left'}
+                            class={`group ${president.frame} max-lg:mb-10`}
+                            data-scroll={president.frameScroll}
                         >
                             <Image
-                                class="team__president-image aspect-4/5 object-cover w-full duration-(--duration-slow) ease-soft transition-[transform]"
+                                class="group-hover:scale-(--photo-zoom) aspect-square object-cover w-full duration-(--duration-slow) ease-soft transition-[scale]"
                                 alt=""
                                 sizes="(max-width: 1024px) calc(100vw - 2 * clamp(24px, 9.33px + 4.58vw, 68px)), 460px"
-                                src={resolveImage(coPresident.data.image)}
+                                src={resolveImage(president.data.image)}
                                 width={600}
                                 widths={[420, 600, 1200]}
                             />
                         </div>
                         <div
-                            class="team__president-text col-span-6 col-start-7 pt-12 max-lg:pt-0"
-                            data-scroll={index === 1 ? 'left' : 'right'}
+                            class={`${president.text} pt-12 max-lg:pt-0`}
+                            data-scroll={president.textScroll}
                         >
-                            <h3 class="team__president-name mb-4 font-[460] leading-[1.02] wrap-anywhere">{coPresident.data.name}</h3>
-                            <p class="eyebrow team__president-program mb-10 wrap-anywhere">{coPresident.data.program}</p>
-                            <p class="team__president-bio max-w-(--measure-prose) leading-[1.7] text-[18px] text-pretty wrap-anywhere text-umber">{coPresident.data.bio}</p>
+                            <h3 class="team__president-name mb-4 font-[460] leading-[1.02] wrap-anywhere">{president.data.name}</h3>
+                            <p class="eyebrow team__president-program mb-10 wrap-anywhere">{president.data.program}</p>
+                            <p class="max-w-(--measure-prose) leading-[1.7] text-[18px] text-pretty wrap-anywhere text-umber max-lg:max-w-none">{president.data.bio}</p>
                         </div>
                     </article>
                 </li>
@@ -94,16 +104,16 @@ const memberGroups = GROUPS.map(group => ({
                 {group.label}
             </h2>
             <ul
-                class="team__grid flex flex-wrap justify-center gap-x-6 gap-y-[clamp(32px,calc(24px+2.5vw),56px)]"
+                class="flex flex-wrap justify-center gap-x-(--gap-grid) gap-y-(--pad-block)"
                 data-scroll="zoom"
                 data-scroll-stagger="0.08"
             >
                 {group.members.map(member => (
-                    <li class="min-w-0">
-                        <figure class="team__member grid gap-3">
+                    <li class="basis-[calc((100%_-_2_*_var(--gap-grid))_/_3)] grow-0 shrink-0 min-w-0 max-md:basis-[calc((100%_-_var(--gap-grid))_/_2)]">
+                        <figure class="group grid gap-3">
                             <div class="overflow-hidden">
                                 <Image
-                                    class="team__member-photo aspect-4/5 object-cover w-full duration-(--duration-slow) ease-soft transition-[transform]"
+                                    class="group-hover:scale-(--photo-zoom) aspect-square object-cover w-full duration-(--duration-slow) ease-soft transition-[scale]"
                                     alt=""
                                     sizes="(max-width: 768px) 43vw, min(29vw, 368px)"
                                     src={resolveImage(member.data.image)}
@@ -112,8 +122,8 @@ const memberGroups = GROUPS.map(group => ({
                                 />
                             </div>
                             <figcaption class="grid gap-1">
-                                <p class="team__member-name font-display text-[18px] wrap-anywhere">{member.data.name}</p>
-                                {member.data.program && <p class="team__member-program leading-[1.5] text-[14px] wrap-anywhere text-taupe">{member.data.program}</p>}
+                                <p class="font-display text-[18px] wrap-anywhere">{member.data.name}</p>
+                                {member.data.program && <p class="leading-[1.5] text-[14px] wrap-anywhere text-taupe">{member.data.program}</p>}
                             </figcaption>
                         </figure>
                     </li>
@@ -128,28 +138,6 @@ const memberGroups = GROUPS.map(group => ({
         --photo-zoom: 1.04;
     }
 
-    .team__grid li {
-        flex: 0 0 calc((100% - 48px) / 3);
-    }
-
-    .team__member:hover .team__member-photo {
-        transform: scale(var(--photo-zoom));
-    }
-
-    .team__president--flipped .team__president-frame {
-        grid-column: 8 / span 5;
-        grid-row: 1;
-    }
-
-    .team__president--flipped .team__president-text {
-        grid-column: 1 / span 6;
-        grid-row: 1;
-    }
-
-    .team__president-frame:hover .team__president-image {
-        transform: scale(var(--photo-zoom));
-    }
-
     .team__president-name {
         font-size: clamp(28px, calc(21.33px + 2.0833vw), 48px);
     }
@@ -160,16 +148,5 @@ const memberGroups = GROUPS.map(group => ({
 
     .team__title {
         font-family: var(--font-poster);
-        font-size: clamp(58px, calc(17.33px + 12.71vw), 180px);
-    }
-
-    .team__title em {
-        font-weight: 600;
-    }
-
-    @media (max-width: 768px) {
-        .team__grid li {
-            flex-basis: calc((100% - 24px) / 2);
-        }
     }
 </style>

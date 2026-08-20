@@ -5,25 +5,26 @@ import { ROUTES, THEME_KEY } from '@lib/constants';
 ---
 
 <header class="navbar sticky top-0 z-50 h-(--header-height) border-b bg-cream-90 border-linen backdrop-blur-sm">
-    <div class="shell grid grid-cols-[1fr_auto_1fr] items-center h-full max-md:flex max-md:justify-between">
+    <div class="shell grid grid-cols-[1fr_auto_1fr] items-center relative h-full max-md:flex max-md:justify-between">
         <a
-            class="navbar__brand hover:text-taupe flex flex-none items-center justify-self-start relative gap-3 no-underline text-charcoal duration-(--duration-fast) ease-[ease] transition-[color]"
+            class="group after:-inset-x-2 after:-inset-y-4 after:absolute hover:text-taupe flex flex-none items-center justify-self-start relative gap-3 no-underline text-charcoal duration-(--duration-fast) ease-[ease] transition-[color]"
             aria-label="Figure Zero Project home"
             href="/"
         >
-            <span class="navbar__logo block size-8 bg-current mask-center mask-contain mask-no-repeat duration-(--duration-fast) ease-[ease] transition-[transform]" aria-hidden="true" />
-            <span class="navbar__wordmark font-display tracking-[0.02em] duration-(--duration-fast) ease-[ease] transition-[transform]">Figure Zero Project</span>
+            <span class="navbar__logo group-active:translate-y-0.5 block size-8 bg-current mask-center mask-contain mask-no-repeat duration-(--duration-fast) ease-[ease] transition-[translate]" aria-hidden="true" />
+            <span class="navbar__wordmark group-active:translate-y-0.5 font-display tracking-[0.02em] duration-(--duration-fast) ease-[ease] transition-[translate]">Figure Zero Project</span>
         </a>
-        <nav aria-label="Primary">
-            <ul
-                id="navbar-menu"
-                class="navbar__menu flex items-center gap-[clamp(16px,calc(12px+1.25vw),28px)]"
-                data-nav-menu
-            >
+        <nav
+            id="navbar-menu"
+            class="navbar__menu max-md:bg-cream max-md:border-b max-md:border-linen max-md:fixed max-md:inset-x-0 max-md:invisible max-md:opacity-0 max-md:pb-3 max-md:pt-2 max-md:top-(--header-height)"
+            aria-label="Primary"
+            data-nav-menu
+        >
+            <ul class="flex items-center gap-[clamp(16px,calc(12px+1.25vw),28px)] max-md:flex-col max-md:gap-0 max-md:items-stretch">
                 {ROUTES.map(route => (
                     <li>
                         <a
-                            class="navbar__link hover:text-taupe block relative font-sans no-underline text-[12px] tracking-[0.16em] uppercase text-charcoal"
+                            class="navbar__link active:translate-y-0.5 after:-inset-x-2 after:-inset-y-4 after:absolute aria-[current=page]:border-b aria-[current=page]:border-charcoal aria-[current=page]:hover:border-taupe aria-[current=page]:pb-0.5 hover:text-taupe block relative font-sans no-underline text-[12px] tracking-[0.16em] uppercase text-charcoal duration-(--duration-fast) ease-[ease] transition-[border-color,color,translate] max-md:after:content-none max-md:aria-[current=page]:border-b-0 max-md:aria-[current=page]:decoration-1 max-md:aria-[current=page]:pb-4 max-md:aria-[current=page]:underline max-md:aria-[current=page]:underline-offset-6 max-md:px-(--shell-pad) max-md:py-4"
                             href={route.href}
                         >
                             {route.label}
@@ -31,10 +32,8 @@ import { ROUTES, THEME_KEY } from '@lib/constants';
                     </li>
                 ))}
             </ul>
-        </nav>
-        <div class="flex items-center justify-self-end gap-4">
             <button
-                class="navbar__theme hover:text-taupe flex items-center justify-center relative size-8 text-charcoal"
+                class="navbar__theme active:translate-y-0.5 after:-inset-2 after:absolute hover:text-taupe absolute flex items-center justify-center right-(--shell-pad) top-1/2 size-8 text-charcoal -translate-y-1/2 duration-(--duration-fast) ease-[ease] transition-[color,translate] max-md:after:content-none max-md:justify-start max-md:px-(--shell-pad) max-md:py-4 max-md:size-auto max-md:static max-md:translate-y-0 max-md:w-full"
                 aria-label="Dark theme"
                 aria-pressed="false"
                 data-theme-toggle
@@ -42,102 +41,23 @@ import { ROUTES, THEME_KEY } from '@lib/constants';
             >
                 <IconTheme />
             </button>
-            <button
-                class="navbar__toggle hover:text-taupe hidden items-center justify-center relative size-8 text-charcoal"
-                aria-controls="navbar-menu"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-                data-nav-toggle
-                type="button"
-            >
-                <IconMenu />
-            </button>
-        </div>
+        </nav>
+        <button
+            class="navbar__toggle active:translate-y-0.5 after:-inset-2 after:absolute aria-expanded:[--icon-menu-open:1] hover:text-taupe hidden items-center justify-center justify-self-end relative size-8 text-charcoal duration-(--duration-fast) ease-[ease] transition-[color,translate] max-md:flex"
+            aria-controls="navbar-menu"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+            data-nav-toggle
+            type="button"
+        >
+            <IconMenu />
+        </button>
     </div>
 </header>
 
 <style>
-    .navbar {
-        --hit-inset-icon: -8px;
-        --hit-inset-link: -16px -8px;
-        --press-shift: 2px;
-    }
-
-    .navbar__brand:active .navbar__logo,
-    .navbar__brand:active .navbar__wordmark {
-        transform: translateY(var(--press-shift));
-    }
-
-    .navbar__brand::after {
-        content: '';
-        inset: var(--hit-inset-link);
-        position: absolute;
-    }
-
-    .navbar__link {
-        transition:
-            border-color var(--duration-fast) ease,
-            color var(--duration-fast) ease,
-            transform var(--duration-fast) ease;
-    }
-
-    .navbar__link:active {
-        transform: translateY(var(--press-shift));
-    }
-
-    .navbar__link::after {
-        content: '';
-        inset: var(--hit-inset-link);
-        position: absolute;
-    }
-
-    .navbar__link--active {
-        border-bottom: 1px solid var(--color-charcoal);
-        padding-bottom: 2px;
-    }
-
-    .navbar__link--active:hover {
-        border-color: var(--color-taupe);
-    }
-
     .navbar__logo {
         mask-image: url('../images/logos/figure_zero.webp');
-    }
-
-    .navbar__theme {
-        transition:
-            color var(--duration-fast) ease,
-            transform var(--duration-fast) ease;
-    }
-
-    .navbar__theme:active {
-        transform: translateY(var(--press-shift));
-    }
-
-    .navbar__theme::after {
-        content: '';
-        inset: var(--hit-inset-icon);
-        position: absolute;
-    }
-
-    .navbar__toggle {
-        transition:
-            color var(--duration-fast) ease,
-            transform var(--duration-fast) ease;
-    }
-
-    .navbar__toggle:active {
-        transform: translateY(var(--press-shift));
-    }
-
-    .navbar__toggle::after {
-        content: '';
-        inset: var(--hit-inset-icon);
-        position: absolute;
-    }
-
-    .navbar__toggle[aria-expanded='true'] {
-        --icon-menu-open: 1;
     }
 
     .navbar__wordmark {
@@ -169,36 +89,10 @@ import { ROUTES, THEME_KEY } from '@lib/constants';
             visibility: visible;
         }
 
-        .navbar__link {
-            padding: 16px var(--shell-pad);
-        }
-
-        .navbar__link::after {
-            content: none;
-        }
-
-        .navbar__link--active {
-            border-bottom: none;
-            text-decoration: underline;
-            text-decoration-thickness: 1px;
-            text-underline-offset: 6px;
-        }
-
         .navbar__menu {
-            align-items: stretch;
-            background: var(--color-cream);
-            border-bottom: 1px solid var(--color-linen);
-            flex-direction: column;
-            gap: 0;
-            inset-inline: 0;
-            opacity: 0;
-            padding-block: 8px 12px;
-            position: fixed;
-            top: var(--header-height);
             transition:
                 opacity var(--duration-fast) ease,
                 visibility 0s ease var(--duration-fast);
-            visibility: hidden;
         }
 
         .navbar__menu--instant {
@@ -209,10 +103,6 @@ import { ROUTES, THEME_KEY } from '@lib/constants';
             opacity: 1;
             transition: opacity var(--duration-fast) ease;
             visibility: visible;
-        }
-
-        .navbar__toggle {
-            display: flex;
         }
     }
 </style>
@@ -298,8 +188,7 @@ import { ROUTES, THEME_KEY } from '@lib/constants';
 
     function handleMouseDown(event: MouseEvent) {
         if (!menu?.classList.contains(MENU_OPEN_CLASS)) return;
-        if (!(event.target instanceof Element)) return;
-        if (event.clientY < menu.getBoundingClientRect().bottom && event.target.closest(NAVBAR_SELECTOR)) return;
+        if (event.clientY < menu.getBoundingClientRect().bottom) return;
 
         const shouldRestoreFocus = menu.contains(document.activeElement);
 
@@ -345,8 +234,6 @@ import { ROUTES, THEME_KEY } from '@lib/constants';
             const linkPath = normalizePath(link.pathname);
 
             const isActive = linkPath === currentPath;
-
-            link.classList.toggle('navbar__link--active', isActive);
 
             if (isActive) link.setAttribute('aria-current', 'page');
             else link.removeAttribute('aria-current');

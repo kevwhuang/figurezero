@@ -7,13 +7,9 @@ const INSTAGRAM = 'figure.zero.project';
 
 <footer class="pb-8 pt-(--pad-block) border-t border-charcoal">
     <div class="shell">
-        <div class="footer__grid grid grid-cols-12 items-start gap-7 mb-(--gap-block)">
+        <div class="grid grid-cols-12 items-start gap-7 mb-(--gap-block) max-md:*:last:mb-0 max-md:*:mb-10 max-md:block">
             <div class="col-span-3 col-start-1">
-                <span
-                    class="footer__logo block"
-                    aria-label="Figure Zero Project"
-                    role="img"
-                />
+                <span class="footer__logo block aspect-square w-(--logo-size) bg-current mask-center mask-contain mask-no-repeat translate-x-[calc(var(--logo-size)_*_-0.13)] translate-y-[calc(var(--logo-size)_*_-0.08)]" aria-label="Figure Zero Project" role="img" />
             </div>
             <div class="col-span-4 col-start-5 max-lg:col-start-4">
                 <p
@@ -27,7 +23,7 @@ const INSTAGRAM = 'figure.zero.project';
                         {ROUTES.map(route => (
                             <li>
                                 <a
-                                    class="footer__link"
+                                    class="active:translate-y-px after:-inset-y-[5px] after:absolute after:inset-x-0 hover:text-taupe inline-block relative no-underline text-[15px] wrap-anywhere text-charcoal duration-(--duration-fast) ease-[ease] transition-[color,translate]"
                                     href={route.href}
                                 >
                                     {route.label}
@@ -51,7 +47,7 @@ const INSTAGRAM = 'figure.zero.project';
                     <ul class="grid gap-2.5">
                         <li>
                             <a
-                                class="footer__link"
+                                class="active:translate-y-px after:-inset-y-[5px] after:absolute after:inset-x-0 hover:text-taupe inline-block relative no-underline text-[15px] wrap-anywhere text-charcoal duration-(--duration-fast) ease-[ease] transition-[color,translate]"
                                 href={`mailto:${EMAIL}`}
                             >
                                 {EMAIL}
@@ -59,7 +55,7 @@ const INSTAGRAM = 'figure.zero.project';
                         </li>
                         <li>
                             <a
-                                class="footer__link"
+                                class="active:translate-y-px after:-inset-y-[5px] after:absolute after:inset-x-0 hover:text-taupe inline-block relative no-underline text-[15px] wrap-anywhere text-charcoal duration-(--duration-fast) ease-[ease] transition-[color,translate]"
                                 href={`https://instagram.com/${INSTAGRAM}`}
                                 rel="noopener"
                                 target="_blank"
@@ -82,55 +78,8 @@ const INSTAGRAM = 'figure.zero.project';
         letter-spacing: 0.16em;
     }
 
-    .footer__link {
-        color: var(--color-charcoal);
-        display: inline-block;
-        font-size: 15px;
-        overflow-wrap: anywhere;
-        position: relative;
-        text-decoration: none;
-        transition:
-            color var(--duration-fast) ease,
-            transform var(--duration-fast) ease;
-    }
-
-    .footer__link:active {
-        transform: translateY(1px);
-    }
-
-    .footer__link:hover {
-        color: var(--color-taupe);
-    }
-
-    .footer__link::after {
-        content: '';
-        inset: -5px 0;
-        position: absolute;
-    }
-
     .footer__logo {
         --logo-size: clamp(128px, calc(117.33px + 3.33vw), 160px);
-        aspect-ratio: 1;
-        background-color: currentColor;
         mask-image: url('../images/logos/figure_zero.webp');
-        mask-position: center;
-        mask-repeat: no-repeat;
-        mask-size: contain;
-        translate: calc(var(--logo-size) * -0.13) calc(var(--logo-size) * -0.08);
-        width: var(--logo-size);
-    }
-
-    @media (max-width: 768px) {
-        .footer__grid {
-            display: block;
-        }
-
-        .footer__grid > * {
-            margin-bottom: 40px;
-        }
-
-        .footer__grid > :last-child {
-            margin-bottom: 0;
-        }
     }
 </style>

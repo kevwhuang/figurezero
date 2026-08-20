@@ -34,12 +34,17 @@
         0 2px 4px var(--color-charcoal-10),
         0 24px 60px var(--color-charcoal-15);
     --spacing: 4px;
+    --text-heading: clamp(34px, calc(25.33px + 2.71vw), 60px);
+    --text-lead: clamp(20px, calc(17.33px + 0.8333vw), 28px);
+    --text-title: clamp(58px, calc(17.33px + 12.71vw), 180px);
 }
 
 :root {
+    --doodle-width: clamp(180px, calc(140px + 12.5vw), 300px);
     --duration-fast: 0.15s;
     --duration-slow: 0.6s;
     --gap-block: clamp(56px, calc(45.33px + 3.33vw), 88px);
+    --gap-grid: clamp(24px, calc(18.67px + 1.67vw), 40px);
     --header-height: 64px;
     --measure-prose: 520px;
     --pad-block: clamp(48px, calc(40px + 2.5vw), 72px);
