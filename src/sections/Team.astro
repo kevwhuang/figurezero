@@ -15,8 +15,8 @@ const GROUPS = [
 ] as const satisfies readonly { key: GroupKey; label: string }[];
 
 const PRESIDENT_LAYOUTS = [
-    { frame: 'col-span-5 col-start-1 overflow-hidden', frameScroll: 'left', text: 'col-span-6 col-start-7', textScroll: 'right' },
-    { frame: 'col-span-5 col-start-8 overflow-hidden row-start-1', frameScroll: 'right', text: 'col-span-6 col-start-1 row-start-1', textScroll: 'left' },
+    { frame: 'col-span-6 col-start-1 overflow-hidden', frameScroll: 'left', text: 'col-span-5 col-start-8', textScroll: 'right' },
+    { frame: 'col-span-6 col-start-7 overflow-hidden row-start-1', frameScroll: 'right', text: 'col-span-5 col-start-1 row-start-1', textScroll: 'left' },
 ] as const;
 
 const members = (await getCollection('team')).sort((memberA, memberB) => memberA.data.name.localeCompare(memberB.data.name));
@@ -41,7 +41,7 @@ const presidents = coPresidents.map((coPresident, index) => ({
     aria-labelledby="team-title"
 >
     <div class="shell">
-        <div class="pb-(--pad-block)">
+        <div class="pb-(--space-md)">
             <p
                 class="eyebrow eyebrow--kicker"
                 data-rise
@@ -50,7 +50,7 @@ const presidents = coPresidents.map((coPresident, index) => ({
             </p>
             <h1
                 id="team-title"
-                class="team__title font-[800] leading-[0.9] text-title tracking-[-0.02em]"
+                class="team__title font-extrabold leading-[0.9] text-title tracking-[-0.02em]"
                 data-rise
             >
                 Our <em class="font-semibold">team</em>
@@ -62,30 +62,30 @@ const presidents = coPresidents.map((coPresident, index) => ({
         >
             Co-presidents
         </h2>
-        <ul>
+        <ul class="grid gap-(--space-md) mb-(--space-sm)">
             {presidents.map(president => (
                 <li>
-                    <article class="grid grid-cols-12 items-start gap-7 mb-(--gap-block) max-lg:block">
+                    <article class="grid grid-cols-12 items-center gap-6 max-lg:block">
                         <div
-                            class={`group ${president.frame} max-lg:mb-10`}
+                            class={`group ${president.frame} max-lg:mb-12`}
                             data-scroll={president.frameScroll}
                         >
                             <Image
                                 class="group-hover:scale-(--photo-zoom) aspect-square object-cover w-full duration-(--duration-slow) ease-soft transition-[scale]"
                                 alt=""
-                                sizes="(max-width: 1024px) calc(100vw - 2 * clamp(24px, 9.33px + 4.58vw, 68px)), 460px"
+                                sizes="(width < 1024px) calc(100vw - 2 * clamp(24px, 5.3333px + 5.8333vw, 80px)), 560px"
                                 src={resolveImage(president.data.image)}
                                 width={600}
                                 widths={[420, 600, 1200]}
                             />
                         </div>
                         <div
-                            class={`${president.text} pt-12 max-lg:pt-0`}
+                            class={president.text}
                             data-scroll={president.textScroll}
                         >
-                            <h3 class="team__president-name mb-4 font-[460] leading-[1.02] wrap-anywhere">{president.data.name}</h3>
-                            <p class="eyebrow team__president-program mb-10 wrap-anywhere">{president.data.program}</p>
-                            <p class="max-w-(--measure-prose) leading-[1.7] text-[18px] text-pretty wrap-anywhere text-umber max-lg:max-w-none">{president.data.bio}</p>
+                            <h3 class="team__president-name mb-4 font-medium leading-[1] wrap-anywhere">{president.data.name}</h3>
+                            <p class="eyebrow mb-12 wrap-anywhere">{president.data.program}</p>
+                            <p class="max-w-(--measure-prose) leading-[1.7] text-body text-pretty wrap-anywhere text-umber max-lg:max-w-none">{president.data.bio}</p>
                         </div>
                     </article>
                 </li>
@@ -94,7 +94,7 @@ const presidents = coPresidents.map((coPresident, index) => ({
     </div>
     {memberGroups.map((group, index) => (
         <section
-            class:list={['shell last:mb-0 relative mb-(--gap-block)', { 'pt-(--pad-block) border-t border-linen': index === 0 }]}
+            class:list={['shell last:mb-0 relative mb-(--space-sm)', { 'pt-(--space-sm) border-t border-linen': index === 0 }]}
             aria-label={group.label}
         >
             <h2
@@ -104,26 +104,26 @@ const presidents = coPresidents.map((coPresident, index) => ({
                 {group.label}
             </h2>
             <ul
-                class="flex flex-wrap justify-center gap-x-(--gap-grid) gap-y-(--pad-block)"
+                class="flex flex-wrap justify-center gap-x-(--space-xs) gap-y-(--space-sm)"
                 data-scroll="zoom"
-                data-scroll-stagger="0.08"
+                data-scroll-stagger="0.1"
             >
                 {group.members.map(member => (
-                    <li class="basis-[calc((100%_-_2_*_var(--gap-grid))_/_3)] grow-0 shrink-0 min-w-0 max-md:basis-[calc((100%_-_var(--gap-grid))_/_2)]">
+                    <li class="basis-[calc((100%_-_2_*_var(--space-xs))_/_3)] grow-0 min-w-0 shrink-0 max-md:basis-full">
                         <figure class="group grid gap-3">
                             <div class="overflow-hidden">
                                 <Image
                                     class="group-hover:scale-(--photo-zoom) aspect-square object-cover w-full duration-(--duration-slow) ease-soft transition-[scale]"
                                     alt=""
-                                    sizes="(max-width: 768px) 43vw, min(29vw, 368px)"
+                                    sizes="(width < 768px) calc(100vw - 2 * clamp(24px, 5.3333px + 5.8333vw, 80px)), min(30vw, 360px)"
                                     src={resolveImage(member.data.image)}
                                     width={400}
                                     widths={[220, 400, 440, 800]}
                                 />
                             </div>
                             <figcaption class="grid gap-1">
-                                <p class="font-display text-[18px] wrap-anywhere">{member.data.name}</p>
-                                {member.data.program && <p class="leading-[1.5] text-[14px] wrap-anywhere text-taupe">{member.data.program}</p>}
+                                <p class="font-display text-body wrap-anywhere">{member.data.name}</p>
+                                {member.data.program && <p class="leading-[1.5] text-meta wrap-anywhere text-taupe">{member.data.program}</p>}
                             </figcaption>
                         </figure>
                     </li>
@@ -135,15 +135,12 @@ const presidents = coPresidents.map((coPresident, index) => ({
 
 <style>
     .team {
-        --photo-zoom: 1.04;
+        --photo-zoom: 1.05;
     }
 
     .team__president-name {
-        font-size: clamp(28px, calc(21.33px + 2.0833vw), 48px);
-    }
-
-    .team__president-program {
-        letter-spacing: 0.16em;
+        font-size: clamp(28px, calc(21.3333px + 2.0833vw), 48px);
+        text-wrap: balance;
     }
 
     .team__title {

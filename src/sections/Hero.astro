@@ -3,11 +3,11 @@ import DoodleEllipse from '@components/DoodleEllipse.astro';
 ---
 
 <section
-    class="flex flex-col isolate overflow-hidden relative py-[calc(var(--section-pad)*2)]"
+    class="flex flex-col isolate overflow-hidden relative py-[calc(var(--space-md)*1.5)]"
     aria-labelledby="hero-title"
 >
     <div
-        class="hero__doodle absolute right-[max(-4%,calc(50%_-_696px))] top-[34%] -z-1 max-md:top-[40%]"
+        class="hero__doodle absolute right-[calc(var(--shell-margin)_-_var(--shell-pad)*0.5)] top-[34%] -z-1"
         aria-hidden="true"
         data-doodle
     >
@@ -30,7 +30,7 @@ import DoodleEllipse from '@components/DoodleEllipse.astro';
                 class="hero__row flex items-end"
                 aria-hidden="true"
             >
-                <span class="font-semibold italic"><span class="inline-block" data-letter>Z</span><span class="inline-block" data-letter>e</span><span class="inline-block" data-letter>r</span><span class="inline-block" data-letter>o</span></span>
+                <span class="font-semibold italic whitespace-nowrap"><span class="inline-block" data-letter>Z</span><span class="inline-block" data-letter>e</span><span class="inline-block" data-letter>r</span><span class="inline-block" data-letter>o</span></span>
                 <span class="hero__logo flex-none aspect-square bg-current mask-center mask-contain mask-no-repeat" data-pop />
             </span>
         </h1>
@@ -39,24 +39,24 @@ import DoodleEllipse from '@components/DoodleEllipse.astro';
 
 <style>
     .hero__doodle {
-        height: clamp(116px, calc(44px + 22.5vw), 332px);
-        opacity: 0.14;
+        aspect-ratio: 7 / 4;
+        opacity: var(--opacity-doodle);
         width: clamp(200px, calc(80px + 37.5vw), 560px);
     }
 
     .hero__logo {
-        margin-bottom: clamp(2px, calc(-2.6667px + 1.4583vw), 16px);
+        margin-bottom: clamp(4px, 1.25vw, 16px);
         mask-image: url('../images/logos/figure_zero.webp');
-        width: clamp(46px, calc(11.3333px + 10.8333vw), 150px);
+        width: clamp(48px, calc(10.6667px + 11.6667vw), 160px);
     }
 
     .hero__row {
-        gap: clamp(12px, calc(-1.33px + 4.17vw), 52px);
-        padding-left: clamp(28px, calc(-18.6667px + 14.5833vw), 168px);
+        gap: clamp(12px, 3.75vw, 48px);
+        padding-left: clamp(8px, calc(-42.6667px + 15.8333vw), 160px);
     }
 
     .hero__title {
         font-family: var(--font-poster);
-        font-size: clamp(64px, calc(10.67px + 16.6667vw), 224px);
+        font-size: clamp(64px, calc(10.6667px + 16.6667vw), 224px);
     }
 </style>

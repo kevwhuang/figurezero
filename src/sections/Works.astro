@@ -5,19 +5,15 @@ import { getCollection } from 'astro:content';
 import DoodleEllipse from '@components/DoodleEllipse.astro';
 import { resolveImage } from '@lib/utils';
 
-const COVER_WIDTHS = [558, 656, 460, 558] as const;
+const COVER_WIDTH = 560;
 
 const WORK_BODIES = [
     'col-span-5 col-start-8 relative',
-    'col-span-5 col-start-1 relative row-start-1',
-    'col-span-5 col-start-8 relative',
-    'col-span-5 col-start-1 relative row-start-1',
+    'col-span-5 col-start-1 relative row-start-1 text-right',
 ] as const;
 
 const WORK_FIGURES = [
     'col-span-6 col-start-1',
-    'col-span-7 col-start-6 row-start-1',
-    'col-span-5 col-start-2',
     'col-span-6 col-start-7 row-start-1',
 ] as const;
 
@@ -29,7 +25,7 @@ const works = (await getCollection('portfolio')).sort((workA, workB) => workA.da
     aria-labelledby="works-title"
 >
     <div class="shell">
-        <div class="pb-(--pad-block) pt-(--section-pad)">
+        <div class="py-(--space-md)">
             <p
                 class="eyebrow eyebrow--kicker"
                 data-rise
@@ -48,29 +44,29 @@ const works = (await getCollection('portfolio')).sort((workA, workB) => workA.da
         <ol class="border-t border-charcoal">
             {works.map((work, index) => (
                 <li>
-                    <article class="grid grid-cols-12 items-end gap-7 py-(--pad-block) border-b border-linen max-lg:block">
+                    <article class="grid grid-cols-12 items-end gap-6 py-(--space-md) border-b border-linen max-lg:block">
                         <figure
-                            class={`${WORK_FIGURES[index] ?? WORK_FIGURES[0]} max-lg:mb-10`}
+                            class={`${WORK_FIGURES[index % WORK_FIGURES.length]} max-lg:mb-12`}
                             data-scroll={index % 2 === 0 ? 'left' : 'right'}
                         >
                             <Image
-                                class="hover:shadow-cover-hover h-auto w-full shadow-cover duration-(--duration-slow) ease-soft transition-shadow"
+                                class="h-auto w-full"
                                 alt={`${work.data.title} cover illustration`}
                                 fetchpriority={index === 0 ? 'high' : undefined}
                                 loading={index === 0 ? 'eager' : 'lazy'}
-                                sizes={`(max-width: 1024px) calc(100vw - 2 * clamp(24px, 9.33px + 4.58vw, 68px)), ${COVER_WIDTHS[index] ?? COVER_WIDTHS[0]}px`}
+                                sizes={`(width < 1024px) calc(100vw - 2 * clamp(24px, 5.3333px + 5.8333vw, 80px)), ${COVER_WIDTH}px`}
                                 src={resolveImage(work.data.image)}
                                 width={700}
                                 widths={[420, 700, 940, 1200]}
                             />
                         </figure>
                         <div
-                            class={WORK_BODIES[index] ?? WORK_BODIES[0]}
+                            class={WORK_BODIES[index % WORK_BODIES.length]}
                             data-scroll={index % 2 === 0 ? 'right' : 'left'}
                         >
                             {index === 0 && (
                                 <div
-                                    class="works__doodle -left-7 -top-3.5 absolute -z-1 opacity-[0.14] max-md:-left-2"
+                                    class="works__doodle -left-6 -top-4 absolute -z-1 opacity-(--opacity-doodle)"
                                     aria-hidden="true"
                                 >
                                     <DoodleEllipse />
@@ -82,8 +78,8 @@ const works = (await getCollection('portfolio')).sort((workA, workB) => workA.da
                             >
                                 {String(index + 1).padStart(2, '0')}
                             </p>
-                            <h2 class="works__name mb-4 font-[450] leading-[1.08] text-pretty tracking-[-0.01em] wrap-anywhere">{work.data.title}</h2>
-                            <p class="eyebrow works__credit leading-[1.8] wrap-anywhere">{work.data.artist}<br />{work.data.school}</p>
+                            <h2 class="works__name mb-4 font-medium leading-[1.1] text-pretty tracking-[-0.01em] wrap-anywhere">{work.data.title}</h2>
+                            <p class="eyebrow leading-[1.7] wrap-anywhere">{work.data.artist}<br />{work.data.school}</p>
                         </div>
                     </article>
                 </li>
@@ -93,17 +89,13 @@ const works = (await getCollection('portfolio')).sort((workA, workB) => workA.da
 </section>
 
 <style>
-    .works__credit {
-        letter-spacing: 0.16em;
-    }
-
     .works__doodle {
-        height: clamp(64px, calc(47.33px + 5.21vw), 114px);
-        width: clamp(120px, calc(90px + 9.375vw), 210px);
+        height: clamp(64px, calc(48px + 5vw), 112px);
+        width: clamp(120px, calc(93.3333px + 8.3333vw), 200px);
     }
 
     .works__index {
-        -webkit-text-stroke: 1.2px var(--color-charcoal);
+        -webkit-text-stroke: 1.5px var(--color-charcoal);
         font-size: clamp(56px, calc(40px + 5vw), 104px);
     }
 

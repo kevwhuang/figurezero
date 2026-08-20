@@ -16,15 +16,15 @@ import { ROUTES, THEME_KEY } from '@lib/constants';
         </a>
         <nav
             id="navbar-menu"
-            class="navbar__menu max-md:bg-cream max-md:border-b max-md:border-linen max-md:fixed max-md:inset-x-0 max-md:invisible max-md:opacity-0 max-md:pb-3 max-md:pt-2 max-md:top-(--header-height)"
+            class="navbar__menu max-md:bg-cream max-md:border-b max-md:border-linen max-md:fixed max-md:inset-x-0 max-md:invisible max-md:opacity-0 max-md:py-3 max-md:top-(--header-height)"
             aria-label="Primary"
             data-nav-menu
         >
-            <ul class="flex items-center gap-[clamp(16px,calc(12px+1.25vw),28px)] max-md:flex-col max-md:gap-0 max-md:items-stretch">
+            <ul class="flex items-center gap-6 max-md:flex-col max-md:gap-0 max-md:items-stretch">
                 {ROUTES.map(route => (
                     <li>
                         <a
-                            class="navbar__link active:translate-y-0.5 after:-inset-x-2 after:-inset-y-4 after:absolute aria-[current=page]:border-b aria-[current=page]:border-charcoal aria-[current=page]:hover:border-taupe aria-[current=page]:pb-0.5 hover:text-taupe block relative font-sans no-underline text-[12px] tracking-[0.16em] uppercase text-charcoal duration-(--duration-fast) ease-[ease] transition-[border-color,color,translate] max-md:after:content-none max-md:aria-[current=page]:border-b-0 max-md:aria-[current=page]:decoration-1 max-md:aria-[current=page]:pb-4 max-md:aria-[current=page]:underline max-md:aria-[current=page]:underline-offset-6 max-md:px-(--shell-pad) max-md:py-4"
+                            class="navbar__link active:translate-y-0.5 after:-inset-x-2 after:-inset-y-4 after:absolute aria-[current=page]:border-charcoal aria-[current=page]:hover:border-taupe hover:text-taupe block relative pb-1 border-b font-sans no-underline text-label tracking-[0.16em] uppercase border-transparent text-charcoal duration-(--duration-fast) ease-[ease] transition-[border-color,color,translate] max-md:after:content-none max-md:aria-[current=page]:decoration-1 max-md:aria-[current=page]:pb-4 max-md:aria-[current=page]:underline max-md:aria-[current=page]:underline-offset-6 max-md:border-b-0 max-md:px-(--shell-pad) max-md:py-4"
                             href={route.href}
                         >
                             {route.label}
@@ -33,7 +33,7 @@ import { ROUTES, THEME_KEY } from '@lib/constants';
                 ))}
             </ul>
             <button
-                class="navbar__theme active:translate-y-0.5 after:-inset-2 after:absolute hover:text-taupe absolute flex items-center justify-center right-(--shell-pad) top-1/2 size-8 text-charcoal -translate-y-1/2 duration-(--duration-fast) ease-[ease] transition-[color,translate] max-md:after:content-none max-md:justify-start max-md:px-(--shell-pad) max-md:py-4 max-md:size-auto max-md:static max-md:translate-y-0 max-md:w-full"
+                class="navbar__theme active:translate-y-0.5 after:-inset-2 after:absolute hover:text-taupe absolute flex inset-y-0 items-center justify-center right-(--shell-pad) size-8 my-auto text-charcoal duration-(--duration-fast) ease-[ease] transition-[color,translate] max-md:after:content-none max-md:justify-start max-md:px-(--shell-pad) max-md:py-4 max-md:size-auto max-md:static max-md:w-full"
                 aria-label="Dark theme"
                 aria-pressed="false"
                 data-theme-toggle
@@ -61,7 +61,7 @@ import { ROUTES, THEME_KEY } from '@lib/constants';
     }
 
     .navbar__wordmark {
-        font-size: clamp(14px, calc(12.67px + 0.4167vw), 18px);
+        font-size: clamp(14px, calc(12.6667px + 0.4167vw), 18px);
     }
 
     @media (max-width: 768px) {
@@ -87,6 +87,11 @@ import { ROUTES, THEME_KEY } from '@lib/constants';
             opacity: 1;
             transition: opacity var(--duration-fast) ease;
             visibility: visible;
+        }
+
+        .navbar__link:focus-visible,
+        .navbar__theme:focus-visible {
+            outline-offset: -4px;
         }
 
         .navbar__menu {

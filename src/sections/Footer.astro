@@ -5,25 +5,25 @@ const EMAIL = 'figure.zero.project@gmail.com';
 const INSTAGRAM = 'figure.zero.project';
 ---
 
-<footer class="pb-8 pt-(--pad-block) border-t border-charcoal">
+<footer class="pb-8 pt-(--space-sm) border-t border-charcoal">
     <div class="shell">
-        <div class="grid grid-cols-12 items-start gap-7 mb-(--gap-block) max-md:*:last:mb-0 max-md:*:mb-10 max-md:block">
+        <div class="grid grid-cols-12 items-start gap-6 mb-(--space-sm) max-md:*:last:mb-0 max-md:*:mb-12 max-md:block">
             <div class="col-span-3 col-start-1">
-                <span class="footer__logo block aspect-square w-(--logo-size) bg-current mask-center mask-contain mask-no-repeat translate-x-[calc(var(--logo-size)_*_-0.13)] translate-y-[calc(var(--logo-size)_*_-0.08)]" aria-label="Figure Zero Project" role="img" />
+                <span class="footer__logo block aspect-square w-(--logo-size) bg-current mask-center mask-contain mask-no-repeat translate-x-[calc(var(--logo-size)_*_-0.12)] translate-y-[calc(var(--logo-size)_*_-0.08)] max-md:translate-y-0" aria-label="Figure Zero Project" role="img" />
             </div>
             <div class="col-span-4 col-start-5 max-lg:col-start-4">
                 <p
                     id="footer-navigation-title"
-                    class="eyebrow mb-5"
+                    class="eyebrow mb-6"
                 >
                     Navigation
                 </p>
                 <nav aria-labelledby="footer-navigation-title">
-                    <ul class="grid gap-2.5">
+                    <ul class="grid gap-6">
                         {ROUTES.map(route => (
                             <li>
                                 <a
-                                    class="active:translate-y-px after:-inset-y-[5px] after:absolute after:inset-x-0 hover:text-taupe inline-block relative no-underline text-[15px] wrap-anywhere text-charcoal duration-(--duration-fast) ease-[ease] transition-[color,translate]"
+                                    class="active:translate-y-0.5 after:-inset-y-3 after:absolute after:inset-x-0 hover:text-taupe inline-block relative no-underline text-ui wrap-anywhere text-charcoal duration-(--duration-fast) ease-[ease] transition-[color,translate]"
                                     href={route.href}
                                 >
                                     {route.label}
@@ -36,7 +36,7 @@ const INSTAGRAM = 'figure.zero.project';
             <div class="col-span-4 col-start-9 max-lg:col-span-5 max-lg:col-start-8">
                 <p
                     id="footer-contact-title"
-                    class="eyebrow mb-5"
+                    class="eyebrow mb-6"
                 >
                     Contact
                 </p>
@@ -44,10 +44,10 @@ const INSTAGRAM = 'figure.zero.project';
                     class="not-italic"
                     aria-labelledby="footer-contact-title"
                 >
-                    <ul class="grid gap-2.5">
+                    <ul class="grid gap-6">
                         <li>
                             <a
-                                class="active:translate-y-px after:-inset-y-[5px] after:absolute after:inset-x-0 hover:text-taupe inline-block relative no-underline text-[15px] wrap-anywhere text-charcoal duration-(--duration-fast) ease-[ease] transition-[color,translate]"
+                                class="active:translate-y-0.5 after:-inset-y-3 after:absolute after:inset-x-0 hover:text-taupe inline-block relative no-underline text-ui wrap-anywhere text-charcoal duration-(--duration-fast) ease-[ease] transition-[color,translate]"
                                 href={`mailto:${EMAIL}`}
                             >
                                 {EMAIL}
@@ -55,7 +55,7 @@ const INSTAGRAM = 'figure.zero.project';
                         </li>
                         <li>
                             <a
-                                class="active:translate-y-px after:-inset-y-[5px] after:absolute after:inset-x-0 hover:text-taupe inline-block relative no-underline text-[15px] wrap-anywhere text-charcoal duration-(--duration-fast) ease-[ease] transition-[color,translate]"
+                                class="active:translate-y-0.5 after:-inset-y-3 after:absolute after:inset-x-0 hover:text-taupe inline-block relative no-underline text-ui wrap-anywhere text-charcoal duration-(--duration-fast) ease-[ease] transition-[color,translate]"
                                 href={`https://instagram.com/${INSTAGRAM}`}
                                 rel="noopener"
                                 target="_blank"
@@ -68,18 +68,14 @@ const INSTAGRAM = 'figure.zero.project';
             </div>
         </div>
         <div class="pt-6 border-t border-linen">
-            <p class="eyebrow footer__copyright">&copy; 2026 Figure Zero Project</p>
+            <p class="eyebrow text-right">&copy; 2026 Figure Zero Project</p>
         </div>
     </div>
 </footer>
 
 <style>
-    .footer__copyright {
-        letter-spacing: 0.16em;
-    }
-
     .footer__logo {
-        --logo-size: clamp(128px, calc(117.33px + 3.33vw), 160px);
+        --logo-size: clamp(80px, calc(53.3333px + 8.3333vw), 160px);
         mask-image: url('../images/logos/figure_zero.webp');
     }
 </style>

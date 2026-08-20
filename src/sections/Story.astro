@@ -11,13 +11,13 @@ import foundersPhoto from '@images/story.webp';
     aria-labelledby="story-title"
 >
     <div
-        class="story__doodle absolute right-[max(0px,calc(50%_-_664px))] -z-1 w-(--doodle-width) opacity-[0.14]"
+        class="story__doodle absolute right-(--shell-margin) top-(--space-md) -z-1 w-(--doodle-width) opacity-(--opacity-doodle) max-lg:hidden"
         aria-hidden="true"
     >
         <DoodleScribble />
     </div>
-    <div class="shell grid grid-cols-12 items-center gap-7 max-lg:*:last:mb-0 max-lg:*:mb-10 max-lg:block">
-        <div class="col-span-6 col-start-1">
+    <div class="shell grid grid-cols-12 items-center gap-6 max-lg:*:last:mb-0 max-lg:*:mb-12 max-lg:block">
+        <div class="col-span-5 col-start-1">
             <p
                 class="eyebrow mb-12"
                 data-scroll="left"
@@ -26,13 +26,13 @@ import foundersPhoto from '@images/story.webp';
             </p>
             <h2
                 id="story-title"
-                class="mb-(--gap-block) font-[460] leading-[1.05] text-heading tracking-[-0.01em]"
+                class="mb-(--space-sm) font-medium leading-[1.1] text-heading tracking-[-0.01em]"
                 data-scroll="left"
             >
                 It started on a <span class="inline-block relative whitespace-nowrap">FaceTime call.<DoodleEllipse /></span>
             </h2>
             <div
-                class="story__body *:not-last:mb-5 max-w-(--measure-prose) leading-[1.7] text-[18px] text-pretty text-umber max-lg:max-w-none"
+                class="story__body *:not-last:mb-6 max-w-(--measure-prose) leading-[1.7] text-body text-pretty text-umber max-lg:max-w-none"
                 data-scroll="left"
             >
                 <p>The Figure Zero Project was founded by two high school friends, Leslie and Yolanda. Honestly, they didn't have a lot in common. Yolanda can be quite calm; Leslie, not so much. Despite this, they shared a similar passion for catching sunrises at Woodbine Beach, crying at the Eras Tour, hwachae, almost peeing their pants laughing at photo booths, and, most importantly, art.</p>
@@ -40,10 +40,10 @@ import foundersPhoto from '@images/story.webp';
             </div>
         </div>
         <Image
-            class="block col-span-5 col-start-8 h-auto w-full"
+            class="block col-span-6 col-start-7 h-auto w-full"
             alt="Leslie and Yolanda"
             data-scroll="right"
-            sizes="(max-width: 1024px) calc(100vw - 2 * clamp(24px, 9.33px + 4.58vw, 68px)), 460px"
+            sizes="(width < 1024px) calc(100vw - 2 * clamp(24px, 5.3333px + 5.8333vw, 80px)), 560px"
             src={foundersPhoto}
             width={600}
             widths={[420, 600, 900, 1200]}
@@ -55,13 +55,12 @@ import foundersPhoto from '@images/story.webp';
     .story__body p:first-of-type::first-letter {
         float: left;
         font-family: var(--font-display);
-        font-size: clamp(48px, calc(42.67px + 1.6667vw), 64px);
+        font-size: clamp(48px, calc(42.6667px + 1.6667vw), 64px);
         line-height: 0.8;
         padding: 8px 12px 0 0;
     }
 
     .story__doodle {
-        height: clamp(110px, calc(86.67px + 7.29vw), 180px);
-        top: clamp(151px, calc(587.65px - 34.1176vw), 238px);
+        height: clamp(110px, calc(86.6667px + 7.2917vw), 180px);
     }
 </style>

@@ -9,13 +9,13 @@ import DoodleWave from '@components/DoodleWave.astro';
     aria-label="What is the Figure Zero Project?"
 >
     <div
-        class="about__doodle-arrow absolute left-[max(4%,calc(50%_-_560px))] top-[28%] -z-1 opacity-[0.14] max-md:hidden"
+        class="about__doodle-arrow absolute left-[calc(var(--shell-margin)_+_var(--shell-pad))] top-[28%] -z-1 opacity-(--opacity-doodle) max-lg:hidden"
         aria-hidden="true"
     >
         <DoodleArrow />
     </div>
     <div class="shell">
-        <div class="grid grid-cols-12 gap-7 max-lg:block">
+        <div class="grid grid-cols-12 gap-6 max-lg:block">
             <h2
                 class="eyebrow col-span-3 col-start-1 max-lg:mb-12"
                 data-scroll
@@ -24,18 +24,18 @@ import DoodleWave from '@components/DoodleWave.astro';
             </h2>
             <div class="col-span-8 col-start-5">
                 <p
-                    class="about__statement mb-(--pad-block) font-[440] font-display leading-[1.12] text-pretty tracking-[-0.01em]"
+                    class="about__statement mb-(--space-sm) font-display font-normal leading-[1.1] text-pretty tracking-[-0.01em]"
                     data-scroll
                 >
                     We are a student-run organization committed to making science more <span class="inline-block relative whitespace-nowrap"><em>engaging</em><DoodleWave /></span> and <span class="inline-block relative whitespace-nowrap">accessible<DoodleUnderline /></span> to the public.
                 </p>
                 <div
-                    class="grid grid-cols-2 gap-7 max-lg:grid-cols-1"
+                    class="grid grid-cols-2 gap-6 max-lg:grid-cols-1"
                     data-scroll="left"
-                    data-scroll-stagger="0.16"
+                    data-scroll-stagger="0.2"
                 >
-                    <p class="leading-[1.7] text-[18px] text-pretty text-umber">Many journals do not have graphic designers for their covers and illustrations, yet visuals are what aid understanding and grab people's attention. We achieve our goal of elevating science by recruiting passionate artists and writers who value self-expression from human creativity in the rising age of AI.</p>
-                    <p class="leading-[1.7] text-[18px] text-pretty text-umber">While students benefit by building robust and meaningful portfolios, journals and researchers gain original artwork and writing that highlight their research. Together, we build a diverse community connected by scientific journals' cover page&mdash;Figure Zero.</p>
+                    <p class="leading-[1.7] text-body text-pretty text-umber">Many journals do not have graphic designers for their covers and illustrations, yet visuals are what aid understanding and grab people's attention. We achieve our goal of elevating science by recruiting passionate artists and writers who value self-expression from human creativity in the rising age of AI.</p>
+                    <p class="leading-[1.7] text-body text-pretty text-umber">While students benefit by building robust and meaningful portfolios, journals and researchers gain original artwork and writing that highlight their research. Together, we build a diverse community connected by scientific journals' cover page&mdash;Figure Zero.</p>
                 </div>
             </div>
         </div>
@@ -45,19 +45,10 @@ import DoodleWave from '@components/DoodleWave.astro';
 <style>
     .about__doodle-arrow {
         height: clamp(90px, calc(70px + 6.25vw), 150px);
-        width: clamp(200px, calc(153.33px + 14.58vw), 340px);
+        width: clamp(200px, calc(153.3333px + 14.5833vw), 340px);
     }
 
     .about__statement {
         font-size: clamp(28px, calc(20px + 2.5vw), 52px);
-    }
-
-    @media (max-width: 1024px) {
-        .about__doodle-arrow {
-            height: clamp(72px, calc(-114px + 24.22vw), 134px);
-            left: 30%;
-            top: 72px;
-            width: clamp(220px, calc(-25.99px + 32.03vw), 302px);
-        }
     }
 </style>

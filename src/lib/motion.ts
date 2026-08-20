@@ -3,18 +3,18 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 type ScrollVariant = 'fade' | 'left' | 'right' | 'up' | 'zoom';
 
-const DOODLE_OPACITY = 0.14;
+const DOODLE_OPACITY = 0.15;
 const ENTRANCE_EASE = 'power3.out';
 const LETTER_DURATION = 0.8;
 const LETTER_OFFSET_PERCENT = 60;
-const LETTER_STAGGER = 0.045;
+const LETTER_STAGGER = 0.05;
 const POP_DELAY = 0.1;
 const POP_DURATION = 0.7;
 const POP_EASE = 'back.out(1.7)';
 const POP_SCALE = 0.6;
 const RISE_DURATION = 0.8;
 const RISE_OFFSET = 40;
-const RISE_STAGGER = 0.12;
+const RISE_STAGGER = 0.1;
 const SCROLL_DURATION = 0.9;
 const SCROLL_EASE = 'power2.out';
 
@@ -26,9 +26,9 @@ const SCROLL_EASES = {
     zoom: 'back.out(1.4)',
 } as const satisfies Record<ScrollVariant, string>;
 
-const SCROLL_OFFSET = 26;
+const SCROLL_OFFSET = 24;
 const SCROLL_START = 'top 85%';
-const ZOOM_SCALE = 0.92;
+const ZOOM_SCALE = 0.9;
 
 const SCROLL_VARIANTS = {
     fade: {},

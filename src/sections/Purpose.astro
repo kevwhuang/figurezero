@@ -8,27 +8,27 @@ import DoodleUnderline from '@components/DoodleUnderline.astro';
     aria-label="Vision and mission"
 >
     <div
-        class="purpose__doodle-star absolute left-[49%] top-[42%] -z-1 h-(--star-size) w-(--star-size) -translate-y-[37.5%] opacity-[0.14] translate-x-[25%] max-md:hidden"
+        class="purpose__doodle-star absolute left-1/2 top-1/2 -z-1 h-(--star-size) w-(--star-size) -translate-x-1/2 -translate-y-1/2 opacity-(--opacity-doodle) max-lg:hidden"
         aria-hidden="true"
     >
         <DoodleStar />
     </div>
     <div class="shell">
-        <ol class="grid grid-cols-12 items-center gap-7 max-lg:block">
+        <ol class="grid grid-cols-12 items-start gap-6 max-lg:block">
             <li
-                class="col-span-5 col-start-2 max-lg:mb-10"
+                class="col-span-5 col-start-1 max-lg:mb-12"
                 data-scroll="left"
             >
                 <div class="flex items-baseline gap-4 mb-8 pb-3 border-b border-charcoal">
                     <span
-                        class="font-display text-[14px] select-none"
+                        class="font-display text-meta select-none"
                         aria-hidden="true"
                     >
                         01
                     </span>
-                    <h2 class="purpose__label font-semibold text-[12px] tracking-[0.2em] uppercase">Vision</h2>
+                    <h2 class="purpose__label font-semibold text-label tracking-[0.2em] uppercase">Vision</h2>
                 </div>
-                <p class="font-[430] font-display leading-[1.4] text-lead text-pretty text-umber">We envision a future where science is visually engaging, accessible, and understandable to all; where young artists have opportunities to transform scientific research into visual stories that elevate academic communication; and where writers increase health literacy. We envision a future in which <span class="inline-block relative whitespace-nowrap">human creativity<DoodleUnderline /></span> is preserved and encouraged through collaboration with artists and writers, even as AI use continues to grow.</p>
+                <p class="font-display font-normal leading-[1.5] text-lead text-pretty text-umber">We envision a future where science is visually engaging, accessible, and understandable to all; where young artists have opportunities to transform scientific research into visual stories that elevate academic communication; and where writers increase health literacy. We envision a future in which <span class="inline-block relative whitespace-nowrap">human creativity<DoodleUnderline /></span> is preserved and encouraged through collaboration with artists and writers, even as AI use continues to grow.</p>
             </li>
             <li
                 class="col-span-5 col-start-8"
@@ -36,14 +36,14 @@ import DoodleUnderline from '@components/DoodleUnderline.astro';
             >
                 <div class="flex items-baseline gap-4 mb-8 pb-3 border-b border-charcoal">
                     <span
-                        class="font-display text-[14px] select-none"
+                        class="font-display text-meta select-none"
                         aria-hidden="true"
                     >
                         02
                     </span>
-                    <h2 class="purpose__label font-semibold text-[12px] tracking-[0.2em] uppercase">Mission</h2>
+                    <h2 class="purpose__label font-semibold text-label tracking-[0.2em] uppercase">Mission</h2>
                 </div>
-                <p class="font-[430] font-display leading-[1.4] text-lead text-pretty text-umber">At a time when AI-generated images and writing are becoming increasingly common, our mission is to preserve human emotion and increase health literacy. We provide students with opportunities to create meaningful visual content while collaborating with stakeholders that share our vision. Additionally, we aim to create informational resources that present scientific information in an accessible, engaging, and understandable manner. We strive to build a community where art and science can enhance each other, and students can continue their passions in interdisciplinary fields.</p>
+                <p class="font-display font-normal leading-[1.5] text-lead text-pretty text-umber">At a time when AI-generated images and writing are becoming increasingly common, our mission is to preserve human emotion and increase health literacy. We provide students with opportunities to create meaningful visual content while collaborating with stakeholders that share our vision. Additionally, we aim to create informational resources that present scientific information in an accessible, engaging, and understandable manner. We strive to build a community where art and science can enhance each other, and students can continue their passions in interdisciplinary fields.</p>
             </li>
         </ol>
     </div>
@@ -51,18 +51,10 @@ import DoodleUnderline from '@components/DoodleUnderline.astro';
 
 <style>
     .purpose__doodle-star {
-        --star-size: clamp(40px, calc(26.67px + 4.17vw), 80px);
+        --star-size: clamp(40px, calc(26.6667px + 4.1667vw), 80px);
     }
 
     .purpose__label {
         font-family: var(--font-sans);
-    }
-
-    @media (max-width: 1024px) {
-        .purpose__doodle-star {
-            --star-size: clamp(40px, calc(-50.01px + 11.72vw), 70px);
-            left: 72%;
-            top: 49%;
-        }
     }
 </style>

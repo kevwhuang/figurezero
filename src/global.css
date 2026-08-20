@@ -3,8 +3,6 @@
 @theme {
     --color-bone: light-dark(#faf8f3, #f4f0e5);
     --color-charcoal: light-dark(#1a1713, #f1ece1);
-    --color-charcoal-10: light-dark(#1a17131a, #0000001a);
-    --color-charcoal-15: light-dark(#1a171326, #00000026);
     --color-charcoal-35: light-dark(#1a171359, #00000059);
     --color-cream: light-dark(#faf8f3, #191510);
     --color-cream-90: light-dark(#faf8f3e6, #191510e6);
@@ -27,29 +25,28 @@
         'Source Serif 4 Variable',
         Georgia,
         serif;
-    --shadow-cover:
-        0 2px 2px var(--color-charcoal-10),
-        0 12px 40px var(--color-charcoal-10);
-    --shadow-cover-hover:
-        0 2px 4px var(--color-charcoal-10),
-        0 24px 60px var(--color-charcoal-15);
     --spacing: 4px;
-    --text-heading: clamp(34px, calc(25.33px + 2.71vw), 60px);
-    --text-lead: clamp(20px, calc(17.33px + 0.8333vw), 28px);
-    --text-title: clamp(58px, calc(17.33px + 12.71vw), 180px);
+    --text-body: 18px;
+    --text-heading: clamp(32px, calc(22.6667px + 2.9167vw), 60px);
+    --text-label: 12px;
+    --text-lead: clamp(20px, calc(17.3333px + 0.8333vw), 28px);
+    --text-meta: 14px;
+    --text-title: clamp(56px, calc(14.6667px + 12.9167vw), 180px);
+    --text-ui: 16px;
 }
 
 :root {
     --doodle-width: clamp(180px, calc(140px + 12.5vw), 300px);
     --duration-fast: 0.15s;
     --duration-slow: 0.6s;
-    --gap-block: clamp(56px, calc(45.33px + 3.33vw), 88px);
-    --gap-grid: clamp(24px, calc(18.67px + 1.67vw), 40px);
     --header-height: 64px;
     --measure-prose: 520px;
-    --pad-block: clamp(48px, calc(40px + 2.5vw), 72px);
-    --section-pad: clamp(72px, calc(45.33px + 8.33vw), 152px);
-    --shell-pad: clamp(24px, calc(9.33px + 4.58vw), 68px);
+    --opacity-doodle: 0.15;
+    --shell-margin: max(0px, (100vw - 1280px) / 2);
+    --shell-pad: clamp(24px, calc(5.3333px + 5.8333vw), 80px);
+    --space-md: clamp(80px, calc(53.3333px + 8.3333vw), 160px);
+    --space-sm: clamp(40px, calc(26.6667px + 4.1667vw), 80px);
+    --space-xs: clamp(20px, calc(13.3333px + 2.0833vw), 40px);
 }
 
 a,
@@ -99,7 +96,7 @@ main {
 }
 
 :focus-visible:not(input, select, textarea) {
-    border-radius: 2px;
+    border-radius: 4px;
     outline: 2px solid var(--color-charcoal);
     outline-offset: 4px;
 }

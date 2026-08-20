@@ -2,9 +2,9 @@
     border-bottom: 1px solid var(--color-charcoal);
     display: inline-block;
     font-family: var(--font-sans);
-    font-size: 12px;
+    font-size: var(--text-label);
     letter-spacing: 0.16em;
-    padding-bottom: 2px;
+    padding-bottom: 4px;
     position: relative;
     text-transform: uppercase;
     transition:
@@ -24,19 +24,20 @@
 
 .error__link::after {
     content: '';
-    inset: -14px;
+    inset: -16px;
     position: absolute;
 }
 
 .error__text {
     color: var(--color-umber);
-    font-size: 18px;
-    margin-bottom: 40px;
+    font-size: var(--text-body);
+    margin-bottom: 48px;
 }
 
 .error__title {
-    font-size: clamp(96px, calc(53.33px + 13.33vw), 224px);
-    font-weight: 480;
+    font-family: var(--font-poster);
+    font-size: clamp(96px, calc(53.3333px + 13.3333vw), 224px);
+    font-weight: 500;
     line-height: 0.9;
     margin-bottom: 24px;
 }
@@ -44,20 +45,20 @@
 .eyebrow {
     color: var(--color-taupe);
     font-family: var(--font-sans);
-    font-size: 12px;
-    letter-spacing: 0.18em;
+    font-size: var(--text-label);
+    letter-spacing: 0.16em;
     text-transform: uppercase;
 }
 
 .eyebrow--kicker {
     border-top: 1px solid var(--color-charcoal);
     letter-spacing: 0.2em;
-    margin-bottom: var(--pad-block);
+    margin-bottom: var(--space-sm);
     padding-top: 12px;
 }
 
 .section {
-    padding-block: var(--section-pad);
+    padding-block: var(--space-md);
 }
 
 .shell {

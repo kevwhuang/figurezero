@@ -1,6 +1,6 @@
 {
     "name": "figurezero",
-    "version": "26.8.19",
+    "version": "26.8.20",
     "type": "module",
     "author": "Kevin Huang",
     "scripts": {
@@ -42,5 +42,8 @@
         "typescript": "^6.0.3",
         "typescript-eslint": "^8.67.0",
         "vitest": "^4.1.11"
+    },
+    "overrides": {
+        "vite": "8.2.1"
     }
 }

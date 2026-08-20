@@ -19,39 +19,39 @@ const TESTIMONIES = [
 ---
 
 <section
-    class="section isolate overflow-hidden relative border-t border-linen"
+    class="section testimonies isolate overflow-hidden relative border-t border-linen"
     aria-label="Testimonies"
 >
     <div
-        class="testimonies__doodle absolute left-[max(2%,calc(50%_-_660px))] top-[38%] -z-1 w-(--doodle-width) opacity-[0.14] max-lg:hidden"
+        class="testimonies__doodle absolute left-(--shell-margin) top-[38%] -z-1 w-(--doodle-width) opacity-(--opacity-doodle) max-lg:hidden"
         aria-hidden="true"
     >
         <DoodleScribble />
     </div>
-    <div class="shell grid grid-cols-12 gap-7 max-lg:block">
+    <div class="shell grid grid-cols-12 gap-6 max-lg:block">
         <h2
-            class="eyebrow col-span-3 col-start-1 max-lg:mb-12"
+            class="eyebrow testimonies__label col-span-3 col-start-1 max-lg:mb-12"
             data-scroll
         >
             Testimonies
         </h2>
-        <ul class="col-span-8 col-start-5 grid gap-(--gap-block)">
+        <ul class="col-span-8 col-start-5 grid gap-(--space-sm)">
             {TESTIMONIES.map(testimony => (
                 <li>
                     <figure data-scroll>
                         <div
-                            class="testimonies__mark mb-6 -indent-1.5 font-display leading-[0.45] select-none"
+                            class="testimonies__mark mb-6 -indent-2 font-display leading-[0.5] select-none"
                             aria-hidden="true"
                         >
                             &ldquo;
                         </div>
-                        <blockquote class="testimonies__quote font-[420] font-display italic leading-[1.5] text-lead text-pretty wrap-anywhere">
+                        <blockquote class="mb-8 font-display font-normal italic leading-[1.5] text-lead text-pretty wrap-anywhere">
                             <span class="sr-only">&ldquo;</span>
-                            {testimony.paragraphs.map(paragraph => <p class="mb-5">{paragraph}</p>)}
+                            {testimony.paragraphs.map(paragraph => <p class="mb-6">{paragraph}</p>)}
                             <span class="sr-only">&rdquo;</span>
                         </blockquote>
                         <div
-                            class="testimonies__mark -mr-1.5 mb-6 font-display leading-[0.45] text-right select-none"
+                            class="testimonies__mark -mr-2 mb-6 font-display leading-[0.5] text-right select-none"
                             aria-hidden="true"
                         >
                             &rdquo;
@@ -65,15 +65,25 @@ const TESTIMONIES = [
 </section>
 
 <style>
+    .testimonies {
+        --mark-size: clamp(56px, calc(40px + 5vw), 104px);
+    }
+
     .testimonies__doodle {
-        height: clamp(120px, calc(93.33px + 8.33vw), 200px);
+        height: clamp(120px, calc(93.3333px + 8.3333vw), 200px);
+    }
+
+    .testimonies__label {
+        padding-top: calc(var(--mark-size) * 0.5 + 24px);
     }
 
     .testimonies__mark {
-        font-size: clamp(72px, calc(61.33px + 3.3333vw), 104px);
+        font-size: var(--mark-size);
     }
 
-    .testimonies__quote {
-        margin-bottom: clamp(24px, calc(21.33px + 0.83vw), 32px);
+    @media (width < 1024px) {
+        .testimonies__label {
+            padding-top: 0;
+        }
     }
 </style>

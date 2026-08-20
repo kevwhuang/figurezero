@@ -24,15 +24,9 @@ const COLLABORATIONS = [
 ---
 
 <section
-    class="section isolate overflow-hidden relative"
+    class="section"
     aria-labelledby="collaborations-title"
 >
-    <div
-        class="collaborations__doodle absolute left-[max(4%,calc(50%_-_616px))] -z-1 h-4 w-(--doodle-width) opacity-[0.14] max-lg:hidden"
-        aria-hidden="true"
-    >
-        <DoodleWave />
-    </div>
     <div class="shell">
         <p
             class="eyebrow mb-12"
@@ -42,43 +36,33 @@ const COLLABORATIONS = [
         </p>
         <h2
             id="collaborations-title"
-            class="max-w-[560px] mb-(--gap-block) font-[460] leading-[1.05] text-heading text-pretty tracking-[-0.01em]"
+            class="max-w-(--measure-prose) mb-(--space-sm) font-medium leading-[1.1] text-heading text-pretty tracking-[-0.01em]"
             data-scroll
         >
             The journals we have <span class="inline-block relative whitespace-nowrap">worked with<DoodleWave /></span>
         </h2>
         <ul
-            class="flex flex-wrap justify-center gap-x-(--gap-grid) gap-y-(--pad-block)"
+            class="flex flex-wrap justify-center gap-x-(--space-xs) gap-y-(--space-sm)"
             data-scroll="fade"
-            data-scroll-stagger="0.08"
+            data-scroll-stagger="0.1"
         >
             {COLLABORATIONS.map(collaboration => (
-                <li class="basis-[calc((100%_-_2_*_var(--gap-grid))_/_3)] grow-0 shrink-0 min-w-0 max-lg:basis-[calc((100%_-_var(--gap-grid))_/_2)] max-md:basis-full">
-                    <figure class="flex flex-col gap-5">
+                <li class="basis-[calc((100%_-_2_*_var(--space-xs))_/_3)] grow-0 min-w-0 shrink-0 max-lg:basis-[calc((100%_-_var(--space-xs))_/_2)] max-md:basis-full">
+                    <figure class="flex flex-col gap-6">
                         <div class="w-full bg-bone">
                             <Image
                                 class="block h-auto w-full mix-blend-multiply"
                                 alt=""
-                                sizes="(max-width: 768px) calc(100vw - 2 * clamp(24px, 9.33px + 4.58vw, 68px)), (max-width: 1024px) calc((100vw - 2 * clamp(24px, 9.33px + 4.58vw, 68px) - 40px) / 2), 400px"
+                                sizes="(width < 768px) calc(100vw - 2 * clamp(24px, 5.3333px + 5.8333vw, 80px)), (width < 1024px) calc((100vw - 2 * clamp(24px, 5.3333px + 5.8333vw, 80px) - clamp(20px, 13.3333px + 2.0833vw, 40px)) / 2), 360px"
                                 src={collaboration.image}
                                 width={400}
                                 widths={[400, 640, 800, 1000, 1280]}
                             />
                         </div>
-                        <figcaption class="collaborations__name eyebrow leading-[1.6] text-balance text-center wrap-anywhere">{collaboration.name}</figcaption>
+                        <figcaption class="eyebrow leading-[1.5] text-balance text-center wrap-anywhere">{collaboration.name}</figcaption>
                     </figure>
                 </li>
             ))}
         </ul>
     </div>
 </section>
-
-<style>
-    .collaborations__doodle {
-        top: clamp(330px, calc(300px + 9.375vw), 420px);
-    }
-
-    .collaborations__name {
-        letter-spacing: 0.16em;
-    }
-</style>
