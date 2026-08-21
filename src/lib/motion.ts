@@ -94,19 +94,27 @@ function initScrollAnimations() {
             ease: ENTRANCE_EASE,
             opacity: 1,
             scale: 1,
-            scrollTrigger: {
-                start: SCROLL_START,
-                trigger: element,
-            },
             x: 0,
             y: 0,
         };
 
         if (stagger > 0) {
             gsap.set(element, { opacity: 1 });
-            gsap.fromTo(element.children, fromVariables, { ...toVariables, stagger });
+            gsap.set(element.children, fromVariables);
+
+            ScrollTrigger.batch(element.children, {
+                onEnter: batch => gsap.to(batch, { ...toVariables, stagger }),
+                once: true,
+                start: SCROLL_START,
+            });
         } else {
-            gsap.fromTo(element, fromVariables, toVariables);
+            gsap.fromTo(element, fromVariables, {
+                ...toVariables,
+                scrollTrigger: {
+                    start: SCROLL_START,
+                    trigger: element,
+                },
+            });
         }
     });
 }
