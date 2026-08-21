@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 
+import { SHELL_PAD } from '@lib/constants';
 import { resolveImage } from '@lib/utils';
 
 import type { CollectionEntry } from 'astro:content';
@@ -15,8 +16,18 @@ const GROUPS = [
 ] as const satisfies readonly { key: GroupKey; label: string }[];
 
 const PRESIDENT_LAYOUTS = [
-    { frame: 'col-span-6 col-start-1 overflow-hidden', frameScroll: 'left', text: 'col-span-5 col-start-8', textScroll: 'right' },
-    { frame: 'col-span-6 col-start-7 overflow-hidden row-start-1', frameScroll: 'right', text: 'col-span-5 col-start-1 row-start-1', textScroll: 'left' },
+    {
+        frame: 'col-span-6 col-start-1 overflow-hidden',
+        frameScroll: 'left',
+        text: 'col-span-5 col-start-8',
+        textScroll: 'right',
+    },
+    {
+        frame: 'col-span-6 col-start-7 overflow-hidden row-start-1',
+        frameScroll: 'right',
+        text: 'col-span-5 col-start-1 row-start-1',
+        textScroll: 'left',
+    },
 ] as const;
 
 const members = (await getCollection('team')).sort((memberA, memberB) => memberA.data.name.localeCompare(memberB.data.name));
@@ -37,20 +48,20 @@ const presidents = coPresidents.map((coPresident, index) => ({
 ---
 
 <section
-    class="section team isolate overflow-hidden relative"
+    class="section overflow-hidden relative"
     aria-labelledby="team-title"
 >
     <div class="shell">
         <div class="pb-(--space-md)">
             <p
-                class="eyebrow eyebrow--kicker"
+                class="eyebrow eyebrow--kicker mb-(--space-sm) pt-3 border-t border-charcoal"
                 data-rise
             >
                 The people behind the project
             </p>
             <h1
                 id="team-title"
-                class="team__title font-extrabold leading-[0.9] text-title tracking-[-0.02em]"
+                class="font-extrabold leading-[0.9] text-title tracking-[-0.02em]"
                 data-rise
             >
                 Our <em class="font-semibold">team</em>
@@ -71,21 +82,21 @@ const presidents = coPresidents.map((coPresident, index) => ({
                             data-scroll={president.frameScroll}
                         >
                             <Image
-                                class="group-hover:scale-(--photo-zoom) aspect-square object-cover w-full duration-(--duration-slow) ease-soft transition-[scale]"
+                                class="group-hover:scale-105 aspect-square object-cover w-full duration-(--duration-slow) ease-[ease] transition-[scale]"
                                 alt=""
-                                sizes="(width < 1024px) calc(100vw - 2 * clamp(24px, 5.3333px + 5.8333vw, 80px)), 560px"
+                                sizes={`(width < 1024px) calc(100vw - 2 * ${SHELL_PAD}), 560px`}
                                 src={resolveImage(president.data.image)}
                                 width={600}
-                                widths={[420, 600, 1200]}
+                                widths={[420, 600, 1_200]}
                             />
                         </div>
                         <div
                             class={president.text}
                             data-scroll={president.textScroll}
                         >
-                            <h3 class="team__president-name mb-4 font-medium leading-[1] wrap-anywhere">{president.data.name}</h3>
-                            <p class="eyebrow mb-12 wrap-anywhere">{president.data.program}</p>
-                            <p class="max-w-(--measure-prose) leading-[1.7] text-body text-pretty wrap-anywhere text-umber max-lg:max-w-none">{president.data.bio}</p>
+                            <h3 class="team__president-name mb-4 font-medium leading-[1] text-balance wrap-anywhere">{president.data.name}</h3>
+                            <p class="eyebrow mb-12 text-balance wrap-anywhere">{president.data.program}</p>
+                            <p class="leading-[1.7] text-body text-pretty wrap-anywhere text-umber">{president.data.bio}</p>
                         </div>
                     </article>
                 </li>
@@ -113,9 +124,9 @@ const presidents = coPresidents.map((coPresident, index) => ({
                         <figure class="group grid gap-3">
                             <div class="overflow-hidden">
                                 <Image
-                                    class="group-hover:scale-(--photo-zoom) aspect-square object-cover w-full duration-(--duration-slow) ease-soft transition-[scale]"
+                                    class="group-hover:scale-105 aspect-square object-cover w-full duration-(--duration-slow) ease-[ease] transition-[scale]"
                                     alt=""
-                                    sizes="(width < 768px) calc(100vw - 2 * clamp(24px, 5.3333px + 5.8333vw, 80px)), min(30vw, 360px)"
+                                    sizes={`(width < 768px) calc(100vw - 2 * ${SHELL_PAD}), min(30vw, 360px)`}
                                     src={resolveImage(member.data.image)}
                                     width={400}
                                     widths={[220, 400, 440, 800]}
@@ -123,7 +134,7 @@ const presidents = coPresidents.map((coPresident, index) => ({
                             </div>
                             <figcaption class="grid gap-1">
                                 <p class="font-display text-body wrap-anywhere">{member.data.name}</p>
-                                {member.data.program && <p class="leading-[1.5] text-meta wrap-anywhere text-taupe">{member.data.program}</p>}
+                                {member.data.program && <p class="leading-[1.5] text-balance text-meta wrap-anywhere text-taupe">{member.data.program}</p>}
                             </figcaption>
                         </figure>
                     </li>
@@ -134,16 +145,7 @@ const presidents = coPresidents.map((coPresident, index) => ({
 </section>
 
 <style>
-    .team {
-        --photo-zoom: 1.05;
-    }
-
     .team__president-name {
         font-size: clamp(28px, calc(21.3333px + 2.0833vw), 48px);
-        text-wrap: balance;
-    }
-
-    .team__title {
-        font-family: var(--font-poster);
     }
 </style>

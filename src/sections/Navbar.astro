@@ -1,13 +1,18 @@
 ---
 import IconMenu from '@components/IconMenu.astro';
 import IconTheme from '@components/IconTheme.astro';
-import { ROUTES, THEME_KEY } from '@lib/constants';
+import { ROUTES, THEME_COLORS, THEME_KEY } from '@lib/constants';
+
+const CLASS_BRAND = 'group after:-inset-x-2 after:-inset-y-4 after:absolute hover:text-taupe flex flex-none items-center justify-self-start relative gap-3 no-underline text-charcoal duration-(--duration-fast) ease-[ease] transition-[color]';
+const CLASS_LINK = 'navbar__link active:translate-y-0.5 after:-inset-x-2 after:-inset-y-4 after:absolute aria-[current=page]:border-charcoal aria-[current=page]:hover:border-taupe hover:text-taupe block relative pb-1 border-b font-sans no-underline text-label tracking-[0.16em] uppercase border-transparent text-charcoal duration-(--duration-fast) ease-[ease] transition-[border-color,color,translate] max-md:after:content-none max-md:aria-[current=page]:decoration-1 max-md:aria-[current=page]:pb-4 max-md:aria-[current=page]:underline max-md:aria-[current=page]:underline-offset-6 max-md:border-b-0 max-md:leading-6 max-md:px-(--shell-pad) max-md:py-4';
+const CLASS_THEME = 'navbar__theme active:translate-y-0.5 after:-inset-2 after:absolute hover:text-taupe absolute flex inset-y-0 items-center justify-center right-(--shell-pad) size-8 my-auto text-charcoal duration-(--duration-fast) ease-[ease] transition-[color,translate] max-md:after:content-none max-md:justify-start max-md:px-(--shell-pad) max-md:py-4 max-md:size-auto max-md:static max-md:w-full';
+const CLASS_TOGGLE = 'active:translate-y-0.5 after:-inset-2 after:absolute aria-expanded:[--icon-menu-open:1] hover:text-taupe hidden items-center justify-center justify-self-end relative size-8 text-charcoal duration-(--duration-fast) ease-[ease] transition-[color,translate] max-md:flex';
 ---
 
 <header class="navbar sticky top-0 z-50 h-(--header-height) border-b bg-cream-90 border-linen backdrop-blur-sm">
     <div class="shell grid grid-cols-[1fr_auto_1fr] items-center relative h-full max-md:flex max-md:justify-between">
         <a
-            class="group after:-inset-x-2 after:-inset-y-4 after:absolute hover:text-taupe flex flex-none items-center justify-self-start relative gap-3 no-underline text-charcoal duration-(--duration-fast) ease-[ease] transition-[color]"
+            class={CLASS_BRAND}
             aria-label="Figure Zero Project home"
             href="/"
         >
@@ -24,7 +29,7 @@ import { ROUTES, THEME_KEY } from '@lib/constants';
                 {ROUTES.map(route => (
                     <li>
                         <a
-                            class="navbar__link active:translate-y-0.5 after:-inset-x-2 after:-inset-y-4 after:absolute aria-[current=page]:border-charcoal aria-[current=page]:hover:border-taupe hover:text-taupe block relative pb-1 border-b font-sans no-underline text-label tracking-[0.16em] uppercase border-transparent text-charcoal duration-(--duration-fast) ease-[ease] transition-[border-color,color,translate] max-md:after:content-none max-md:aria-[current=page]:decoration-1 max-md:aria-[current=page]:pb-4 max-md:aria-[current=page]:underline max-md:aria-[current=page]:underline-offset-6 max-md:border-b-0 max-md:px-(--shell-pad) max-md:py-4"
+                            class={CLASS_LINK}
                             href={route.href}
                         >
                             {route.label}
@@ -33,7 +38,7 @@ import { ROUTES, THEME_KEY } from '@lib/constants';
                 ))}
             </ul>
             <button
-                class="navbar__theme active:translate-y-0.5 after:-inset-2 after:absolute hover:text-taupe absolute flex inset-y-0 items-center justify-center right-(--shell-pad) size-8 my-auto text-charcoal duration-(--duration-fast) ease-[ease] transition-[color,translate] max-md:after:content-none max-md:justify-start max-md:px-(--shell-pad) max-md:py-4 max-md:size-auto max-md:static max-md:w-full"
+                class={CLASS_THEME}
                 aria-label="Dark theme"
                 aria-pressed="false"
                 data-theme-toggle
@@ -43,7 +48,7 @@ import { ROUTES, THEME_KEY } from '@lib/constants';
             </button>
         </nav>
         <button
-            class="navbar__toggle active:translate-y-0.5 after:-inset-2 after:absolute aria-expanded:[--icon-menu-open:1] hover:text-taupe hidden items-center justify-center justify-self-end relative size-8 text-charcoal duration-(--duration-fast) ease-[ease] transition-[color,translate] max-md:flex"
+            class={CLASS_TOGGLE}
             aria-controls="navbar-menu"
             aria-expanded="false"
             aria-label="Toggle navigation"
@@ -64,18 +69,19 @@ import { ROUTES, THEME_KEY } from '@lib/constants';
         font-size: clamp(14px, calc(12.6667px + 0.4167vw), 18px);
     }
 
-    @media (max-width: 768px) {
+    @media (width < 768px) {
         .navbar:has(.navbar__menu--open) {
             backdrop-filter: none;
             background: var(--color-cream);
         }
 
         .navbar::after {
-            background: var(--color-charcoal-35);
+            background: var(--color-black-35);
             content: '';
-            inset: var(--header-height) 0 0;
+            height: calc(100dvh - var(--header-height));
+            inset: var(--header-height) 0 auto;
             opacity: 0;
-            position: fixed;
+            position: absolute;
             transition:
                 opacity var(--duration-fast) ease,
                 visibility 0s ease var(--duration-fast);
@@ -113,7 +119,7 @@ import { ROUTES, THEME_KEY } from '@lib/constants';
 </style>
 
 <script
-    define:vars={{ themeKey: THEME_KEY }}
+    define:vars={{ themeColors: THEME_COLORS, themeKey: THEME_KEY }}
     is:inline
 >
     let storedTheme;
@@ -126,27 +132,31 @@ import { ROUTES, THEME_KEY } from '@lib/constants';
         storedTheme = null;
     }
 
-    if (storedTheme === 'dark' || storedTheme === 'light') document.documentElement.dataset.theme = storedTheme;
+    if (storedTheme === 'dark' || storedTheme === 'light') {
+        document.documentElement.dataset.theme = storedTheme;
+
+        document.querySelectorAll('meta[name="theme-color"]').forEach((themeColorMeta) => {
+            themeColorMeta.content = themeColors[storedTheme];
+        });
+    }
 </script>
 
 <script>
-    import { THEME_COLORS, THEME_KEY } from '@lib/constants';
+    import { COLOR_SCHEME_QUERIES, REDUCED_MOTION_QUERY, THEME_COLORS, THEME_KEY } from '@lib/constants';
     import { loadTheme, saveTheme } from '@lib/store';
 
-    const DARK_QUERY = '(prefers-color-scheme: dark)';
     const FOCUSABLE_SELECTOR = 'a, button';
     const MENU_INSTANT_CLASS = 'navbar__menu--instant';
     const MENU_OPEN_CLASS = 'navbar__menu--open';
-    const MOBILE_QUERY = '(max-width: 768px)';
+    const MOBILE_QUERY = '(width < 768px)';
     const NAVBAR_SELECTOR = '.navbar';
-    const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
+    const THEME_TOGGLE_SELECTOR = '[data-theme-toggle]';
 
     let controller: AbortController;
     let menu: HTMLElement | null;
     let menuToggle: HTMLButtonElement | null;
     let navbar: HTMLElement | null;
     let themeChoice: Theme | null;
-    let themeToggle: HTMLButtonElement | null;
 
     function closeMenu(shouldRestoreFocus = false) {
         menu?.classList.remove(MENU_OPEN_CLASS);
@@ -156,7 +166,7 @@ import { ROUTES, THEME_KEY } from '@lib/constants';
     }
 
     function getTheme(choice = getThemeChoice()) {
-        return choice ?? (window.matchMedia(DARK_QUERY).matches ? 'dark' : 'light');
+        return choice ?? (window.matchMedia(COLOR_SCHEME_QUERIES.dark).matches ? 'dark' : 'light');
     }
 
     function getThemeChoice() {
@@ -172,7 +182,7 @@ import { ROUTES, THEME_KEY } from '@lib/constants';
             return;
         }
 
-        if (event.key === 'Tab' && navbar) trapTabKey(event, navbar);
+        if (event.key === 'Tab') trapTabKey(event);
     }
 
     function handleMenuToggle() {
@@ -203,7 +213,7 @@ import { ROUTES, THEME_KEY } from '@lib/constants';
     }
 
     function handleStorage(event: StorageEvent) {
-        if (event.key !== THEME_KEY) return;
+        if (event.key !== THEME_KEY && event.key !== null) return;
 
         themeChoice = loadTheme();
         syncTheme();
@@ -226,13 +236,13 @@ import { ROUTES, THEME_KEY } from '@lib/constants';
 
     function initNavbar() {
         const currentPath = normalizePath(window.location.pathname);
+        const themeToggle = document.querySelector<HTMLButtonElement>(THEME_TOGGLE_SELECTOR);
 
         controller?.abort();
         controller = new AbortController();
         navbar = document.querySelector<HTMLElement>(NAVBAR_SELECTOR);
         menu = navbar?.querySelector<HTMLElement>('[data-nav-menu]') ?? null;
         menuToggle = navbar?.querySelector<HTMLButtonElement>('[data-nav-toggle]') ?? null;
-        themeToggle = navbar?.querySelector<HTMLButtonElement>('[data-theme-toggle]') ?? null;
         syncTheme();
 
         navbar?.querySelectorAll<HTMLAnchorElement>('.navbar__link').forEach((link) => {
@@ -251,7 +261,7 @@ import { ROUTES, THEME_KEY } from '@lib/constants';
         menuToggle?.addEventListener('click', handleMenuToggle, { signal: controller.signal });
         themeToggle?.addEventListener('click', handleThemeToggle, { signal: controller.signal });
         window.addEventListener('storage', handleStorage, { signal: controller.signal });
-        window.matchMedia(DARK_QUERY).addEventListener('change', syncTheme, { signal: controller.signal });
+        window.matchMedia(COLOR_SCHEME_QUERIES.dark).addEventListener('change', syncTheme, { signal: controller.signal });
         window.matchMedia(MOBILE_QUERY).addEventListener('change', handleMobileChange, { signal: controller.signal });
     }
 
@@ -267,7 +277,8 @@ import { ROUTES, THEME_KEY } from '@lib/constants';
 
     function syncTheme() {
         const choice = getThemeChoice();
-        const themeColorMeta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
+        const themeColorMetas = document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]');
+        const themeToggle = document.querySelector<HTMLButtonElement>(THEME_TOGGLE_SELECTOR);
 
         const theme = getTheme(choice);
 
@@ -276,11 +287,15 @@ import { ROUTES, THEME_KEY } from '@lib/constants';
 
         themeToggle?.setAttribute('aria-pressed', String(theme === 'dark'));
 
-        if (themeColorMeta) themeColorMeta.content = THEME_COLORS[theme];
+        themeColorMetas.forEach((themeColorMeta) => {
+            themeColorMeta.content = THEME_COLORS[choice ?? (themeColorMeta.media === COLOR_SCHEME_QUERIES.dark ? 'dark' : 'light')];
+        });
     }
 
-    function trapTabKey(event: KeyboardEvent, container: HTMLElement) {
-        const focusables = container.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR);
+    function trapTabKey(event: KeyboardEvent) {
+        if (!navbar) return;
+
+        const focusables = navbar.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR);
 
         const firstFocusable = focusables[0];
         const lastFocusable = focusables[focusables.length - 1];
@@ -288,11 +303,12 @@ import { ROUTES, THEME_KEY } from '@lib/constants';
         const edgeFocusable = event.shiftKey ? firstFocusable : lastFocusable;
         const wrapFocusable = event.shiftKey ? lastFocusable : firstFocusable;
 
-        if (container.contains(document.activeElement) && document.activeElement !== edgeFocusable) return;
+        if (document.activeElement !== edgeFocusable && navbar.contains(document.activeElement)) return;
 
         event.preventDefault();
         wrapFocusable?.focus();
     }
 
+    document.addEventListener('astro:after-swap', syncTheme);
     document.addEventListener('astro:page-load', initNavbar);
 </script>

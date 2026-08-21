@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import { getCollection } from 'astro:content';
 
 import DoodleEllipse from '@components/DoodleEllipse.astro';
+import { SHELL_PAD } from '@lib/constants';
 import { resolveImage } from '@lib/utils';
 
 const COVER_WIDTH = 560;
@@ -27,15 +28,15 @@ const works = (await getCollection('portfolio')).sort((workA, workB) => workA.da
     <div class="shell">
         <div class="py-(--space-md)">
             <p
-                class="eyebrow eyebrow--kicker"
+                class="eyebrow eyebrow--kicker mb-(--space-sm) pt-3 border-t border-charcoal"
                 data-rise
             >
                 Images of our past work
             </p>
             <h1
                 id="works-title"
-                class="works__title font-extrabold leading-[0.9] text-title tracking-[-0.02em]"
-                aria-label="Portfolio"
+                class="font-extrabold leading-[0.9] text-title tracking-[-0.02em]"
+                aria-label="The Portfolio"
                 data-rise
             >
                 The <span class="inline-block whitespace-nowrap">Port<span class="inline-block relative whitespace-nowrap"><span class="font-semibold italic">folio</span><DoodleEllipse /></span></span>
@@ -54,10 +55,10 @@ const works = (await getCollection('portfolio')).sort((workA, workB) => workA.da
                                 alt={`${work.data.title} cover illustration`}
                                 fetchpriority={index === 0 ? 'high' : undefined}
                                 loading={index === 0 ? 'eager' : 'lazy'}
-                                sizes={`(width < 1024px) calc(100vw - 2 * clamp(24px, 5.3333px + 5.8333vw, 80px)), ${COVER_WIDTH}px`}
+                                sizes={`(width < 1024px) calc(100vw - 2 * ${SHELL_PAD}), ${COVER_WIDTH}px`}
                                 src={resolveImage(work.data.image)}
                                 width={700}
-                                widths={[420, 700, 940, 1200]}
+                                widths={[420, 700, 940, 1_200]}
                             />
                         </figure>
                         <div
@@ -73,12 +74,12 @@ const works = (await getCollection('portfolio')).sort((workA, workB) => workA.da
                                 </div>
                             )}
                             <p
-                                class="works__index mb-8 font-display font-normal leading-[0.8] text-transparent select-none"
+                                class="works__index mb-8 font-display font-normal leading-[0.8] text-ornament text-transparent select-none"
                                 aria-hidden="true"
                             >
                                 {String(index + 1).padStart(2, '0')}
                             </p>
-                            <h2 class="works__name mb-4 font-medium leading-[1.1] text-pretty tracking-[-0.01em] wrap-anywhere">{work.data.title}</h2>
+                            <h2 class="works__name mb-4 font-medium leading-[1.1] text-balance tracking-[-0.01em] wrap-anywhere">{work.data.title}</h2>
                             <p class="eyebrow leading-[1.7] wrap-anywhere">{work.data.artist}<br />{work.data.school}</p>
                         </div>
                     </article>
@@ -96,14 +97,9 @@ const works = (await getCollection('portfolio')).sort((workA, workB) => workA.da
 
     .works__index {
         -webkit-text-stroke: 1.5px var(--color-charcoal);
-        font-size: clamp(56px, calc(40px + 5vw), 104px);
     }
 
     .works__name {
         font-size: clamp(28px, calc(24px + 1.25vw), 40px);
-    }
-
-    .works__title {
-        font-family: var(--font-poster);
     }
 </style>

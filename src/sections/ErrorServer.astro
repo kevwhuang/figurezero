@@ -1,19 +1,24 @@
 ---
-
+import { CLASS_ERROR_LINK } from '@lib/constants';
 ---
 
 <section
     class="section grid place-items-center min-h-[60svh]"
-    aria-label="500"
+    aria-labelledby="error-server-title"
 >
     <div
         class="shell text-center"
         data-scroll
     >
-        <h1 class="error__title">500</h1>
-        <p class="error__text">Something went wrong. Please try again.</p>
+        <h1
+            id="error-server-title"
+            class="error__title mb-6 font-medium leading-[0.9]"
+        >
+            500
+        </h1>
+        <p class="mb-12 text-body text-umber">Something went wrong. Please try again.</p>
         <a
-            class="error__link"
+            class={CLASS_ERROR_LINK}
             href="/"
         >
             Back to home

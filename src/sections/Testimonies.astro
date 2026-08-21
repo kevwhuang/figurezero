@@ -19,7 +19,7 @@ const TESTIMONIES = [
 ---
 
 <section
-    class="section testimonies isolate overflow-hidden relative border-t border-linen"
+    class="section isolate overflow-hidden relative border-t border-linen"
     aria-label="Testimonies"
 >
     <div
@@ -30,7 +30,7 @@ const TESTIMONIES = [
     </div>
     <div class="shell grid grid-cols-12 gap-6 max-lg:block">
         <h2
-            class="eyebrow testimonies__label col-span-3 col-start-1 max-lg:mb-12"
+            class="eyebrow col-span-3 col-start-1 pt-[calc(var(--text-ornament)_*_0.5_+_24px)] max-lg:mb-12 max-lg:pt-0"
             data-scroll
         >
             Testimonies
@@ -40,7 +40,7 @@ const TESTIMONIES = [
                 <li>
                     <figure data-scroll>
                         <div
-                            class="testimonies__mark mb-6 -indent-2 font-display leading-[0.5] select-none"
+                            class="mb-6 -indent-2 font-display leading-[0.5] text-ornament select-none"
                             aria-hidden="true"
                         >
                             &ldquo;
@@ -51,12 +51,12 @@ const TESTIMONIES = [
                             <span class="sr-only">&rdquo;</span>
                         </blockquote>
                         <div
-                            class="testimonies__mark -mr-2 mb-6 font-display leading-[0.5] text-right select-none"
+                            class="mb-6 font-display leading-[0.5] text-ornament text-right translate-x-2 select-none"
                             aria-hidden="true"
                         >
                             &rdquo;
                         </div>
-                        <figcaption class="eyebrow wrap-anywhere"><cite class="not-italic">{testimony.journal}</cite></figcaption>
+                        <figcaption class="eyebrow text-balance wrap-anywhere"><cite class="not-italic">{testimony.journal}</cite></figcaption>
                     </figure>
                 </li>
             ))}
@@ -65,25 +65,7 @@ const TESTIMONIES = [
 </section>
 
 <style>
-    .testimonies {
-        --mark-size: clamp(56px, calc(40px + 5vw), 104px);
-    }
-
     .testimonies__doodle {
         height: clamp(120px, calc(93.3333px + 8.3333vw), 200px);
-    }
-
-    .testimonies__label {
-        padding-top: calc(var(--mark-size) * 0.5 + 24px);
-    }
-
-    .testimonies__mark {
-        font-size: var(--mark-size);
-    }
-
-    @media (width < 1024px) {
-        .testimonies__label {
-            padding-top: 0;
-        }
     }
 </style>

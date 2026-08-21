@@ -4,13 +4,17 @@ export function loadTheme(): Theme | null {
     try {
         const raw = localStorage.getItem(THEME_KEY);
 
-        if (!raw) return null;
+        if (raw === null) return null;
 
         const stored = JSON.parse(raw);
 
         const theme = stored?.theme;
 
-        if (theme === 'dark' || theme === 'light') return theme;
+        if (theme === 'dark' || theme === 'light') {
+            if (raw !== JSON.stringify({ theme })) saveTheme(theme);
+
+            return theme;
+        }
 
         localStorage.removeItem(THEME_KEY);
     } catch {

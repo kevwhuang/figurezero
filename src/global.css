@@ -1,15 +1,16 @@
 @import 'tailwindcss';
 
 @theme {
+    --breakpoint-lg: 1024px;
+    --breakpoint-md: 768px;
+    --color-black-35: light-dark(#1a171359, #00000059);
     --color-bone: light-dark(#faf8f3, #f4f0e5);
     --color-charcoal: light-dark(#1a1713, #f1ece1);
-    --color-charcoal-35: light-dark(#1a171359, #00000059);
     --color-cream: light-dark(#faf8f3, #191510);
     --color-cream-90: light-dark(#faf8f3e6, #191510e6);
     --color-linen: light-dark(#e7e2d7, #332e26);
     --color-taupe: light-dark(#6e675d, #a79d8c);
     --color-umber: light-dark(#3b362e, #cfc7b7);
-    --ease-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
     --font-display:
         'Bodoni Moda Variable',
         serif;
@@ -31,6 +32,7 @@
     --text-label: 12px;
     --text-lead: clamp(20px, calc(17.3333px + 0.8333vw), 28px);
     --text-meta: 14px;
+    --text-ornament: clamp(56px, calc(40px + 5vw), 104px);
     --text-title: clamp(56px, calc(14.6667px + 12.9167vw), 180px);
     --text-ui: 16px;
 }
@@ -40,10 +42,10 @@
     --duration-fast: 0.15s;
     --duration-slow: 0.6s;
     --header-height: 64px;
-    --measure-prose: 520px;
     --opacity-doodle: 0.15;
-    --shell-margin: max(0px, (100vw - 1280px) / 2);
+    --shell-margin: max(0px, (100vw - var(--shell-width)) / 2);
     --shell-pad: clamp(24px, calc(5.3333px + 5.8333vw), 80px);
+    --shell-width: 1280px;
     --space-md: clamp(80px, calc(53.3333px + 8.3333vw), 160px);
     --space-sm: clamp(40px, calc(26.6667px + 4.1667vw), 80px);
     --space-xs: clamp(20px, calc(13.3333px + 2.0833vw), 40px);
@@ -58,7 +60,10 @@ button {
     user-select: none;
 }
 
-h1,
+h1 {
+    font-family: var(--font-poster);
+}
+
 h2,
 h3 {
     font-family: var(--font-display);

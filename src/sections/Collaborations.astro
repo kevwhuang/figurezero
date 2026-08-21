@@ -3,13 +3,16 @@ import { Image } from 'astro:assets';
 
 import DoodleWave from '@components/DoodleWave.astro';
 import canadianJournalOfUndergraduateResearch from '@images/logos/canadian_journal_of_undergraduate_research.webp';
-import columbiaUndergraduateScienceJournal from '@images/logos/columbia_undergrad_science_journal.webp';
+import columbiaUndergraduateScienceJournal from '@images/logos/columbia_undergraduate_science_journal.webp';
 import mcgillJournalOfMedicine from '@images/logos/mcgill_journal_of_medicine.webp';
 import mcmasterJournalOfDisabilities from '@images/logos/mcmaster_journal_of_disabilities.webp';
 import pointOfCareUltrasoundJournal from '@images/logos/point_of_care_ultrasound_journal.webp';
 import undergraduateJournalOfExperimentalMicrobiologyAndImmunology from '@images/logos/undergraduate_journal_of_experimental_microbiology_and_immunology.webp';
 import universityOfTorontoJournalOfPublicHealth from '@images/logos/uoft_journal_of_public_health.webp';
 import universityOfTorontoMedicalJournal from '@images/logos/uoft_medical_journal.webp';
+import { SHELL_PAD } from '@lib/constants';
+
+const SPACE_XS = 'clamp(20px, calc(13.3333px + 2.0833vw), 40px)';
 
 const COLLABORATIONS = [
     { image: canadianJournalOfUndergraduateResearch, name: 'Canadian Journal of Undergraduate Research' },
@@ -36,14 +39,14 @@ const COLLABORATIONS = [
         </p>
         <h2
             id="collaborations-title"
-            class="max-w-(--measure-prose) mb-(--space-sm) font-medium leading-[1.1] text-heading text-pretty tracking-[-0.01em]"
+            class="mb-(--space-sm) font-medium leading-[1.1] text-balance text-heading tracking-[-0.01em]"
             data-scroll
         >
             The journals we have <span class="inline-block relative whitespace-nowrap">worked with<DoodleWave /></span>
         </h2>
         <ul
             class="flex flex-wrap justify-center gap-x-(--space-xs) gap-y-(--space-sm)"
-            data-scroll="fade"
+            data-scroll
             data-scroll-stagger="0.1"
         >
             {COLLABORATIONS.map(collaboration => (
@@ -53,10 +56,10 @@ const COLLABORATIONS = [
                             <Image
                                 class="block h-auto w-full mix-blend-multiply"
                                 alt=""
-                                sizes="(width < 768px) calc(100vw - 2 * clamp(24px, 5.3333px + 5.8333vw, 80px)), (width < 1024px) calc((100vw - 2 * clamp(24px, 5.3333px + 5.8333vw, 80px) - clamp(20px, 13.3333px + 2.0833vw, 40px)) / 2), 360px"
+                                sizes={`(width < 768px) calc(100vw - 2 * ${SHELL_PAD}), (width < 1024px) calc((100vw - 2 * ${SHELL_PAD} - ${SPACE_XS}) / 2), 360px`}
                                 src={collaboration.image}
                                 width={400}
-                                widths={[400, 640, 800, 1000, 1280]}
+                                widths={[400, 640, 800, 1_000, 1_280]}
                             />
                         </div>
                         <figcaption class="eyebrow leading-[1.5] text-balance text-center wrap-anywhere">{collaboration.name}</figcaption>

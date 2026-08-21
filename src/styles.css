@@ -1,45 +1,5 @@
-.error__link {
-    border-bottom: 1px solid var(--color-charcoal);
-    display: inline-block;
-    font-family: var(--font-sans);
-    font-size: var(--text-label);
-    letter-spacing: 0.16em;
-    padding-bottom: 4px;
-    position: relative;
-    text-transform: uppercase;
-    transition:
-        border-color var(--duration-fast) ease,
-        color var(--duration-fast) ease,
-        transform var(--duration-fast) ease;
-}
-
-.error__link:active {
-    transform: translateY(2px);
-}
-
-.error__link:hover {
-    border-color: var(--color-taupe);
-    color: var(--color-taupe);
-}
-
-.error__link::after {
-    content: '';
-    inset: -16px;
-    position: absolute;
-}
-
-.error__text {
-    color: var(--color-umber);
-    font-size: var(--text-body);
-    margin-bottom: 48px;
-}
-
 .error__title {
-    font-family: var(--font-poster);
     font-size: clamp(96px, calc(53.3333px + 13.3333vw), 224px);
-    font-weight: 500;
-    line-height: 0.9;
-    margin-bottom: 24px;
 }
 
 .eyebrow {
@@ -51,10 +11,7 @@
 }
 
 .eyebrow--kicker {
-    border-top: 1px solid var(--color-charcoal);
     letter-spacing: 0.2em;
-    margin-bottom: var(--space-sm);
-    padding-top: 12px;
 }
 
 .section {
@@ -63,7 +20,7 @@
 
 .shell {
     margin-inline: auto;
-    max-width: 1280px;
+    max-width: var(--shell-width);
     padding-inline: var(--shell-pad);
     width: 100%;
 }

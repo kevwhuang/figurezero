@@ -1,6 +1,7 @@
 ---
 import { ROUTES } from '@lib/constants';
 
+const CLASS_LINK = 'active:translate-y-0.5 after:-inset-x-2 after:-inset-y-3 after:absolute hover:text-taupe inline-block relative no-underline text-ui wrap-anywhere text-charcoal duration-(--duration-fast) ease-[ease] transition-[color,translate]';
 const EMAIL = 'figure.zero.project@gmail.com';
 const INSTAGRAM = 'figure.zero.project';
 ---
@@ -8,22 +9,17 @@ const INSTAGRAM = 'figure.zero.project';
 <footer class="pb-8 pt-(--space-sm) border-t border-charcoal">
     <div class="shell">
         <div class="grid grid-cols-12 items-start gap-6 mb-(--space-sm) max-md:*:last:mb-0 max-md:*:mb-12 max-md:block">
-            <div class="col-span-3 col-start-1">
-                <span class="footer__logo block aspect-square w-(--logo-size) bg-current mask-center mask-contain mask-no-repeat translate-x-[calc(var(--logo-size)_*_-0.12)] translate-y-[calc(var(--logo-size)_*_-0.08)] max-md:translate-y-0" aria-label="Figure Zero Project" role="img" />
+            <div class="col-span-3 col-start-1 self-center">
+                <span class="footer__logo block aspect-square w-(--logo-size) bg-current mask-center mask-contain mask-no-repeat translate-x-[calc(var(--logo-size)_*_-0.12)]" aria-label="Figure Zero Project" role="img" />
             </div>
             <div class="col-span-4 col-start-5 max-lg:col-start-4">
-                <p
-                    id="footer-navigation-title"
-                    class="eyebrow mb-6"
-                >
-                    Navigation
-                </p>
-                <nav aria-labelledby="footer-navigation-title">
+                <p class="eyebrow mb-6">Navigation</p>
+                <nav aria-label="Navigation">
                     <ul class="grid gap-6">
                         {ROUTES.map(route => (
                             <li>
                                 <a
-                                    class="active:translate-y-0.5 after:-inset-y-3 after:absolute after:inset-x-0 hover:text-taupe inline-block relative no-underline text-ui wrap-anywhere text-charcoal duration-(--duration-fast) ease-[ease] transition-[color,translate]"
+                                    class={CLASS_LINK}
                                     href={route.href}
                                 >
                                     {route.label}
@@ -34,20 +30,15 @@ const INSTAGRAM = 'figure.zero.project';
                 </nav>
             </div>
             <div class="col-span-4 col-start-9 max-lg:col-span-5 max-lg:col-start-8">
-                <p
-                    id="footer-contact-title"
-                    class="eyebrow mb-6"
-                >
-                    Contact
-                </p>
+                <p class="eyebrow mb-6">Contact</p>
                 <address
                     class="not-italic"
-                    aria-labelledby="footer-contact-title"
+                    aria-label="Contact"
                 >
                     <ul class="grid gap-6">
                         <li>
                             <a
-                                class="active:translate-y-0.5 after:-inset-y-3 after:absolute after:inset-x-0 hover:text-taupe inline-block relative no-underline text-ui wrap-anywhere text-charcoal duration-(--duration-fast) ease-[ease] transition-[color,translate]"
+                                class={CLASS_LINK}
                                 href={`mailto:${EMAIL}`}
                             >
                                 {EMAIL}
@@ -55,7 +46,7 @@ const INSTAGRAM = 'figure.zero.project';
                         </li>
                         <li>
                             <a
-                                class="active:translate-y-0.5 after:-inset-y-3 after:absolute after:inset-x-0 hover:text-taupe inline-block relative no-underline text-ui wrap-anywhere text-charcoal duration-(--duration-fast) ease-[ease] transition-[color,translate]"
+                                class={CLASS_LINK}
                                 href={`https://instagram.com/${INSTAGRAM}`}
                                 rel="noopener"
                                 target="_blank"

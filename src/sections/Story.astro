@@ -4,6 +4,7 @@ import { Image } from 'astro:assets';
 import DoodleEllipse from '@components/DoodleEllipse.astro';
 import DoodleScribble from '@components/DoodleScribble.astro';
 import foundersPhoto from '@images/story.webp';
+import { SHELL_PAD } from '@lib/constants';
 ---
 
 <section
@@ -32,7 +33,7 @@ import foundersPhoto from '@images/story.webp';
                 It started on a <span class="inline-block relative whitespace-nowrap">FaceTime call.<DoodleEllipse /></span>
             </h2>
             <div
-                class="story__body *:not-last:mb-6 max-w-(--measure-prose) leading-[1.7] text-body text-pretty text-umber max-lg:max-w-none"
+                class="story__body *:not-last:mb-6 leading-[1.7] text-body text-pretty text-umber"
                 data-scroll="left"
             >
                 <p>The Figure Zero Project was founded by two high school friends, Leslie and Yolanda. Honestly, they didn't have a lot in common. Yolanda can be quite calm; Leslie, not so much. Despite this, they shared a similar passion for catching sunrises at Woodbine Beach, crying at the Eras Tour, hwachae, almost peeing their pants laughing at photo booths, and, most importantly, art.</p>
@@ -43,10 +44,10 @@ import foundersPhoto from '@images/story.webp';
             class="block col-span-6 col-start-7 h-auto w-full"
             alt="Leslie and Yolanda"
             data-scroll="right"
-            sizes="(width < 1024px) calc(100vw - 2 * clamp(24px, 5.3333px + 5.8333vw, 80px)), 560px"
+            sizes={`(width < 1024px) calc(100vw - 2 * ${SHELL_PAD}), 560px`}
             src={foundersPhoto}
             width={600}
-            widths={[420, 600, 900, 1200]}
+            widths={[420, 600, 900, 1_200]}
         />
     </div>
 </section>

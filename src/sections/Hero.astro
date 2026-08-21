@@ -1,5 +1,8 @@
 ---
 import DoodleEllipse from '@components/DoodleEllipse.astro';
+
+const FIGURE_LETTERS = [...'Figure'] as const;
+const ZERO_LETTERS = [...'Zero'] as const;
 ---
 
 <section
@@ -7,7 +10,7 @@ import DoodleEllipse from '@components/DoodleEllipse.astro';
     aria-labelledby="hero-title"
 >
     <div
-        class="hero__doodle absolute right-[calc(var(--shell-margin)_-_var(--shell-pad)*0.5)] top-[34%] -z-1"
+        class="hero__doodle absolute right-[calc(var(--shell-margin)_-_var(--shell-pad)*0.5)] top-[34%] -z-1 aspect-7/4"
         aria-hidden="true"
         data-doodle
     >
@@ -24,13 +27,29 @@ import DoodleEllipse from '@components/DoodleEllipse.astro';
                 class="block"
                 aria-hidden="true"
             >
-                <span class="inline-block" data-letter>F</span><span class="inline-block" data-letter>i</span><span class="inline-block" data-letter>g</span><span class="inline-block" data-letter>u</span><span class="inline-block" data-letter>r</span><span class="inline-block" data-letter>e</span>
+                {FIGURE_LETTERS.map(letter => (
+                    <span
+                        class="inline-block"
+                        data-letter
+                    >
+                        {letter}
+                    </span>
+                ))}
             </span>
             <span
                 class="hero__row flex items-end"
                 aria-hidden="true"
             >
-                <span class="font-semibold italic whitespace-nowrap"><span class="inline-block" data-letter>Z</span><span class="inline-block" data-letter>e</span><span class="inline-block" data-letter>r</span><span class="inline-block" data-letter>o</span></span>
+                <span class="font-semibold italic whitespace-nowrap">
+                    {ZERO_LETTERS.map(letter => (
+                        <span
+                            class="inline-block"
+                            data-letter
+                        >
+                            {letter}
+                        </span>
+                    ))}
+                </span>
                 <span class="hero__logo flex-none aspect-square bg-current mask-center mask-contain mask-no-repeat" data-pop />
             </span>
         </h1>
@@ -39,8 +58,6 @@ import DoodleEllipse from '@components/DoodleEllipse.astro';
 
 <style>
     .hero__doodle {
-        aspect-ratio: 7 / 4;
-        opacity: var(--opacity-doodle);
         width: clamp(200px, calc(80px + 37.5vw), 560px);
     }
 
@@ -56,7 +73,6 @@ import DoodleEllipse from '@components/DoodleEllipse.astro';
     }
 
     .hero__title {
-        font-family: var(--font-poster);
         font-size: clamp(64px, calc(10.6667px + 16.6667vw), 224px);
     }
 </style>
