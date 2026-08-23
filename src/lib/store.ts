@@ -1,31 +1,35 @@
 import { THEME_KEY } from '@lib/constants';
 
+function clearTheme() {
+    try {
+        localStorage.removeItem(THEME_KEY);
+    } catch {
+        return;
+    }
+}
+
 export function loadTheme(): Theme | null {
     try {
         const raw = localStorage.getItem(THEME_KEY);
 
         if (raw === null) return null;
 
-        const stored = JSON.parse(raw);
+        const theme = JSON.parse(raw)?.theme;
 
-        const theme = stored?.theme;
+        if (theme !== 'dark' && theme !== 'light') {
+            clearTheme();
 
-        if (theme === 'dark' || theme === 'light') {
-            if (raw !== JSON.stringify({ theme })) saveTheme(theme);
-
-            return theme;
-        }
-
-        localStorage.removeItem(THEME_KEY);
-    } catch {
-        try {
-            localStorage.removeItem(THEME_KEY);
-        } catch {
             return null;
         }
-    }
 
-    return null;
+        if (raw !== JSON.stringify({ theme })) saveTheme(theme);
+
+        return theme;
+    } catch {
+        clearTheme();
+
+        return null;
+    }
 }
 
 export function saveTheme(theme: Theme): void {

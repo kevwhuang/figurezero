@@ -1,5 +1,6 @@
 ---
 import DoodleEllipse from '@components/DoodleEllipse.astro';
+import Logo from '@components/Logo.astro';
 
 const FIGURE_LETTERS = [...'Figure'] as const;
 const ZERO_LETTERS = [...'Zero'] as const;
@@ -50,7 +51,12 @@ const ZERO_LETTERS = [...'Zero'] as const;
                         </span>
                     ))}
                 </span>
-                <span class="hero__logo flex-none aspect-square bg-current mask-center mask-contain mask-no-repeat" data-pop />
+                <span
+                    class="hero__logo flex-none aspect-square"
+                    data-pop
+                >
+                    <Logo />
+                </span>
             </span>
         </h1>
     </div>
@@ -63,7 +69,6 @@ const ZERO_LETTERS = [...'Zero'] as const;
 
     .hero__logo {
         margin-bottom: clamp(4px, 1.25vw, 16px);
-        mask-image: url('../images/logos/figure_zero.webp');
         width: clamp(48px, calc(10.6667px + 11.6667vw), 160px);
     }
 

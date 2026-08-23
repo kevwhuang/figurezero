@@ -11,12 +11,6 @@ import { SHELL_PAD } from '@lib/constants';
     class="section isolate overflow-hidden relative border-t border-charcoal"
     aria-labelledby="story-title"
 >
-    <div
-        class="story__doodle absolute right-(--shell-margin) top-(--space-md) -z-1 w-(--doodle-width) opacity-(--opacity-doodle) max-lg:hidden"
-        aria-hidden="true"
-    >
-        <DoodleScribble />
-    </div>
     <div class="shell grid grid-cols-12 items-center gap-6 max-lg:*:last:mb-0 max-lg:*:mb-12 max-lg:block">
         <div class="col-span-5 col-start-1">
             <p
@@ -40,15 +34,25 @@ import { SHELL_PAD } from '@lib/constants';
                 <p>Although they eventually found themselves pursuing science, they found a way to bring art and scientific research together through the Figure Zero Project. Their journey began with illustrating journal covers, which soon grew to include a larger team that designs journal layouts and visual abstracts, and translates complex articles into words that anyone can understand. What started as an ordinary idea during a FaceTime call turned into a growing contribution to scientific communication. And they are only getting started.</p>
             </div>
         </div>
-        <Image
-            class="block col-span-6 col-start-7 h-auto w-full"
-            alt="Leslie and Yolanda"
+        <figure
+            class="col-span-6 col-start-7 relative"
             data-scroll="right"
-            sizes={`(width < 1024px) calc(100vw - 2 * ${SHELL_PAD}), 560px`}
-            src={foundersPhoto}
-            width={600}
-            widths={[420, 600, 900, 1_200]}
-        />
+        >
+            <div
+                class="story__doodle -right-20 -top-19 absolute -z-1 w-(--doodle-width) opacity-(--opacity-doodle) max-lg:hidden"
+                aria-hidden="true"
+            >
+                <DoodleScribble />
+            </div>
+            <Image
+                class="block h-auto w-full"
+                alt="Leslie and Yolanda"
+                sizes={`(max-width: 1024px) calc(100vw - 2 * ${SHELL_PAD}), 560px`}
+                src={foundersPhoto}
+                width={600}
+                widths={[420, 600, 900, 1_200]}
+            />
+        </figure>
     </div>
 </section>
 

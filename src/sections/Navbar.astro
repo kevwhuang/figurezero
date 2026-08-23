@@ -1,6 +1,7 @@
 ---
 import IconMenu from '@components/IconMenu.astro';
 import IconTheme from '@components/IconTheme.astro';
+import Logo from '@components/Logo.astro';
 import { ROUTES, THEME_COLORS, THEME_KEY } from '@lib/constants';
 
 const CLASS_BRAND = 'group after:-inset-x-2 after:-inset-y-4 after:absolute hover:text-taupe flex flex-none items-center justify-self-start relative gap-3 no-underline text-charcoal duration-(--duration-fast) ease-[ease] transition-[color]';
@@ -16,7 +17,9 @@ const CLASS_TOGGLE = 'active:translate-y-0.5 after:-inset-2 after:absolute aria-
             aria-label="Figure Zero Project home"
             href="/"
         >
-            <span class="navbar__logo group-active:translate-y-0.5 block size-8 bg-current mask-center mask-contain mask-no-repeat duration-(--duration-fast) ease-[ease] transition-[translate]" aria-hidden="true" />
+            <span class="group-active:translate-y-0.5 block size-8 duration-(--duration-fast) ease-[ease] transition-[translate]">
+                <Logo />
+            </span>
             <span class="navbar__wordmark group-active:translate-y-0.5 font-display tracking-[0.02em] duration-(--duration-fast) ease-[ease] transition-[translate]">Figure Zero Project</span>
         </a>
         <nav
@@ -61,15 +64,11 @@ const CLASS_TOGGLE = 'active:translate-y-0.5 after:-inset-2 after:absolute aria-
 </header>
 
 <style>
-    .navbar__logo {
-        mask-image: url('../images/logos/figure_zero.webp');
-    }
-
     .navbar__wordmark {
         font-size: clamp(14px, calc(12.6667px + 0.4167vw), 18px);
     }
 
-    @media (width < 768px) {
+    @media (max-width: 768px) {
         .navbar:has(.navbar__menu--open) {
             backdrop-filter: none;
             background: var(--color-cream);
@@ -148,7 +147,7 @@ const CLASS_TOGGLE = 'active:translate-y-0.5 after:-inset-2 after:absolute aria-
     const FOCUSABLE_SELECTOR = 'a, button';
     const MENU_INSTANT_CLASS = 'navbar__menu--instant';
     const MENU_OPEN_CLASS = 'navbar__menu--open';
-    const MOBILE_QUERY = '(width < 768px)';
+    const MOBILE_QUERY = '(max-width: 768px)';
     const NAVBAR_SELECTOR = '.navbar';
     const THEME_TOGGLE_SELECTOR = '[data-theme-toggle]';
 
@@ -182,12 +181,32 @@ const CLASS_TOGGLE = 'active:translate-y-0.5 after:-inset-2 after:absolute aria-
             return;
         }
 
-        if (event.key === 'Tab') trapTabKey(event);
+        if (!navbar || event.key !== 'Tab') return;
+
+        const focusables = navbar.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR);
+
+        const firstFocusable = focusables[0];
+        const lastFocusable = focusables[focusables.length - 1];
+
+        const edgeFocusable = event.shiftKey ? firstFocusable : lastFocusable;
+        const wrapFocusable = event.shiftKey ? lastFocusable : firstFocusable;
+
+        if (document.activeElement !== edgeFocusable && navbar.contains(document.activeElement)) return;
+
+        event.preventDefault();
+        wrapFocusable?.focus();
     }
 
     function handleMenuToggle() {
-        if (menu?.classList.contains(MENU_OPEN_CLASS)) closeMenu(true);
-        else openMenu();
+        if (menu?.classList.contains(MENU_OPEN_CLASS)) {
+            closeMenu(true);
+
+            return;
+        }
+
+        menu?.classList.add(MENU_OPEN_CLASS);
+        menu?.querySelector('a')?.focus();
+        menuToggle?.setAttribute('aria-expanded', 'true');
     }
 
     function handleMobileChange(event: MediaQueryListEvent) {
@@ -246,11 +265,7 @@ const CLASS_TOGGLE = 'active:translate-y-0.5 after:-inset-2 after:absolute aria-
         syncTheme();
 
         navbar?.querySelectorAll<HTMLAnchorElement>('.navbar__link').forEach((link) => {
-            const linkPath = normalizePath(link.pathname);
-
-            const isActive = linkPath === currentPath;
-
-            if (isActive) link.setAttribute('aria-current', 'page');
+            if (normalizePath(link.pathname) === currentPath) link.setAttribute('aria-current', 'page');
             else link.removeAttribute('aria-current');
 
             link.addEventListener('click', () => closeMenu(), { signal: controller.signal });
@@ -269,12 +284,6 @@ const CLASS_TOGGLE = 'active:translate-y-0.5 after:-inset-2 after:absolute aria-
         return path.replace(/\/$/, '') || '/';
     }
 
-    function openMenu() {
-        menu?.classList.add(MENU_OPEN_CLASS);
-        menu?.querySelector('a')?.focus();
-        menuToggle?.setAttribute('aria-expanded', 'true');
-    }
-
     function syncTheme() {
         const choice = getThemeChoice();
         const themeColorMetas = document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]');
@@ -290,23 +299,6 @@ const CLASS_TOGGLE = 'active:translate-y-0.5 after:-inset-2 after:absolute aria-
         themeColorMetas.forEach((themeColorMeta) => {
             themeColorMeta.content = THEME_COLORS[choice ?? (themeColorMeta.media === COLOR_SCHEME_QUERIES.dark ? 'dark' : 'light')];
         });
-    }
-
-    function trapTabKey(event: KeyboardEvent) {
-        if (!navbar) return;
-
-        const focusables = navbar.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR);
-
-        const firstFocusable = focusables[0];
-        const lastFocusable = focusables[focusables.length - 1];
-
-        const edgeFocusable = event.shiftKey ? firstFocusable : lastFocusable;
-        const wrapFocusable = event.shiftKey ? lastFocusable : firstFocusable;
-
-        if (document.activeElement !== edgeFocusable && navbar.contains(document.activeElement)) return;
-
-        event.preventDefault();
-        wrapFocusable?.focus();
     }
 
     document.addEventListener('astro:after-swap', syncTheme);

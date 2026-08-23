@@ -3,8 +3,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import { REDUCED_MOTION_QUERY } from '@lib/constants';
 
-type ScrollVariant = 'left' | 'right' | 'up' | 'zoom';
-
 const DOODLE_OPACITY = 0.15;
 const ENTRANCE_DURATION = 0.6;
 const ENTRANCE_EASE = 'power3.out';
@@ -18,12 +16,12 @@ const RISE_STAGGER = 0.1;
 const SCROLL_START = 'top 85%';
 const ZOOM_SCALE = 0.9;
 
-const SCROLL_VARIANTS = {
+const SCROLL_VARIANTS: Record<string, gsap.TweenVars> = {
     left: { x: -ENTRANCE_OFFSET },
     right: { x: ENTRANCE_OFFSET },
     up: { y: ENTRANCE_OFFSET },
     zoom: { scale: ZOOM_SCALE, y: ENTRANCE_OFFSET },
-} as const satisfies Record<ScrollVariant, gsap.TweenVars>;
+};
 
 function initEntranceAnimations(selector: string, toVariables: gsap.TweenVars) {
     const elements = document.querySelectorAll<HTMLElement>(selector);
@@ -34,11 +32,10 @@ function initEntranceAnimations(selector: string, toVariables: gsap.TweenVars) {
         opacity: 0,
         y: ENTRANCE_OFFSET,
     }, {
+        ...toVariables,
         duration: ENTRANCE_DURATION,
         ease: ENTRANCE_EASE,
-        opacity: 1,
         y: 0,
-        ...toVariables,
     });
 }
 
@@ -78,14 +75,12 @@ function initLetterAnimations() {
 
 function initScrollAnimations() {
     document.querySelectorAll<HTMLElement>('[data-scroll]').forEach((element) => {
-        const requestedVariant = element.dataset.scroll ?? '';
         const stagger = Number.parseFloat(element.dataset.scrollStagger || '0');
-
-        const variant = isScrollVariant(requestedVariant) ? requestedVariant : 'up';
+        const variant = SCROLL_VARIANTS[element.dataset.scroll ?? ''] ?? SCROLL_VARIANTS.up;
 
         const fromVariables = {
+            ...variant,
             opacity: 0,
-            ...SCROLL_VARIANTS[variant],
         };
 
         const toVariables = {
@@ -119,10 +114,6 @@ function initScrollAnimations() {
     });
 }
 
-function isScrollVariant(variant: string): variant is ScrollVariant {
-    return Object.hasOwn(SCROLL_VARIANTS, variant);
-}
-
 gsap.registerPlugin(ScrollTrigger);
 
 export async function initMotion(): Promise<void> {
@@ -140,7 +131,7 @@ export async function initMotion(): Promise<void> {
         });
     } else {
         initEntranceAnimations('[data-doodle]', { opacity: DOODLE_OPACITY });
-        initEntranceAnimations('[data-rise]', { stagger: RISE_STAGGER });
+        initEntranceAnimations('[data-rise]', { opacity: 1, stagger: RISE_STAGGER });
         initLetterAnimations();
         initScrollAnimations();
     }

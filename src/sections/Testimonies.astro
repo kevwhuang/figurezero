@@ -45,9 +45,9 @@ const TESTIMONIES = [
                         >
                             &ldquo;
                         </div>
-                        <blockquote class="mb-8 font-display font-normal italic leading-[1.5] text-lead text-pretty wrap-anywhere">
+                        <blockquote class="*:not-last:mb-6 mb-8 font-display font-normal italic leading-[1.5] text-lead text-pretty wrap-anywhere">
                             <span class="sr-only">&ldquo;</span>
-                            {testimony.paragraphs.map(paragraph => <p class="mb-6">{paragraph}</p>)}
+                            {testimony.paragraphs.map(paragraph => <p>{paragraph}</p>)}
                             <span class="sr-only">&rdquo;</span>
                         </blockquote>
                         <div
@@ -56,7 +56,7 @@ const TESTIMONIES = [
                         >
                             &rdquo;
                         </div>
-                        <figcaption class="eyebrow text-balance wrap-anywhere"><cite class="not-italic">{testimony.journal}</cite></figcaption>
+                        <figcaption class="eyebrow text-balance text-right wrap-anywhere">&mdash; <cite class="not-italic">{testimony.journal}</cite></figcaption>
                     </figure>
                 </li>
             ))}

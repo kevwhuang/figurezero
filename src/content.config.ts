@@ -6,8 +6,8 @@ const portfolio = defineCollection({
     loader: glob({ base: './src/content/portfolio', pattern: '**/*.json' }),
     schema: z.object({
         artist: z.string(),
+        college: z.string(),
         image: z.string(),
-        school: z.string(),
         title: z.string(),
     }),
 });

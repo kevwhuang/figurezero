@@ -1,8 +1,6 @@
 ---
 import ErrorServer from '@sections/ErrorServer.astro';
-import Footer from '@sections/Footer.astro';
 import Layout from '@/Layout.astro';
-import Navbar from '@sections/Navbar.astro';
 
 export const prerender = false;
 ---
@@ -12,9 +10,5 @@ export const prerender = false;
     noindex
     title={'Server Error \u2014 Figure Zero Project'}
 >
-    <Navbar />
-    <main class="flex flex-1 flex-col">
-        <ErrorServer />
-    </main>
-    <Footer />
+    <ErrorServer />
 </Layout>

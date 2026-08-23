@@ -1,9 +1,7 @@
 ---
 import About from '@sections/About.astro';
-import Footer from '@sections/Footer.astro';
 import Hero from '@sections/Hero.astro';
 import Layout from '@/Layout.astro';
-import Navbar from '@sections/Navbar.astro';
 import Purpose from '@sections/Purpose.astro';
 import Story from '@sections/Story.astro';
 import Testimonies from '@sections/Testimonies.astro';
@@ -13,13 +11,9 @@ import Testimonies from '@sections/Testimonies.astro';
     description="Figure Zero Project is a student-run organization pairing artists with scientific journals to create original, human-made cover illustrations."
     title="Figure Zero Project"
 >
-    <Navbar />
-    <main class="flex flex-1 flex-col">
-        <Hero />
-        <About />
-        <Purpose />
-        <Story />
-        <Testimonies />
-    </main>
-    <Footer />
+    <Hero />
+    <About />
+    <Purpose />
+    <Story />
+    <Testimonies />
 </Layout>

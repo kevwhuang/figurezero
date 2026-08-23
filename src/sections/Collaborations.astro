@@ -2,27 +2,25 @@
 import { Image } from 'astro:assets';
 
 import DoodleWave from '@components/DoodleWave.astro';
-import canadianJournalOfUndergraduateResearch from '@images/logos/canadian_journal_of_undergraduate_research.webp';
-import columbiaUndergraduateScienceJournal from '@images/logos/columbia_undergraduate_science_journal.webp';
-import mcgillJournalOfMedicine from '@images/logos/mcgill_journal_of_medicine.webp';
-import mcmasterJournalOfDisabilities from '@images/logos/mcmaster_journal_of_disabilities.webp';
-import pointOfCareUltrasoundJournal from '@images/logos/point_of_care_ultrasound_journal.webp';
-import undergraduateJournalOfExperimentalMicrobiologyAndImmunology from '@images/logos/undergraduate_journal_of_experimental_microbiology_and_immunology.webp';
-import universityOfTorontoJournalOfPublicHealth from '@images/logos/uoft_journal_of_public_health.webp';
-import universityOfTorontoMedicalJournal from '@images/logos/uoft_medical_journal.webp';
+import cjur from '@images/logos/canadian_journal_of_undergraduate_research.webp';
+import cusj from '@images/logos/columbia_undergraduate_science_journal.webp';
+import mjd from '@images/logos/mcmaster_journal_of_disabilities.webp';
+import mjm from '@images/logos/mcgill_journal_of_medicine.webp';
+import pocus from '@images/logos/point_of_care_ultrasound_journal.webp';
+import ujemi from '@images/logos/undergraduate_journal_of_experimental_microbiology_and_immunology.webp';
+import utjph from '@images/logos/uoft_journal_of_public_health.webp';
+import utmj from '@images/logos/uoft_medical_journal.webp';
 import { SHELL_PAD } from '@lib/constants';
 
-const SPACE_XS = 'clamp(20px, calc(13.3333px + 2.0833vw), 40px)';
-
 const COLLABORATIONS = [
-    { image: canadianJournalOfUndergraduateResearch, name: 'Canadian Journal of Undergraduate Research' },
-    { image: columbiaUndergraduateScienceJournal, name: 'Columbia Undergraduate Science Journal' },
-    { image: mcgillJournalOfMedicine, name: 'McGill Journal of Medicine' },
-    { image: mcmasterJournalOfDisabilities, name: 'McMaster Journal of Disabilities' },
-    { image: pointOfCareUltrasoundJournal, name: 'POCUS Journal' },
-    { image: undergraduateJournalOfExperimentalMicrobiologyAndImmunology, name: 'Undergraduate Journal of Experimental Microbiology and Immunology' },
-    { image: universityOfTorontoJournalOfPublicHealth, name: 'University of Toronto Journal of Public Health' },
-    { image: universityOfTorontoMedicalJournal, name: 'University of Toronto Medical Journal' },
+    { image: cjur, name: 'Canadian Journal of Undergraduate Research' },
+    { image: cusj, name: 'Columbia Undergraduate Science Journal' },
+    { image: mjm, name: 'McGill Journal of Medicine' },
+    { image: mjd, name: 'McMaster Journal of Disabilities' },
+    { image: pocus, name: 'POCUS Journal' },
+    { image: ujemi, name: 'Undergraduate Journal of Experimental Microbiology and Immunology' },
+    { image: utjph, name: 'University of Toronto Journal of Public Health' },
+    { image: utmj, name: 'University of Toronto Medical Journal' },
 ] as const;
 ---
 
@@ -56,7 +54,7 @@ const COLLABORATIONS = [
                             <Image
                                 class="block h-auto w-full mix-blend-multiply"
                                 alt=""
-                                sizes={`(width < 768px) calc(100vw - 2 * ${SHELL_PAD}), (width < 1024px) calc((100vw - 2 * ${SHELL_PAD} - ${SPACE_XS}) / 2), 360px`}
+                                sizes={`(max-width: 768px) calc(100vw - 2 * ${SHELL_PAD}), (max-width: 1024px) calc((100vw - 2 * ${SHELL_PAD} - clamp(20px, calc(13.3333px + 2.0833vw), 40px)) / 2), 360px`}
                                 src={collaboration.image}
                                 width={400}
                                 widths={[400, 640, 800, 1_000, 1_280]}

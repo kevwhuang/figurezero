@@ -1,5 +1,6 @@
 .error__title {
     font-size: clamp(96px, calc(53.3333px + 13.3333vw), 224px);
+    text-box: trim-both cap alphabetic;
 }
 
 .eyebrow {

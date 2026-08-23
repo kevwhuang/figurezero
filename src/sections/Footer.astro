@@ -1,4 +1,5 @@
 ---
+import Logo from '@components/Logo.astro';
 import { ROUTES } from '@lib/constants';
 
 const CLASS_LINK = 'active:translate-y-0.5 after:-inset-x-2 after:-inset-y-3 after:absolute hover:text-taupe inline-block relative no-underline text-ui wrap-anywhere text-charcoal duration-(--duration-fast) ease-[ease] transition-[color,translate]';
@@ -10,7 +11,13 @@ const INSTAGRAM = 'figure.zero.project';
     <div class="shell">
         <div class="grid grid-cols-12 items-start gap-6 mb-(--space-sm) max-md:*:last:mb-0 max-md:*:mb-12 max-md:block">
             <div class="col-span-3 col-start-1 self-center">
-                <span class="footer__logo block aspect-square w-(--logo-size) bg-current mask-center mask-contain mask-no-repeat translate-x-[calc(var(--logo-size)_*_-0.12)]" aria-label="Figure Zero Project" role="img" />
+                <span
+                    class="footer__logo block aspect-square w-(--logo-size) translate-x-[calc(var(--logo-size)_*_-0.12)]"
+                    aria-label="Figure Zero Project"
+                    role="img"
+                >
+                    <Logo />
+                </span>
             </div>
             <div class="col-span-4 col-start-5 max-lg:col-start-4">
                 <p class="eyebrow mb-6">Navigation</p>
@@ -67,6 +74,5 @@ const INSTAGRAM = 'figure.zero.project';
 <style>
     .footer__logo {
         --logo-size: clamp(80px, calc(53.3333px + 8.3333vw), 160px);
-        mask-image: url('../images/logos/figure_zero.webp');
     }
 </style>

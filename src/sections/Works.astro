@@ -55,7 +55,7 @@ const works = (await getCollection('portfolio')).sort((workA, workB) => workA.da
                                 alt={`${work.data.title} cover illustration`}
                                 fetchpriority={index === 0 ? 'high' : undefined}
                                 loading={index === 0 ? 'eager' : 'lazy'}
-                                sizes={`(width < 1024px) calc(100vw - 2 * ${SHELL_PAD}), ${COVER_WIDTH}px`}
+                                sizes={`(max-width: 1024px) calc(100vw - 2 * ${SHELL_PAD}), ${COVER_WIDTH}px`}
                                 src={resolveImage(work.data.image)}
                                 width={700}
                                 widths={[420, 700, 940, 1_200]}
@@ -80,7 +80,7 @@ const works = (await getCollection('portfolio')).sort((workA, workB) => workA.da
                                 {String(index + 1).padStart(2, '0')}
                             </p>
                             <h2 class="works__name mb-4 font-medium leading-[1.1] text-balance tracking-[-0.01em] wrap-anywhere">{work.data.title}</h2>
-                            <p class="eyebrow leading-[1.7] wrap-anywhere">{work.data.artist}<br />{work.data.school}</p>
+                            <p class="eyebrow leading-[1.7] wrap-anywhere">{work.data.artist}<br />{work.data.college}</p>
                         </div>
                     </article>
                 </li>

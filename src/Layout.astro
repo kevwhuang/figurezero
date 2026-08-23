@@ -10,6 +10,8 @@ import { ClientRouter } from 'astro:transitions';
 
 import '@/global.css';
 import '@/styles.css';
+import Footer from '@sections/Footer.astro';
+import Navbar from '@sections/Navbar.astro';
 import { COLOR_SCHEME_QUERIES, ROUTES, THEME_COLORS } from '@lib/constants';
 
 interface Props {
@@ -91,7 +93,11 @@ const structuredData = {
         <ClientRouter />
     </head>
     <body class="flex flex-col min-h-svh antialiased font-serif bg-cream text-charcoal">
-        <slot />
+        <Navbar />
+        <main class="flex flex-1 flex-col">
+            <slot />
+        </main>
+        <Footer />
     </body>
 </html>
 
