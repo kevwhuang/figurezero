@@ -130,4 +130,9 @@ main {
         transition-delay: 0s !important;
         transition-duration: 0.00001s !important;
     }
+
+    [data-nav-menu] li,
+    [data-nav-menu] ul {
+        transition-property: none;
+    }
 }
