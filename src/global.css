@@ -11,21 +11,10 @@
     --color-linen: light-dark(#e7e2d7, #332e26);
     --color-taupe: light-dark(#6e675d, #a79d8c);
     --color-umber: light-dark(#3b362e, #cfc7b7);
-    --font-display:
-        'Bodoni Moda Variable',
-        serif;
-    --font-poster:
-        'Playfair Display Variable',
-        Georgia,
-        serif;
-    --font-sans:
-        'Archivo',
-        system-ui,
-        sans-serif;
-    --font-serif:
-        'Source Serif 4 Variable',
-        Georgia,
-        serif;
+    --font-display: var(--font-bodoni-moda);
+    --font-poster: var(--font-playfair-display);
+    --font-sans: var(--font-archivo);
+    --font-serif: var(--font-source-serif-4);
     --spacing: 4px;
     --text-body: 18px;
     --text-heading: clamp(32px, calc(22.6667px + 2.9167vw), 60px);

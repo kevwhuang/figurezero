@@ -85,7 +85,7 @@ describe('loadTheme', () => {
         const storage = buildStorage('{ "theme": "light" }');
 
         storage.setItem.mockImplementation(() => {
-            throw new Error('denied');
+            throw new Error('Denied.');
         });
 
         vi.stubGlobal('localStorage', storage);
@@ -111,7 +111,7 @@ describe('loadTheme', () => {
         const storage = buildStorage();
 
         storage.getItem.mockImplementation(() => {
-            throw new Error('denied');
+            throw new Error('Denied.');
         });
 
         vi.stubGlobal('localStorage', storage);
@@ -124,7 +124,7 @@ describe('loadTheme', () => {
         const storage = buildStorage('{"theme":"purple"}');
 
         storage.removeItem.mockImplementation(() => {
-            throw new Error('denied');
+            throw new Error('Denied.');
         });
 
         vi.stubGlobal('localStorage', storage);
@@ -150,7 +150,7 @@ describe('saveTheme', () => {
         const storage = buildStorage();
 
         storage.setItem.mockImplementation(() => {
-            throw new Error('denied');
+            throw new Error('Denied.');
         });
 
         vi.stubGlobal('localStorage', storage);

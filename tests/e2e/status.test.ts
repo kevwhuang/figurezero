@@ -29,7 +29,7 @@ async function expectJsonNotFound(response: APIResponse) {
 
     const body: Record<string, unknown> = await response.json();
 
-    expect(body).toEqual({ error: 'Not found' });
+    expect(body).toEqual({ error: 'Not found.' });
 }
 
 function getSecurityHeaders() {
@@ -37,7 +37,7 @@ function getSecurityHeaders() {
 
     const section = config.split('[[headers]]').find(block => block.includes(`for = '/*'`));
 
-    if (section === undefined) throw new Error('missing headers block for /* in netlify.toml');
+    if (section === undefined) throw new Error('Missing headers block for /* in netlify.toml.');
 
     return [...section.matchAll(/^([a-z-]+) = (['"])(.*)\2$/gm)]
         .map(match => [match[1] ?? '', match[3] ?? ''] as const)

@@ -62,6 +62,6 @@ describe('resolveImage', () => {
         }
 
         expect(caught).toBeInstanceOf(Error);
-        expect((caught as Error).message).toBe(`failed to resolve image ${UNKNOWN_IMAGE}`);
+        expect((caught as Error).message).toBe(`Failed to resolve image ${UNKNOWN_IMAGE}.`);
     });
 });

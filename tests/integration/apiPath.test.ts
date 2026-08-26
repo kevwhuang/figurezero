@@ -18,7 +18,7 @@ async function expectNotFoundJson(response: Response, method: string) {
 
     const result: Record<string, unknown> = await response.json();
 
-    expect(result, method).toEqual({ error: 'Not found' });
+    expect(result, method).toEqual({ error: 'Not found.' });
 }
 
 describe('api path', () => {

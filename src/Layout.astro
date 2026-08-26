@@ -1,12 +1,6 @@
 ---
-import '@fontsource-variable/bodoni-moda/opsz-italic.css';
-import '@fontsource-variable/bodoni-moda/opsz.css';
-import '@fontsource-variable/playfair-display/wght-italic.css';
-import '@fontsource-variable/playfair-display/wght.css';
-import '@fontsource-variable/source-serif-4/opsz.css';
-import '@fontsource/archivo/400.css';
-import '@fontsource/archivo/600.css';
 import { ClientRouter } from 'astro:transitions';
+import { Font } from 'astro:assets';
 
 import '@/global.css';
 import '@/styles.css';
@@ -90,6 +84,10 @@ const structuredData = {
         <meta content={ogImageUrl} name="twitter:image" />
         <meta content={title} name="twitter:title" />
         <script is:inline set:html={JSON.stringify(structuredData)} type="application/ld+json" />
+        <Font cssVariable="--font-archivo" preload />
+        <Font cssVariable="--font-bodoni-moda" preload />
+        <Font cssVariable="--font-playfair-display" preload />
+        <Font cssVariable="--font-source-serif-4" preload />
         <ClientRouter />
     </head>
     <body class="flex flex-col min-h-svh antialiased font-serif bg-cream text-charcoal">

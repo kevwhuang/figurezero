@@ -87,7 +87,7 @@ function getHeaderHeight() {
 
     const match = styles.match(/--header-height: (\d+)px/);
 
-    if (match === null) throw new Error('missing --header-height in src/global.css');
+    if (match === null) throw new Error('Missing --header-height in src/global.css.');
 
     return Number(match[1]);
 }

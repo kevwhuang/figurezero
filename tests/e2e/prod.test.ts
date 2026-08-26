@@ -54,7 +54,7 @@ function getEntries(root: string, collection: string) {
 function getHeaderNames(config: string, scope: string) {
     const section = config.split('[[headers]]').find(block => block.includes(`for = '${scope}'`));
 
-    if (section === undefined) throw new Error(`missing headers block for ${scope} in netlify.toml`);
+    if (section === undefined) throw new Error(`Missing headers block for ${scope} in netlify.toml.`);
 
     return [...section.matchAll(/^([\w-]+) = /gm)]
         .map(match => match[1] ?? '')
@@ -64,7 +64,7 @@ function getHeaderNames(config: string, scope: string) {
 function getHeaderValue(config: string, name: string) {
     const match = config.match(new RegExp(`^${name} = (['"])(.+)\\1$`, 'm'));
 
-    if (match === null) throw new Error(`missing ${name} in netlify.toml`);
+    if (match === null) throw new Error(`Missing ${name} in netlify.toml.`);
 
     return match[2];
 }
@@ -107,7 +107,7 @@ test.describe('production api', () => {
 
         const body: Record<string, unknown> = await response.json();
 
-        expect(body).toEqual({ error: 'Not found' });
+        expect(body).toEqual({ error: 'Not found.' });
     });
 });
 
