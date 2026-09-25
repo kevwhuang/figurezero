@@ -30,7 +30,7 @@ const SECURITY_HEADER_NAMES = [
 
 const TEST_TIMEOUT = 60_000;
 
-const canonicalUrls = ROUTES.map(route => `${BASE_URL}${route.href}`.replace(/\/$/, ''));
+const canonicalUrls = ROUTES.map(route => new URL(route.href, BASE_URL).href);
 const contentRoot = join(process.cwd(), 'src/content');
 const netlifyConfig = readFileSync(join(process.cwd(), 'netlify.toml'), 'utf-8');
 
